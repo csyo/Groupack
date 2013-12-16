@@ -1,0 +1,451 @@
+#card_wrapper{
+width: 100%;
+padding: 0px;
+margin: 0em auto 0em auto;
+position: absolute;
+top: 0px;
+z-index: 300;
+min-height: 100%;
+border-right: 1px solid #CCC;
+text-align: center;
+}
+#card_wrapper_background{
+z-index: 150;
+background: rgba(0, 0, 0, 0.5);
+padding: 0;
+margin: 0;
+position: fixed;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+}
+.workspace_cards_content{
+position: relative;
+margin-top: 45px;
+}
+.workspace_cards_content_area span{
+font-size: 12px;
+color: #999;
+}
+.workspace_cards_content_area{
+position: relative;
+height: 40px;
+margin: 3px 2px 2px 2px;
+}
+.workspace_cards_content_user_name{
+position: relative;
+line-height: 20px;
+color: #262626;
+font-weight: bold;
+}
+.workspace_cards_content_user{
+position: relative;
+width: 100%;
+height: 44px;
+float: left;
+text-align: left;
+border-bottom: 1px solid #ccc;
+background: whitesmoke;
+}
+.workspace_cards_content_user_icon{
+position: relative;
+width: 40px;
+height: 40px;
+margin: 3px 2px 2px 2px;
+float: left;
+}
+.workspace_cards_content_selectarea_icon{
+display: inline-block;
+width: 20px;
+margin: 1px;
+height: 20px;
+background-image: url(../Image/checkbox_black.png);
+background-position: 50% 50%;
+background-size: 100%;
+background-repeat: no-repeat;
+}
+.workspace_cards_content_selectarea_icon_select{
+background-image: url(../Image/checkbox_yellow.png);
+}
+.workspace_cards_content_inf_field_content a{
+width: 100%;
+height: 30px;
+position: absolute;
+left: 0;
+z-index: 10;
+}
+.workspace_cards_content_inf_field_content{
+position: relative;
+line-height: 30px;
+cursor: pointer;
+min-width: 100px;
+text-align: center;
+color: #333;
+background: white;
+margin: 2px 0;
+border-bottom: 1px solid;
+border-top: 1px solid;
+border-color: white;
+}
+.workspace_cards_content_selectarea{
+position: absolute;
+width: 20px;
+height: 20px;
+left: 5px;
+top: 5px;
+cursor: pointer;
+opacity: 0.9;
+z-index: 5;
+text-align: center;
+display: none;
+}
+.workspace_cards_content_inf_field{
+display: none;
+background: #fff;
+border: 1px solid #ccc;
+cursor: default;
+font-size: 13px;
+margin: 0;
+outline: none;
+padding: 6px 0;
+position: absolute;
+z-index: 5;
+top: -24px;
+right: 5px;
+box-shadow: 0 2px 40px rgba(0,0,0,.4);
+-webkit-box-shadow: 0 2px 40px rgba(0,0,0,.4);
+-moz-box-shadow: 0 2px 40px rgba(0,0,0,.4);
+-o-box-shadow: 0 2px 40px rgba(0,0,0,.4);
+border-radius: 3px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+-o-border-radius: 3px;
+-webkit-transition: opacity .218s;
+-moz-transition: opacity .218s;
+-o-transition: opacity .218s;
+-ms-transition: opacity .218s;
+transition: opacity .218s;
+}
+.cards_area_save:after{
+background: white;
+content: " ";
+display: block;
+height: 34px;
+position: absolute;
+right: left;
+top: 5px;
+width: 1px;
+}
+.workspace_cards_content_inf{
+position: absolute;
+width: 16px;
+height: 16px;
+right: 0;
+top: -45px;
+background: no-repeat url('../Image/google_plus_icon.png') 20px -655px;
+cursor: pointer;
+float: right;
+z-index: 5;
+opacity: 0.6;
+padding: 5px 5px 5px 20px;
+}
+
+.workspace_cards_folder_comment_inf{
+position: relative;
+float: left;
+margin: 0 2.5%;
+width: 95%;
+font-size: 14px;
+line-height: 16px;
+text-align: center;
+color: #006BDC;
+}
+.folders_manager_area{
+display: none;
+position: fixed;
+width: 150px;
+background: #fff;
+border: 1px solid #ccc;
+cursor: default;
+font-size: 13px;
+z-index: 310;
+top: 2.5%;
+margin-top: 20px;
+margin-right: 63px;
+right: 2.5%;
+box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+-webkit-box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+-moz-box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+-o-box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+border-radius: 3px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+-o-border-radius: 3px;
+-webkit-transition: opacity .218s;
+-moz-transition: opacity .218s;
+-o-transition: opacity .218s;
+-ms-transition: opacity .218s;
+transition: opacity .218s;
+}
+.folders_manager_addcard,
+.folders_manager_modifyfolder,
+.folders_manager_managercard{
+position: relative;
+line-height: 30px;
+cursor: pointer;
+width: 150px;
+text-align: center;
+color: #333;
+background: white;
+margin: 2px 0;
+border-bottom: 1px solid;
+border-top: 1px solid;
+border-color: white;
+}
+.folders_manager_addcard_icon{
+position: relative;
+line-height: 30px;
+width: 30%;
+background-image: url('../Image/add_01.png');
+opacity: 0.4;
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+height: 30px;
+}
+.folders_manager_addcard_text,
+.folders_manager_modifyfolder_text,
+.folders_manager_managercard_text{
+position: absolute;
+line-height: 30px;
+width: 70%;
+top: 0;
+left: 30%;
+}
+.folders_manager_modifyfolder_icon{
+position: relative;
+line-height: 30px;
+width: 30%;
+background-image: url('../Image/modify.png');
+opacity: 0.6;
+background-repeat: no-repeat;
+background-size: 40%;
+background-position: 50% 50%;
+height: 30px;
+}
+.folders_manager_managercard_icon{
+position: relative;
+line-height: 30px;
+width: 30%;
+background-image: url('../Image/engine.png');
+opacity: 0.6;
+background-repeat: no-repeat;
+background-size: 40%;
+background-position: 50% 50%;
+height: 30px;
+}
+.folders_manager_addcard a,
+.folders_manager_modifyfolder a,
+.folders_manager_managercard a{
+width: 100%;
+height: 30px;
+position: absolute;
+left: 0;
+z-index: 311;
+}
+.workspace_cards{
+overflow-y: scroll;
+top: 42px;
+position: absolute;
+margin: 0;
+width: 100%;
+min-height: 100px;
+bottom: 10px;
+background: #e5e5e5;
+text-align: center;
+border-top: 1px solid #d8d8d8;
+}
+.cards_area{
+z-index: 301;
+height: 95%;
+width: 95%;
+display: inline-block;
+position: fixed;
+top: 2.5%;
+left: 2.5%;
+background: whitesmoke;
+box-shadow: 5px 5px 50px rgba(20%,20%,40%,0.5);
+-webkit-box-shadow: 5px 5px 50px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 5px 5px 50px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 5px 5px 50px rgba(20%,20%,40%,0.5);
+}
+.post_modifycard {
+position: relative;
+line-height: 30px;
+width: 30%;
+background-image: url('../Image/modify.png');
+opacity: 0.4;
+background-repeat: no-repeat;
+background-size: 72%;
+background-position: 50% 50%;
+}
+.post_modifycard_text{
+position: absolute;
+line-height: 30px;
+width: 70%;
+top: 0;
+left: 30%;
+}
+.workspace_picture{
+position: relative;
+padding: 9px;
+border: 1px solid #fcfcfc;
+}
+.workspace_cards_position{
+position: relative;
+float: left;
+margin: 10px 2.5%;
+width: 95%;
+text-align: center;
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+background-color: white;
+}
+.show_workspace_cards_content h2{
+font-size: 1.5em;
+font-family: Arial, sans-serif;
+font-weight: bold;
+line-height: 1.5em;
+padding: 0 0 0.5em 0;
+margin: 0 4% 0 4%;
+border-bottom: 1px solid #eee;
+letter-spacing: 0;
+color: #FFBB09;
+text-align: center;
+width: 92%;
+position: relative;
+}
+.cards_area_header_left{
+position: absolute;
+text-align: left;
+margin-right: 110px;
+}
+#show_cards_area {
+position: absolute;
+width: 100%;
+height: 100%;
+z-index: 301;
+cursor: pointer;
+}
+.cards_area_header_icon{
+height: 44px;
+position: relative;
+width: 44px;
+line-height: 44px;
+display: inline-block;
+background-image: url('../Image/folder_blue.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 100% 50%;
+float: left;
+margin-right: 5px;
+}
+.cards_area_header_text{
+position: relative;
+height: 44px;
+line-height: 44px;
+font-size: 16px;
+color: #444;
+display: inline-block;
+float: left;
+margin-right: 5px;
+}
+.cards_area_header_manager, .cards_area_header_leave {
+position: relative;
+float: right;
+color: #737373;
+}
+.show_cards_area, #cards_area_leave, #cards_area_manager{
+position: absolute;
+width: 100%;
+height: 100%;
+z-index: 301;
+cursor: pointer;
+}
+.cards_area_leave_icon{
+height: 30px;
+position: relative;
+width: 44px;
+line-height: 44px;
+text-align: center;
+margin: 0 0 12px 0;
+background-image: url('../Image/leave_gray.png');
+background-repeat: no-repeat;
+background-size: 55%;
+background-position: 50% 50%;
+}
+.cards_area_leave_text, .cards_area_manager_text{
+height: 12px;
+position: absolute;
+width: 80%;
+line-height: 10px;
+font-size: 8px;
+text-align: center;
+margin: 2px 10% 0 10%;
+bottom: 0;
+}
+.cards_area_manager_icon{
+height: 30px;
+position: relative;
+width: 44px;
+line-height: 44px;
+text-align: center;
+margin: 0 0 12px 0;
+background-image: url('../Image/manager_gray.png');
+background-repeat: no-repeat;
+background-size: 50%;
+background-position: 50% 50%;
+}
+.cards_area_header{
+color: #FFFFFF;
+font-size: 18px;
+line-height: 44px;
+height: 44px;
+font-family: Arial, sans-serif;
+vertical-align: middle;
+width: 95%;
+left: 2.5%;
+position: fixed;
+top: 2.5%;
+background-color: #f5f5f5;
+text-align: left;
+}
+.cards_area_header_manager:after {
+background: #444;
+content: " ";
+display: block;
+height: 30px;
+position: absolute;
+right: 0;
+top: 7px;
+width: 1px;
+}
+@media screen and (min-width: 981px){
+.workspace_cards_content_inf_field_content:hover{
+background: #f5f5f5;
+border-color: #CCC;
+font-weight: bold;
+}
+}
+.workspace_cards_folder_file{
+position: relative;
+height: 30px;
+width: 100%;
+padding: 3px 0;
+}
+.workspace_cards_folder_file input{
+height: 30px;
+}

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/wrapper.css">
+	<link rel="stylesheet" href="./css/nav.css">
+	<link rel="stylesheet" href="./css/FixedHeader.css">
+	<link rel="stylesheet" href="./css/tag.css"/>
+	<link rel="stylesheet" href="./css/SharingWithGroup.css">
+	<link rel="stylesheet" href="./css/Group_Board.css">
+	<link rel="stylesheet" href="./css/Setfont.css">
+	<link rel="shortcut icon" type="image/x-icon" href="Image/groupack_logo.ico">
+	<link rel="Bookmark" type="image/x-icon" href="Image/groupack_logo.ico">
+	<script src="./library/jquery.min.js"></script>
+	<script src="./TopicMap/topic_map_func.js"></script> <!-- 順序一定要高於 group.js&index.js by chenchen -->
+	<script src="./js/group.js"></script>
+	<script src="./js/index.js"></script>
+	<script src="./js/workspace.js"></script>
+	<script src="./js/sharing.js"></script>
+	<script src="./fancybox/source/jquery.fancybox.pack.js"></script>
+	<script src="./colorbox/jquery.colorbox.js"></script>
+	<script src="./js/tag.js"></script>
+	<script src="./library/all.js"></script>
+	<title>Groupack</title>
+</head>
+</style>
+<body onScroll="setNav()" onLoad="FBInitial()">
+	<article id="preloader" class="dom_hidden">
+		<h3><img src="./Image/preloader.gif"><span></span></h3>
+	</article>
+<div id="Timeline_NotificationArea" class="isotope">
+	<div class="Timeline_NotificationArea_origin isotope">
+		<div class="Timeline_NotificationArea_origin_content">
+			<span role="timeline_g" t_gid="undefined">KDD Lab</span>
+			<span role="timeline_w" t_wid="w1373988556668">#1</span>
+		</div>
+	</div>
+	<div class="Timeline_Notification isotope">
+		<div class="Timeline_Notification_icon">
+			<img src="./Image/folder_blue.png" width="30px">
+		</div>
+		<div class="Timeline_Notification_event">
+			<span role="100000689016726">王梓憲</span>
+			<span>刪除</span>
+			<p>123</p>
+		</div>
+	</div>
+</div>
+<div id="Group_Board" class="isotope">
+	<div class="Group_Board_header">
+		<a class="co_a">&nbsp;</a>
+		<div class="Group_Board_logo">
+			<div class="Group_Board_logo_icon">&nbsp;</div>
+			<div class="Group_Board_logo_text">群組</div>
+		</div>
+		<div class="Group_Board_inf">
+			<div class="Group_Board_inf_text">none</div>
+		</div>
+		<div class="Group_Board_arrow">&nbsp;</div>
+	</div>
+	<div class="Group_Board_wrapper">
+		<div class="Group_Board_container dom_hidden" style="top: -1000px; left: -1000px;">
+			<div id="Group_Board_area" class="dom_hidden" style="top: -1000px; left: -1000px;">none</div>
+		</div>
+	</div>
+</div>
+<div id="select_group_notify">
+	<div class="select_group_notify_wrapper">
+		<div class="select_group_notify_wrapper_icon">&nbsp;</div>
+		<div class="select_group_notify_wrapper_area">
+			<div class="select_group_notify_wrapper_show">test group</div>
+			<div class="select_group_notify_wrapper_text">已被選擇。</div>
+		</div>
+	</div>
+</div>
+<div id="card_wrapper_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
+<div id="card_wrapper" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="folders_manager_area">
+		<div class="folders_manager_addcard">
+			<a class="co_a addcard" href="#inline_folders_manager_addcard" onclick="show_addcard()">&nbsp;</a>
+			<div class="folders_manager_addcard_icon"></div>
+			<div class="folders_manager_addcard_text">新增 Card</div>
+		</div>
+		<div class="folders_manager_modifyfolder">
+			<a class="co_a modifyfolder" href="#inline_folders_manager_modifyfolder" onclick="show_modifyfolder()">&nbsp;</a>
+			<div class="folders_manager_modifyfolder_icon"></div>
+			<div class="folders_manager_modifyfolder_text">修改 Folder</div>
+		</div>
+	</div>
+	<div class="cards_area dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="cards_area_header dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="cards_area_header_left">
+				<a class="show_cards_area">&nbsp;</a>
+				<div>
+					<div class="cards_area_header_icon"></div>
+					<div class="cards_area_header_text">F1</div>
+				</div>
+			</div>
+			<div class="cards_area_header_right">
+				<div class="cards_area_header_leave">
+					<a id="cards_area_leave" class="co_a">&nbsp;</a>
+					<div class="cards_area_leave_icon">&nbsp;</div>
+					<div class="cards_area_leave_text">離開</div>
+				</div>
+				<div class="cards_area_header_manager">
+					<a id="cards_area_manager" class="co_a folders_manager_area_on">&nbsp;</a>
+					<div class="cards_area_manager_icon">&nbsp;</div>
+					<div class="cards_area_manager_text">管理</div>
+				</div>
+			</div>
+		</div>
+		<div id="inline_workspace_cards" class="workspace_cards">
+			<div class="workspace_cards_folder_comment_inf">
+				<span></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 選擇所有標籤介面 -->
+	<div id="inline_all_tags">
+		<!-- all_tags_ShowAll 不能刪，不能覆蓋 -->
+		<div class="all_tags_ShowAll">
+			<div class="all_tags_ShowAll_text">顯示所有標籤</div>
+		</div>
+		<!-- Ex:
+		<div class="all_tags_inf" t_sid="20130713_142620" t_color="#006BDC" t_name="demo">
+			<div class="all_tags_inf_ModifyTag_area">
+				<a class="co_a all_tags_inf_ModifyTag" href="#inline_all_tags_inf_ModifyTag">&nbsp;</a>
+			</div>
+			<div class="all_tags_inf_icon"></div>
+			<div class="all_tags_inf_text">demo</div>
+		</div>
+		-->
+	</div>
+</div>
+<div style="display: none;">    <!-- 修改 tag 介面 -->
+	<div id="inline_all_tags_inf_ModifyTag">
+		<div class="inline_ModifyTag_header">
+			<div class="inline_ModifyTag_header_icon"></div>
+			<div class="inline_ModifyTag_header_name">修改 Tag</div>
+		</div>
+		<div class="inline_ModifyTag_wrapper">
+			<div class="inline_ModifyTag_wrapper_name">
+				<div class="inline_ModifyTag_wrapper_text">名稱：</div>
+				<div class="inline_ModifyTag_wrapper_input">
+					<input id="inline_ModifyTag_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_ModifyTag_wrapper_color">
+				<div class="inline_ModifyTag_wrapper_text">顏色：</div>
+				<div class="inline_ModifyTag_wrapper_input color_field">
+					<input id="inline_ModifyTag_wrapper_color" value="點我隨機產生顏色" type="button" style="background: #000000;">
+				</div>
+			</div>
+			<div class="inline_ModifyTag_wrapper_submit">
+				<input type="button" value="完成">
+			</div>
+			<div class="inline_ModifyTag_wrapper_remove">
+				<input type="button" value="刪除">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 新增 tag 介面 -->
+	<div id="inline_tag_manager_addtag">
+		<div class="inline_addtag_header">
+			<div class="inline_addtag_header_icon"></div>
+			<div class="inline_addtag_header_name">新增 Tag</div>
+		</div>
+		<div class="inline_addtag_wrapper">
+			<div class="inline_addtag_wrapper_name">
+				<div class="inline_addtag_wrapper_text">名稱：</div>
+				<div class="inline_addtag_wrapper_input">
+					<input id="inline_addtag_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_addtag_wrapper_color">
+				<div class="inline_addtag_wrapper_text">顏色：</div>
+				<div class="inline_addtag_wrapper_input color_field">
+					<input id="inline_addtag_wrapper_color" value="點我隨機產生顏色" type="button" style="background: #000000;">
+				</div>
+			</div>
+			<div class="inline_addtag_wrapper_submit">
+				<input type="button" value="確定">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 修改 card in my tags-->
+	<div id="inline_tags_modifycard">
+		<div class="inline_tags_modifycard_header">
+			<div class="inline_tags_modifycard_header_icon"></div>
+			<div class="inline_tags_modifycard_header_name">修改 Card</div>
+		</div>
+		<div class="inline_tags_modifycard_wrapper">
+			<div class="inline_tags_modifycard_wrapper_name">
+				<div class="inline_tags_modifycard_wrapper_text">名稱：</div>
+				<div class="inline_tags_modifycard_wrapper_input">
+					<input id="inline_tags_modifycard_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_tags_modifycard_wrapper_comment">
+				<div class="inline_tags_modifycard_wrapper_text">內容：</div>
+				<div class="inline_tags_modifycard_wrapper_input">
+					<input id="inline_tags_modifycard_wrapper_comment" type="text">
+				</div>
+			</div>
+			<div class="inline_modifycard_wrapper_url">
+				<div class="inline_modifycard_wrapper_text">URL：</div>
+				<div class="inline_modifycard_wrapper_input">
+					<input id="inline_tags_modifycard_wrapper_url" type="text">
+				</div>
+			</div>
+			<div class="inline_tags_modifycard_wrapper_submit">
+				<input type="button" value="完成">
+			</div>
+			<div class="inline_tags_modifycard_wrapper_remove">
+				<input type="button" value="刪除 Card">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 加上 tag 介面 -->
+	<div id="inline_AddToTag">
+		<div class="inline_AddToTag_header">
+			<div class="inline_AddToTag_header_addtag">
+				<a class="co_a addtag" href="#inline_tag_manager_addtag">&nbsp;</a>
+				<input type="button" value="新增 Tag">
+			</div>
+			<div class="inline_AddToTag_header_icon"></div>
+			<div class="inline_AddToTag_header_name">加上 Tag</div>
+		</div>
+		<div class="inline_AddToTag_wrapper">
+			<div class="inline_AddToTag_wrapper_name">
+				<div class="inline_AddToTag_wrapper_text">標籤：</div>
+				<div class="inline_AddToTag_wrapper_input">
+					<select id="inline_AddToTag_wrapper_name">
+						<!--<option>標籤1</option>
+						<option>標籤2</option>
+						<option>標籤3</option>-->
+					</select>
+				</div>
+			</div>
+			<div class="inline_AddToTag_wrapper_color">
+				<div class="inline_AddToTag_wrapper_text">顏色：</div>
+				<div class="inline_AddToTag_wrapper_input">
+					<div id="inline_AddToTag_wrapper_color">&nbsp;</div>
+				</div>
+			</div>
+			<div class="inline_AddToTag_wrapper_submit">
+				<input type="button" value="確定">
+			</div>
+		</div>
+	</div>
+</div>
+<div id="tag_wrapper_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
+<div id="tag_wrapper" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="tag_manager dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="tag_manager_addtag">
+			<a class="co_a addtag" href="#inline_tag_manager_addtag">&nbsp;</a>
+			<div class="tag_manager_addtag_icon"></div>
+			<div class="tag_manager_addtag_text">新增 Tag</div>
+		</div>
+		<div class="tag_manager_managertag">
+			<a class="co_a managertag show_tags" href="#inline_all_tags">&nbsp;</a>
+			<div class="tag_manager_managertag_icon"></div>
+			<div class="tag_manager_managertag_text">管理 Tag</div>
+		</div>
+	</div>
+	<div class="tag_area dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="tag_header dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="tag_header_left">
+				<a class="show_tags" class="co_a" href="#inline_all_tags">&nbsp;</a>
+				<div>
+					<div class="tag_header_icon"></div>
+					<div class="tag_header_text">我的標籤</div>
+					<div class="tag_header_arrow"></div>
+				</div>
+			</div>
+			<div class="tag_header_right">
+				<div class="tag_header_right_leave">
+					<a id="leave_tag" class="co_a">&nbsp;</a>
+					<div class="tag_header_right_leave_icon">&nbsp;</div>
+					<div class="tag_header_right_leave_text">離開</div>
+				</div>
+				<div class="tag_header_right_manager">
+					<a id="show_manager_tags" class="co_a">&nbsp;</a>
+					<div class="tag_header_right_manager_icon">&nbsp;</div>
+					<div class="tag_header_right_manager_text">管理</div>
+				</div>
+			</div>
+		</div>
+		<div class="tag_container" tag_sid="" tag_color="" tag_name="">
+			<div id="tag_container_CurrentTag"></div>
+			<!--Ex:
+			<div class="tag isotope" t_sid="20130713_142620" t_color="#006BDC" t_name="demo" sid="20130713_150000">
+				<div class="tag_content isotope-item">
+					<div class="tag_content_tagname">
+						<span t_sid="20130713_142620" style="background-color: #006BDC;">demo</span>
+					</div>
+					<div class="tag_content_color" t_color="#006BDC" style="background-color: #006BDC;">&nbsp;</div>
+					<div class="tag_content_selectarea" title="選擇">
+						<div class="tag_content_selectarea_icon"></div>
+					</div>
+					<div class="tag_content_inf"></div>
+					<div class="tag_content_inf_field">
+						<div class="tag_content_inf_field_content" title="群組共享">
+							<div class="post_group">&nbsp;</div>
+							<div class="post_group_text">群組共享</div>
+						</div>
+						<div class="tag_content_inf_field_content" title="加上標籤">
+							<a class="co_a AddToTag" href="#inline_AddToTag" onclick="show_AddToTag()">&nbsp;</a>
+							<div class="post_tag">&nbsp;</div>
+							<div class="post_tag_text">加上標籤</div>
+						</div>
+						<div class="tag_content_inf_field_content" title="分享">
+							<div class="post_share">&nbsp;</div>
+							<div class="post_share_text">分享</div>
+						</div>
+						<div class="tag_content_inf_field_content" title="修改 Card">
+							<a class="co_a tags_modifycard" href="#inline_tags_modifycard" onclick="show_tags_modifycard()">&nbsp;</a>
+							<div class="post_modifycard">&nbsp;</div>
+							<div class="post_modifycard_text">修改 Card</div>
+						</div>
+					</div>
+					<div class="tag_content_area">
+						<div class="show_tag_content_area">
+							<h2 class="co_h2"><a class="co_a click_workspace_cards" href="http://tw.yahoo.com/" target="_blank" onclick="show_cardcontain()">card_title</a></h2>
+							<p>card_content</p>
+							<div class="post_url">
+								<span>card_url</span>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			-->
+		</div>
+	</div>
+</div>
+<!--    leftmost: 返回首頁 ,  rightmost: 功能選單    -->
+<div id="fiexd-header">
+	<div id="headNav">	
+		<table>
+			<tbody>
+				<tr>
+					<td align="left" class="left">
+						<div class="left_area">
+							<a class="co_a" href="javascript: void(0);" title="Home" onclick="javascript:back_homepage();return false;"></a>
+							<div class="left_home">
+								<div class="_home">&nbsp;</div>
+								<div class="_home_arrow">‹</div>
+							</div>
+							<div class="_home_text">Groupack</div>				
+						</div>
+					</td>
+					<td align="center" class="center"></td>
+					<td align="right" class="right">
+						<div class="right_slider_timeline">
+							<a class="co_a main_timeline" href="javascript: void(0);" title="timeline"><div class="_timeline"></div></a>
+							<div id="timeline_notificationCountArea">
+								<span>0</span>
+							</div>
+						</div>
+						<div class="right_slider">
+							<a id="slider_btn" class="co_a main_slider" href="javascript: void(0);" title="menu"><div class="_slider"></div></a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!--	left：群組 , middle：登入狀態 , right：搜尋框    -->
+<div id="nav" style="display: block;">
+	<ul class="navigation">
+		<li>
+			<div class="nav_main">
+				<a href="javascript: void(0);" title="group"><div class="co_a nav_main_group"></div></a>
+				<div id="group_notificationCountArea">
+					<span>0</span>
+				</div>
+			</div>
+			<ul class="group_select dom_hidden" id="addMember">
+				<!--    新增的群組會顯示在這邊    -->
+				<li>
+					<a class="co_a" href="javascript: void(0);" title="add">
+						<div class="nav_main_group_add"></div>
+						<div class="nav_main_group_add_inf">新增群組</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<div class="nav_main">
+				<a href="javascript: void(0);" title="facebook"><div class="co_a nav_main_w"></div></a>
+			</div>
+			<ul id="Workspace_nav" class="dom_hidden">
+				<li class="w-item" id="">
+					<a class="co_a" title="工作空間1" id="w_1">工作空間1</a>
+				</li>
+				<li class="w-item" id="">
+					<a class="co_a" title="工作空間2" id="w_2">工作空間2</a>
+				</li>
+				<li>
+					<a id="add_workspace" class="co_a add_workspace" href="#inline_workspace" title="新增工作空間">
+						<div><img src="./Image/add_01.png">新增工作空間</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="search_box">
+			<div class="nav_main">
+				<a href="javascript: void(0);" title="search"><div class="co_a nav_main_search"></div></a>
+			</div>
+		</li>
+	</ul>
+	<div id="navigation_input" class="dom_hidden">
+		<div class="nav_select_search">
+			<form name="nav_select_search_form" method="POST" action="javascript:search_again();">
+			<div class="select_search_input"><input id="search_again_btn" name="search" type="input" value="" placeholder=" 搜尋" /></div>
+			<div class="select_search_submit"><input name="search" type="submit" value="搜尋" /></div>
+			</form>
+		</div>
+		<div class="select_search_input_map">
+			<div class="input_map_setting">
+				<a class="co_a" href="javascript: void(0);" title="topic map"><div class="select_search_map"></div></a>
+			</div>
+		</div>
+	</div>
+</div> 
+<div id="timeline_show_update">
+	<div class="timeline_show_update_text">新動態(<span>0</span>)</div>
+	<div id="timeline_update_temp"></div>
+	<div id="group_update_temp"></div>
+	<div id="group_update_hideArea"></div>
+	<div id="timeline_select_hideArea">
+		<select id="timeline_select_hideArea_g">
+			<option T_gID="all">全部</option>
+		</select>
+		<select id="timeline_select_hideArea_w">
+			<option T_gID="all">全部</option>
+		</select>
+		<select id="timeline_select_hideArea_f">
+			<option T_gID="all">全部</option>
+		</select>
+		<select id="timeline_select_hideArea_user">
+			<option T_gID="all">全部</option>
+		</select>
+	</div>
+</div>
+<div id="nav_bg" >  </div>
+<div id="wrapper">
+	<div class="container">
+		<div id="showtopic">
+			<div class="testdevice"><input onclick="javascript:testdevice();return false;" type="button" value="Viewport"/></div>
+			<div class="showtopic_span">Topic : <div></div></div>
+		</div>
+		<div id="portfolio_wrapper1" class="isotope" style="position: relative;">
+			<div id="loading">
+				<img src="./Image/loading.gif">網頁載入中，請稍候‧‧‧
+			</div>
+		</div>
+		<div id="portfolio_wrapper2" class="isotope" style="position: relative;display: none;">
+			<div id="loading">
+				<img src="./Image/loading.gif">網頁載入中，請稍候‧‧‧
+			</div>
+		</div>
+		<div class="page_btn_area1">
+			<div class="show_page_btn"><input id="1" class="page_btn page_btn_now page_btn_1" name="search" type="button" value="1"/></div>
+			<div class="show_page_btn"><input id="2" class="page_btn" name="search" type="button" value="2"/></div>
+			<div class="show_page_btn"><input id="3" class="page_btn" name="search" type="button" value="3"/></div>
+			<div class="show_page_btn"><input id="4" class="page_btn" name="search" type="button" value="4"/></div>
+			<div class="show_page_btn"><input id="5" class="page_btn" name="search" type="button" value="5"/></div>
+			<div class="show_page_btn"><input id="6" class="page_btn page_btn_next" name="search" type="button" value="››"/></div>
+		</div>
+		<div class="page_btn_area2 dom_hidden">
+			<div class="show_page_btn"><input id="1" class="page_btn page_btn_pre" name="search" type="button" value="‹‹"/></div>
+			<div class="show_page_btn"><input id="6" class="page_btn page_btn_6" name="search" type="button" value="6"/></div>
+			<div class="show_page_btn"><input id="7" class="page_btn" name="search" type="button" value="7"/></div>
+			<div class="show_page_btn"><input id="8" class="page_btn" name="search" type="button" value="8"/></div>
+			<div class="show_page_btn"><input id="9" class="page_btn" name="search" type="button" value="9"/></div>
+			<div class="show_page_btn"><input id="10" class="page_btn" name="search" type="button" value="10"/></div>
+		</div>
+	</div>
+</div>
+<div id="timeline_wrapper" class="dom_hidden" card_remove="" folder_remove="" workspace_remove="" style="top: -1000px; left: -1000px;">
+	<div class="timeline_select_container">
+		<div class="timeline_select_column">
+			<div class="timeline_select_column_inf">群組</div>
+			<select id="timeline_select_column_g">
+				<option T_gID="all">全部</option>
+			</select>
+		</div>
+		<div class="timeline_select_column">
+			<div class="timeline_select_column_inf">工作空間</div>
+			<select id="timeline_select_column_w">
+				<option T_wID="all">全部</option>
+			</select>
+		</div>
+		<div class="timeline_select_column">
+			<div class="timeline_select_column_inf">資料夾</div>
+			<select id="timeline_select_column_f">
+				<option T_fID="all">全部</option>
+			</select>
+		</div>
+		<div class="timeline_select_column">
+			<div class="timeline_select_column_inf">使用者</div>
+			<select id="timeline_select_column_user">
+				<option role="all">全部</option>
+			</select>
+		</div>
+	</div>
+	<div class="container">
+		<div class="timeline_column">
+		</div>
+	</div>
+</div>
+<div id="addgroup_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
+<div id="addgroup" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="addgroup_container dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="addgroup_header">
+			<div class="addgroup_header_left">
+				<div class="addgroup_header_icon"></div>
+				<div class="addgroup_header_text">新增群組</div>					
+			</div>
+		</div>
+		<div class="addgroup_area">
+			<div class="addgroup_name">
+				<div class="addgroup_name_text">名稱</div>
+				<input id="group-name" name="" type="text"/>
+			</div>
+			<div class="addgroup_addmember_action">
+				<div class="addgroup_addmember_action_text">成員</div>
+				<div class="addgroup_addmember_action_add">
+					<a class="co_a addmember_add">&nbsp;</a>
+					<div class="addgroup_addmember_action_add_icon">&nbsp;</div>
+					<div class="addgroup_addmember_action_add_text">新增</div>
+				</div>
+			</div>
+			<div class="addgroup_member_wrapper">
+				<div class="addgroup_member_container delete-able">
+					<!--   選擇的成員顯示於此   -->
+				</div>
+			</div>
+		</div>
+		<div class="addgroup_members_container dom_hidden" style="top: -1000px; left: -1000px;">
+			<form class="live_search_styled" method="post" action="">
+		        <fieldset>
+		            <input type="text" class="live_search_text_input" id="live-search-filter1" value="">
+		        </fieldset>
+				<!--   選擇的成員顯示於此   -->
+		    </form>
+		</div>
+		<div class="addgroup_footer dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="addgroup_footer_right">
+				<div class="addgroup_footer_cancel">取消</div>
+				<div class="addgroup_footer_submit">完成</div>
+			</div>
+			<div class="addgroup_members_footer_right dom_hidden" style="top: -1000px; left: -1000px;">
+				<div class="addgroup_footer_cancel">返回</div>
+				<div class="addgroup_footer_submit">確定</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="checkgroup_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
+<div id="checkgroup" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="checkgroup_container dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="checkgroup_header">
+			<div class="checkgroup_header_left">
+				<div class="checkgroup_header_icon"></div>
+				<div class="checkgroup_header_text">檢視群組</div>					
+			</div>
+			<div class="checkgroup_header_right">
+				<div class="checkgroup_header_right_delect">
+					<a id="delete_group_center_btn2" title="刪除群組">&nbsp;</a>
+					<div class="checkgroup_header_right_delect_icon">&nbsp;</div>
+					<div class="checkgroup_header_right_delect_text">刪除</div>
+				</div>
+				<div class="checkgroup_header_right_modify">
+					<a id="delete_group_center_btn1" class="co_a" title="群組更名">&nbsp;</a>
+					<div class="checkgroup_header_right_modify_icon">&nbsp;</div>
+					<div class="checkgroup_header_right_modify_text">更名</div>
+				</div>
+			</div>
+		</div>
+		<div class="checkgroup_area">
+			<div class="checkgroup_addkeeper_action">
+				<div class="checkgroup_addkeeper_action_text">管理者</div>
+				<div class="checkgroup_addkeeper_action_add">
+					<a class="co_a addkeeper_add">&nbsp;</a>
+					<div class="checkgroup_addkeeper_action_add_icon">&nbsp;</div>
+					<div class="checkgroup_addkeeper_action_add_text">新增</div>
+				</div>
+			</div>
+			<div class="checkgroup_keeper_wrapper">
+				<div class="checkgroup_keeper_container">
+					<!--   選擇的管理員顯示於此   -->
+				</div>
+			</div>
+			<div class="checkgroup_addmember_action">
+				<div class="checkgroup_addmember_action_text">成員</div>
+				<div class="checkgroup_addmember_action_add">
+					<a class="co_a addmember_add">&nbsp;</a>
+					<div class="checkgroup_addmember_action_add_icon">&nbsp;</div>
+					<div class="checkgroup_addmember_action_add_text">新增</div>
+				</div>
+			</div>
+			<div class="checkgroup_member_wrapper">
+				<div class="checkgroup_member_container delete-able">
+					<!--   選擇的成員顯示於此   -->
+				</div>
+			</div>
+		</div>
+		<div class="checkgroup_keepers_container dom_hidden" style="top: -1000px; left: -1000px;">
+			<!--   選擇的成員顯示於此   -->
+		</div>
+		<div class="checkgroup_members_container dom_hidden" style="top: -1000px; left: -1000px;">
+			<form class="live_search_styled" method="post" action="">
+		        <fieldset>
+		            <input type="text" class="live_search_text_input" id="live-search-filter2" value="">
+		        </fieldset>
+				<!--   選擇的成員顯示於此   -->
+		    </form>
+		</div>
+		<div class="checkgroup_footer dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="checkgroup_footer_right">
+				<div class="checkgroup_footer_cancel">取消</div>
+				<div class="checkgroup_footer_submit">完成</div>
+			</div>
+			<div class="checkgroup_keepers_footer_right dom_hidden" style="top: -1000px; left: -1000px;">
+				<div class="checkgroup_footer_cancel">返回</div>
+				<div class="checkgroup_footer_submit" onclick="get_new_member()">確定</div>
+			</div>
+			<div class="checkgroup_members_footer_right dom_hidden" style="top: -1000px; left: -1000px;">
+				<div class="checkgroup_footer_cancel">返回</div>
+				<div class="checkgroup_footer_submit" onclick="get_new_member()">確定</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--   群組共享 介面    -->
+<div id="sharing_with_group_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
+<div id="sharing_with_group" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="sharing_with_group_wrapper">
+		<div class="sharing_with_group_header"><img src="./Image/group_icon_black.png">群組共享</div>
+		<div class="sharing_with_group_showarea">
+			<div class="sharing_with_group_showarea_container">
+				<div id="sharing_with_group_showarea_title">選擇 Workspace</div>
+			</div>
+			<div class="sharing_with_group_addworkspace">
+				<a class="co_a add_workspace" href="#inline_workspace">&nbsp;</a>
+				<input type="button" value="新增">
+			</div>
+			<div class="sharing_with_group_addfolder">
+				<a class="co_a addfolder" href="#inline_workspace_manager_addfolder">&nbsp;</a>
+				<input type="button" value="新增">
+			</div>
+			<div class="sharing_with_group_back">
+				<input type="button" value="返回">
+			</div>
+		</div>
+		<div class="sharing_with_group_container">
+			<div class="sharing_with_group_select">
+				<div class="sharing_with_group_select_field">
+					<!-- EX:
+					<div class="_select_workspace">workspace1</div>
+					<div class="_select_folder">
+						<div class="_select_folder_area">folder1</div>
+						<div class="_select_card">card1</div>
+						<div class="_select_card">card2</div>
+					</div>
+					<div class="_select_folder">
+						<div class="_select_folder_area">folder2</div>
+						<div class="_select_card">card1</div>
+						<div class="_select_card">card2</div>
+						<div class="_select_card">card3</div>
+					</div>-->
+				</div>
+			</div>
+			<div class="sharing_with_group_submit_wrapper">
+				<div class="sharing_with_group_delete">取消</div>
+				<div class="sharing_with_group_submit">確定</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--    WorkSpace 介面    -->
+<div id="myWorkspace" class="workspace dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="workspace_container">
+		<div class="workspace_columns isotope">
+			<div class="workspace_title_inf">
+				<div class="workspace_title_inf_icon">&nbsp;</div>
+				<span>test</span>
+			</div>
+			<div class="workspace_comment_inf">→&nbsp;
+				<span>
+				</span>
+			</div>
+			<div class="workspace_title_icon w_search" title="搜尋 Folder" style="display: none;"></div>
+			<div class="workspace_title_icon w_engine" title="管理 Workspace">
+				<div class="workspace_manager_area">
+					<div class="workspace_manager_addfolder">
+						<a class="co_a addfolder" href="#inline_workspace_manager_addfolder">&nbsp;</a>
+						<div class="workspace_manager_addfolder_icon"></div>
+						<div class="workspace_manager_addfolder_text">新增 Folder</div>
+					</div>
+					<div class="workspace_manager_modifyworkspace">
+						<a class="co_a modifyworkspace" href="#inline_workspace_manager_modifyworkspace">&nbsp;</a>
+						<div class="workspace_manager_modifyworkspace_icon"></div>
+						<div class="workspace_manager_modifyworkspace_text">修改 Workspace</div>
+					</div>
+				</div>
+			</div>
+			<div id="delete_workspace" class="workspace_title_icon w_goaway" title="離開 WorkSpace"></div>
+			<div class="workspace_user">
+				<div class="workspace_user_name" role=""></div>
+				<span> 創建於 </span>
+				<span role="time"></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 新增 Workspace -->  
+	<div id="inline_workspace">
+		<div class="inline_workspace_header">
+			<div class="inline_workspace_header_icon"></div>
+			<div class="inline_workspace_header_name">新增 Workspace</div>
+		</div>
+		<div class="inline_workspace_wrapper">
+			<div class="inline_workspace_wrapper_name">
+				<div class="inline_workspace_wrapper_text">名稱：</div>
+				<div class="inline_workspace_wrapper_input">
+					<input id="inline_workspace_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_workspace_wrapper_comment">
+				<div class="inline_workspace_wrapper_text">描述：</div>
+				<div class="inline_workspace_wrapper_input">
+					<input id="inline_workspace_wrapper_comment" type="text" placeholder="可留空">
+				</div>
+			</div>
+			<div class="inline_workspace_wrapper_submit">
+				<input type="button" value="確定">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 新增 Folder -->
+	<div id="inline_workspace_manager_addfolder">
+		<div class="inline_folder_header">
+			<div class="inline_folder_header_icon"></div>
+			<div class="inline_folder_header_name">新增 Folder</div>
+		</div>
+		<div class="inline_folder_wrapper">
+			<div class="inline_folder_wrapper_name">
+				<div class="inline_folder_wrapper_text">名稱：</div>
+				<div class="inline_folder_wrapper_input">
+					<input id="inline_folder_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_folder_wrapper_comment">
+				<div class="inline_folder_wrapper_text">描述：</div>
+				<div class="inline_folder_wrapper_input">
+					<input id="inline_folder_wrapper_comment" type="text" placeholder="可留空">
+				</div>
+			</div>
+			<div class="inline_folder_wrapper_submit">
+				<input type="button" value="確定">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 新增 Card -->
+	<div id="inline_folders_manager_addcard">
+		<div class="inline_card_header">
+			<div class="inline_card_header_icon"></div>
+			<div class="inline_card_header_name">新增 Card</div>
+		</div>
+		<div class="inline_card_wrapper">
+			<div class="inline_card_wrapper_name">
+				<div class="inline_card_wrapper_text">名稱：</div>
+				<div class="inline_card_wrapper_input">
+					<input id="inline_card_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_card_wrapper_comment">
+				<div class="inline_card_wrapper_text">描述：</div>
+				<div class="inline_card_wrapper_input">
+					<input id="inline_card_wrapper_comment" type="text" placeholder="可留空">
+				</div>
+			</div>
+			<div class="inline_card_wrapper_url">
+				<div class="inline_card_wrapper_text">網址：</div>
+				<div class="inline_card_wrapper_input">
+					<input id="inline_card_wrapper_url" type="text">
+				</div>
+			</div>
+			<div class="inline_card_wrapper_submit">
+				<input type="button" value="確定">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 修改 Workspace -->
+	<div id="inline_workspace_manager_modifyworkspace">
+		<div class="inline_modifyworkspace_header">
+			<div class="inline_modifyworkspace_header_icon"></div>
+			<div class="inline_modifyworkspace_header_name">修改 Workspace</div>
+		</div>
+		<div class="inline_modifyworkspace_wrapper">
+			<div class="inline_modifyworkspace_wrapper_name">
+				<div class="inline_modifyworkspace_wrapper_text">名稱：</div>
+				<div class="inline_modifyworkspace_wrapper_input">
+					<input id="inline_modifyworkspace_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_modifyworkspace_wrapper_comment">
+				<div class="inline_modifyworkspace_wrapper_text">描述：</div>
+				<div class="inline_modifyworkspace_wrapper_input">
+					<input id="inline_modifyworkspace_wrapper_comment" type="text" placeholder="可留空">
+				</div>
+			</div>
+			<div class="inline_modifyworkspace_wrapper_submit">
+				<input type="button" value="完成">
+			</div>
+			<div class="inline_modifyworkspace_wrapper_delect">
+				<input type="button" value="刪除 Workspace">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 修改 Folder -->
+	<div id="inline_folders_manager_modifyfolder">
+		<div class="inline_modifyfolder_header">
+			<div class="inline_modifyfolder_header_icon"></div>
+			<div class="inline_modifyfolder_header_name">修改 Folder</div>
+		</div>
+		<div class="inline_modifyfolder_wrapper">
+			<div class="inline_modifyfolder_wrapper_name">
+				<div class="inline_modifyfolder_wrapper_text">名稱：</div>
+				<div class="inline_modifyfolder_wrapper_input">
+					<input id="inline_modifyfolder_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_modifyfolder_wrapper_comment">
+				<div class="inline_modifyfolder_wrapper_text">描述：</div>
+				<div class="inline_modifyfolder_wrapper_input">
+					<input id="inline_modifyfolder_wrapper_comment" type="text" placeholder="可留空">
+				</div>
+			</div>
+			<div class="inline_modifyfolder_wrapper_submit">
+				<input type="button" value="完成">
+			</div>
+			<div class="inline_modifyfolder_wrapper_delect">
+				<input type="button" value="刪除 Folder">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: none;">    <!-- 修改 card-->
+	<div id="inline_workspace_cards_position_modifycard">
+		<div class="inline_modifycard_header">
+			<div class="inline_modifycard_header_icon"></div>
+			<div class="inline_modifycard_header_name">修改 Card</div>
+		</div>
+		<div class="inline_modifycard_wrapper">
+			<div class="inline_modifycard_wrapper_name">
+				<div class="inline_modifycard_wrapper_text">名稱：</div>
+				<div class="inline_modifycard_wrapper_input">
+					<input id="inline_modifycard_wrapper_name" type="text">
+				</div>
+			</div>
+			<div class="inline_modifycard_wrapper_comment">
+				<div class="inline_modifycard_wrapper_text">內容：</div>
+				<div class="inline_modifycard_wrapper_input">
+					<input id="inline_modifycard_wrapper_comment" type="text">
+				</div>
+			</div>
+			<div class="inline_modifycard_wrapper_url">
+				<div class="inline_modifycard_wrapper_text">URL：</div>
+				<div class="inline_modifycard_wrapper_input">
+					<input id="inline_modifycard_wrapper_url" type="text">
+				</div>
+			</div>
+			<div class="inline_modifycard_wrapper_submit">
+				<input type="button" value="完成">
+			</div>
+			<div class="inline_modifycard_wrapper_delect">
+				<input type="button" value="刪除 Card">
+			</div>
+		</div>
+	</div>
+</div>
+<!--    Slider 介面    -->
+<div id="slider_background" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div>
+		<div class="slider_background_area">
+			<a id="back_main_slider" class="co_a" href="javascript: void(0);" title="back"><div></div></a>
+		</div>
+	</div>
+</div>
+<div id="Sidebar" class="mySidebar dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="mySidebar_container_up dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="mySidebar_container_up_wrapper">
+			<a class="co_a" id="showtag" href="javascript: void(0);" target="_blank">&nbsp;</a>
+			<div class="mySidebar_container_up_wrapper_left">
+				<div class="mySidebar_container_left_tags"></div>
+				<div class="mySidebar_container_left_inf">Tags Space</div>
+			</div>
+			<div class="mySidebar_container_tags_text">檢視我的標籤</div>
+		</div>
+		<div class="mySidebar_container_up_wrapper">
+			<a class="co_a" id="showtopicmap">&nbsp;</a>
+			<div class="mySidebar_container_up_wrapper_left">
+				<div class="mySidebar_container_left_topicmap"></div>
+				<div class="mySidebar_container_left_inf">Topic Map</div>
+			</div>
+			<div class="mySidebar_container_topicmap_text">進入主題地圖</div>
+		</div>
+		<div class="mySidebar_container_up_wrapper">
+			<a class="co_a" id="showSearchProcess">&nbsp;</a>
+			<div class="mySidebar_container_up_wrapper_left">
+				<div class="mySidebar_container_left_browsinglog"></div>
+				<div class="mySidebar_container_left_inf">Search Process</div>
+			</div>
+			<div class="mySidebar_container_browsinglog_text">群組搜尋歷程</div>
+		</div>
+		<div class="mySidebar_container_up_wrapper">
+			<a class="co_a" id="showtodolist">&nbsp;</a>
+			<div class="mySidebar_container_up_wrapper_left">
+				<div class="mySidebar_container_left_todolist"></div>
+				<div class="mySidebar_container_left_inf">Task</div>
+			</div>
+			<div class="mySidebar_container_browsinglog_text">群組任務清單</div>
+		</div>
+		<div class="mySidebar_container_up_wrapper">
+			<a class="co_a" id="account" target="_blank">&nbsp;</a>
+			<div class="mySidebar_container_up_wrapper_left">
+				<img id="show_fbimg" src="./Image/todolist.png">
+			</div>
+			<div id="show_fbname" class="mySidebar_container_browsinglog_text"></div>
+		</div>
+	</div>
+	<div class="mySidebar_container_down dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="mySidebar_container_workspace_area">
+			<div class="mySidebar_container_workspace_area_item">
+				<div id="fblogout" class="mySidebar_container_workspace_area_item_text" title="是否登出？">登出？</div>
+			</div>
+			<div class="mySidebar_container_workspace_area_final_item">
+				<!-- 重要，預設div、不能刪 -->
+				<div class="mySidebar_container_workspace_area_final_item_text"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="fb-root"></div>
+<!--    Footer 介面    -->
+<div id="under-footer" class="dom_hidden" style="top: -1000px; left: -1000px;">
+	<div id="footer" style="padding-top: 10px;">
+		<h4>Groupack</h4>
+		<font size="0.5em">Powered By Groupack Team © Copyright 2013</font>
+	</div>
+	<div id="scroll-top-top" class="dom_hidden"><a class="co_a" title="scroll top"></a></div>
+</div>
+<!--  START: CSS    -->
+	<link rel="stylesheet" href="./css/card.css">
+	<link rel="stylesheet" href="./css/folder.css">
+	<link rel="stylesheet" href="./css/workspace.css">
+	<link rel="stylesheet" href="./css/group.css">
+	<link rel="stylesheet" href="./css/slider.css">
+	<link rel="stylesheet" href="./css/timeline.css">
+	<link rel="stylesheet" href="./colorbox/source/colorbox.css">
+	<link rel="stylesheet" href="./fancybox/source/jquery.fancybox.css">
+<!--  END: CSS    -->
+</body>
+</html>

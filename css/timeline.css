@@ -1,0 +1,311 @@
+#timeline_wrapper{
+width: 96%;
+padding: 0% 2% 0% 2%;
+margin: 0em auto 0em auto;
+position: relative;
+top: 45px;
+z-index: 2;
+max-width: 1400px;
+}
+.timeline_column{
+position: relative;
+float: left;
+display: inline;
+margin-left: 1%;
+margin-right: 1%;
+width: 98%;
+}
+.timeline_card,
+.timeline_folder,
+.timeline_workspace{
+position: relative;
+float: left;
+margin: 10px 1%;
+width: 98%;
+text-align: left;
+}
+.timeline_card_user,
+.timeline_folder_user,
+.timeline_workspace_user{
+position: relative;
+width: 45px;
+height: 45px;
+margin: 5px 5px 0px 0px;
+float: left;
+}
+.timeline_card_area,
+.timeline_folder_area,
+.timeline_workspace_area{
+position: relative;
+margin: 0;
+z-index: 2;
+}
+.timeline_card_content,
+.timeline_folder_content,
+.timeline_workspace_content{
+position: relative;
+margin-left: 55px;
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+background-color: white;
+z-index: 2;
+}
+.timeline_card_inf,
+.timeline_folder_inf,
+.timeline_workspace_inf{
+position: relative;
+width: 100%;
+margin: 0;
+padding: 10px 0;
+}
+.timeline_card_inf h2,
+.timeline_folder_inf h2,
+.timeline_workspace_inf h2{
+font-size: 1.2em;
+position: relative;
+width: 92%;
+margin: 0 4% 0 4%;
+padding: 0 0 10px 0;
+border-bottom: 1px solid #eee;
+text-align: center;
+}
+.timeline_card_inf p,
+.timeline_folder_inf p,
+.timeline_workspace_inf p{
+color: #555;
+margin: 8px 20px 8px 20px;
+cursor: text;
+font-size: 15px;
+}
+.timeline_card_inf .post_url {
+color: #008000;
+margin: 8px 20px 0 20px;
+border-top: 0.1em solid #eee;
+cursor: text;
+font-size: 10px;
+overflow-x: hidden;
+}
+.timeline_card_time,
+.timeline_folder_time,
+.timeline_workspace_time{
+position: relative;
+float: left;
+width: 100%;
+text-align: right;
+margin-top: 3px;
+font-size: 12px;
+color: #999;
+}
+.timeline_card_time_user,
+.timeline_folder_time_user,
+.timeline_workspace_time_user{
+display: inline-block;
+margin-right: 5px;
+font-weight: bold;
+}
+.timeline_card_origin,
+.timeline_folder_origin,
+.timeline_workspace_origin{
+position: relative;
+width: 100%;
+margin: 3px 0;
+font-size: 12px;
+line-height: 15px;
+}
+.timeline_card_origin_content,
+.timeline_folder_origin_content,
+.timeline_workspace_origin_content{
+position: relative;
+margin-left: 55px;
+z-index: 2;
+}
+.timeline_card_origin_content span,
+.timeline_folder_origin_content span,
+.timeline_workspace_origin_content span{
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+background: rgb(0,128,255);
+padding: 1px 5px;
+margin-right: 10px;
+color: white;
+}
+.timeline_card_origin_content span:nth-child(1),
+.timeline_folder_origin_content span:nth-child(1),
+.timeline_workspace_origin_content span:nth-child(1){
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+background: #444;
+padding: 1px 5px;
+margin-right: 10px;
+color: white;
+}
+.timeline_card_arrow,
+.timeline_folder_arrow,
+.timeline_workspace_arrow{
+position: absolute;
+top: 0;
+background-image: url('../Image/fb_icon.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: -832px -34px;
+height: 16px;
+left: 45px;
+width: 10px;
+margin-top: 26px;
+z-index: 3;
+}
+#timeline_show_update{
+background: #e5e5e5;
+font-size: 1em;
+border-bottom: 1px solid #133783;
+width: 100%;
+position: fixed;
+top: 91px;
+left: 0;
+right: 0;
+z-index: 100;
+height: 34px;
+cursor: pointer;
+display: none;
+}
+.timeline_show_update_text{
+position: relative;
+width: 100%;
+height: 30px;
+margin: 2px 0;
+color: #444;
+text-align: center;
+line-height: 30px;
+font-size: 15px;
+}
+#timeline_update_temp,
+#group_update_temp,
+#group_update_hideArea{
+display: none;
+}
+#Timeline_NotificationArea{
+display: none;
+position: fixed;
+top: 91px;
+width: 240px;
+padding: 5px;
+z-index: 12000;
+background-color: #e5e5e5;
+color: #222;
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+}
+.Timeline_Notification{
+position: relative;
+width: 100%;
+border-top: 1px solid #aaa;
+}	.Timeline_Notification_icon{
+position: relative;
+width: 30px;
+height: 30px;
+margin: 0 5px 0 0;
+float: left;
+}
+.Timeline_Notification_event span:nth-child(1){
+font-weight: bold;
+}
+.Timeline_Notification_event p{
+padding: 5px 0;
+margin: 0;
+}
+.Timeline_Notification_event{
+position: relative;
+margin-left: 35px;
+font-size: 12px;
+}
+.Timeline_NotificationArea_origin{
+position: relative;
+width: 100%;
+margin: 3px 0;
+font-size: 12px;
+line-height: 15px;
+}
+.Timeline_NotificationArea_origin_content{
+position: relative;
+margin: 0;
+}
+.Timeline_NotificationArea_origin_content span:nth-child(1){
+background: #444;
+padding: 1px 5px;
+margin-right: 5px;
+color: white;
+}
+.Timeline_NotificationArea_origin_content span{
+background: rgb(0,128,255);
+padding: 1px 5px;
+margin-right: 5px;
+color: white;
+}
+.timeline_select_container{
+position: relative;
+width: 100%;
+height: 48px;
+margin: 10px 0;
+}
+.timeline_select_column{
+position: relative;
+width: 21%;
+margin: 0 2%;
+float: left;
+}
+.timeline_select_column select{
+position: relative;
+width: 100%;
+cursor: pointer;
+font-size: 14px;
+height: 30px;
+}
+.timeline_select_column_inf{
+color: #006BDC;
+position: relative;
+width: 100%;
+height: 14px;
+line-height: 14px;
+font-size: 12px;
+margin-bottom: 4px;
+text-align: center;
+}
+#group_update_hideArea,
+#timeline_select_hideArea{
+display:none;
+}
+#group_notificationCountArea{
+display: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+-o-border-radius: 2px;
+border-radius: 2px;
+color: #fff;
+font-size: 10px;
+font-weight: bold;
+overflow: hidden;
+padding-bottom: 1px;
+position: absolute;
+left: 50%;
+top: 5px;
+z-index: 99;
+margin-left: 9.5px;
+}
+#group_notificationCountArea span{
+background-color: #f03d25;
+border: 1px solid #d83722;
+border-bottom: 1px solid #c0311e;
+border-top: 1px solid #e23923;
+-webkit-border-radius: 2px;
+-webkit-box-shadow: 0 1px 0 rgba(0, 39, 121, .77);
+display: block;
+padding: 0 1px;
+}
