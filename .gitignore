@@ -2,3 +2,17 @@ Font/
 Image/
 Thumbs.db
 TOUR/
+SearchProcess/Search_Process_Old_Data/
+pscws4/debug.php
+
+pscws4/getSimTest.php
+
+pscws4/rolling-curl/README.txt
+
+pscws4/rolling-curl/RollingCurl.php
+
+pscws4/rolling-curl/RollingCurlGroup.php
+
+pscws4/rolling-curl/example.php
+
+pscws4/topic-urls.php
