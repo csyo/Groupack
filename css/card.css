@@ -4,13 +4,13 @@ padding: 0px;
 margin: 0em auto 0em auto;
 position: absolute;
 top: 0px;
-z-index: 300;
+z-index: 301;
 min-height: 100%;
 border-right: 1px solid #CCC;
 text-align: center;
 }
 #card_wrapper_background{
-z-index: 150;
+z-index: 301;
 background: rgba(0, 0, 0, 0.5);
 padding: 0;
 margin: 0;

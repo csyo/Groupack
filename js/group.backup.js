@@ -1,8 +1,3 @@
-// 初始化 group board
-$(function (e) {
-	Group_Board_showMember();
-});
-
 // 產生好友清單於DOM
 $(function show_friend_list() {
    var friendsJson = localStorage.getItem('FB_friends');
@@ -60,6 +55,21 @@ $(function search_name() {
    });    
 });
 
+function newSection(groupID){
+   $.post('php/searchSession.php', {
+            fbid: localStorage.FB_id,
+            fbname: localStorage.FB_name,
+            keyword: localStorage.k_word,
+            gid: groupID
+         })
+            .done(function (r) {
+               console.log(r)
+            })
+            .fail(function (x) {
+               console.log(x)
+            });
+}
+
 function groupRoleInfo(groupID){
    if (groupID) {
       return $.post("db/g_info.php", { gID: groupID});
@@ -72,13 +82,12 @@ $(document).on('click', 'li.group-item > a', function show_select_group(e) {
    if (groupID === localStorage.group_selected) {
       alert('已經選擇此群組了。');
    } else {
-      sessionEnd(); 
       var groupName = $(this).text();
       $('div.select_group_notify_wrapper_show').text(groupName);
       $('div.Group_Board_inf_text').text(groupName).attr('g_id', groupID);
       $('#select_group_notify').toggle(400).delay(2400).hide(400);
       localStorage.setItem('group_selected', groupID);
-      logSession(groupID); // 開始新的 session log
+      newSection(groupID);
       if ($('.workspace_on')[0] === undefined) workspaceLeave();
       $('div.Group_Board_inf_text').text(groupName).attr('g_id', groupID);
       Group_Board_showMember();
@@ -328,7 +337,7 @@ $(function interface() {
          if (confirm('確定要離開這個群組？')) {
             var groupID = localStorage.editGroup;
             var myID = localStorage.FB_id;
-            $.post('db/g_remove.php', {
+            $.post('php/g_leave.php', {
                gid: groupID,
                fbid: myID
             })
@@ -336,7 +345,7 @@ $(function interface() {
                   console.log(x.responseText);
                })
                .done(function (r) {
-                  console.log(r);
+                  console.log(r)
                   var msg1 = groupID + '***' + 'leave';
                   var a = window.setTimeout(function () {
                      T_savedata(msg1, 'none', 'none', 'none');
@@ -358,19 +367,21 @@ $(function interface() {
             });
          }
       } else {
-         if (confirm('確定刪除這個群組？\nAre you sure to delete the group?')) {
+         if (confirm('確定刪除這個群組？')) {
             var groupID = localStorage.editGroup;
             var groupNAME = $('li#' + groupID).find('a').text();
-            $.post('db/g_remove.php', {
-               gid: groupID
+            $.post('php/g_delete.php', {
+               sendgid: groupID
             })
                .done(function (r) {
-                  console.log(r);
+                  console.log(r)
                   var msg1 = groupID + '***' + 'delete' + '***' + groupNAME;
                   var a = window.setTimeout(function () {
                      T_savedata(msg1, 'none', 'none', 'none');
                   }, 1000);
                   localStorage.setItem('T_savedataTimeout', a);
+               }).fail(function (x) {
+                  console.log(x)
                });
             removeGroupDom(groupID);
             $('div.checkgroup_members_container').addClass('dom_hidden').offset({
@@ -462,6 +473,7 @@ $(function interface() {
       $('div.checkgroup_member_container > a:empty').remove();
       $('div.checkgroup_members_container_itemText').removeClass('checkgroup_friends_select_on').removeClass('checkgroup_keepers_select_on');
       localStorage.removeItem('change_name');
+      Group_Board_showMember();
    });
    // 取消 in 新增群組
    $('div.addgroup_footer_right').children('div.addgroup_footer_cancel').click(function cancel_addG() {
@@ -681,6 +693,7 @@ function show_groups() {
          $('div.Group_Board_inf_text').text('尚未選擇群組').attr('g_id', '');
       }
       $('div.Group_Board_inf').show();
+      Group_Board_showMember();
    });
 }
 // 處理群組資料
@@ -748,7 +761,6 @@ function sendGroup(data) {
       .fail(function(x){ console.log(x.responseText); })
       .done(function(r){
          console.log(r);
-		  Group_Board_showMember();
       });
       removeList();
    }
@@ -901,23 +913,17 @@ function removeGroupDom(groupID) {
 }
 
 function Group_Board_showMember() {
-	var a = localStorage.group_selected || null;
-    if (localStorage.group_selected == null) {
-		$('#Group_Board_area').html('none');
-    } else {
-		// 取得群組資料
-		var groupInfo = groupRoleInfo(a), temp = '';
-		groupInfo.success(function(r){  console.log('-->'+r);
-			var data = JSON.parse(r),
-			role = 'MEMBER', data, ADs = '', MBs = '';
-			// 處理資料
-			data.every(function(obj){
-				var id = obj.id, name = obj.name, _role = obj.role;
-				temp += '<a class="co_a"  target="_blank" href="https://www.facebook.com/' + id + '"><img title="' + name + '" src="https://graph.facebook.com/' + id + '/picture" width="35px"></a>';
-				return true;
-			});
-			$('#Group_Board_area').html(temp);
-		});
-    }
+   if (localStorage.getItem('group_selected') == null) {
+      $('#Group_Board_area').html('none');
+   } else {
+      var a = localStorage.getItem('group_selected');
+      var b = $('#group_update_hideArea').find('[t_sid=' + a + ']');
+      $('#Group_Board_area').html('');
+      var c = '';
+      for (var i = 1; i <= $(b).children('span').length; i++) {
+         c += '<a class="co_a"  target="_blank" href="https://www.facebook.com/' + $(b).children('span:nth-child(' + i + ')').attr('t_member') + '"><img title="' + $(b).children('span:nth-child(' + i + ')').text() + '" src="https://graph.facebook.com/' + $(b).children('span:nth-child(' + i + ')').attr('t_member') + '/picture" width="35px"></a>';
+      }
+      $('#Group_Board_area').append(c);
+   }
 }
 

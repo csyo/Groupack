@@ -13,20 +13,10 @@
 	<link rel="stylesheet" href="./css/Setfont.css">
 	<link rel="shortcut icon" type="image/x-icon" href="Image/groupack_logo.ico">
 	<link rel="Bookmark" type="image/x-icon" href="Image/groupack_logo.ico">
-	<script src="./library/jquery.min.js"></script>
-	<script src="./TopicMap/topic_map_func.js"></script> <!-- 順序一定要高於 group.js&index.js by chenchen -->
-	<script src="./js/group.js"></script>
-	<script src="./js/index.js"></script>
-	<script src="./js/workspace.js"></script>
-	<script src="./js/sharing.js"></script>
-	<script src="./fancybox/source/jquery.fancybox.pack.js"></script>
-	<script src="./colorbox/jquery.colorbox.js"></script>
-	<script src="./js/tag.js"></script>
-	<script src="./library/all.js"></script>
 	<title>Groupack</title>
 </head>
 </style>
-<body onScroll="setNav()" onLoad="FBInitial()">
+<body onLoad="FBInitial()">
 	<article id="preloader" class="dom_hidden">
 		<h3><img src="./Image/preloader.gif"><span></span></h3>
 	</article>
@@ -398,12 +388,11 @@
 				<a href="javascript: void(0);" title="facebook"><div class="co_a nav_main_w"></div></a>
 			</div>
 			<ul id="Workspace_nav" class="dom_hidden">
-				<li class="w-item" id="">
+				<!--EX:
+				<li class="w-item">
 					<a class="co_a" title="工作空間1" id="w_1">工作空間1</a>
 				</li>
-				<li class="w-item" id="">
-					<a class="co_a" title="工作空間2" id="w_2">工作空間2</a>
-				</li>
+				-->
 				<li>
 					<a id="add_workspace" class="co_a add_workspace" href="#inline_workspace" title="新增工作空間">
 						<div><img src="./Image/add_01.png">新增工作空間</div>
@@ -419,7 +408,7 @@
 	</ul>
 	<div id="navigation_input" class="dom_hidden">
 		<div class="nav_select_search">
-			<form name="nav_select_search_form" method="POST" action="javascript:search_again();">
+			<form name="nav_select_search_form" method="POST" id="search_again_form" action="#">
 			<div class="select_search_input"><input id="search_again_btn" name="search" type="input" value="" placeholder=" 搜尋" /></div>
 			<div class="select_search_submit"><input name="search" type="submit" value="搜尋" /></div>
 			</form>
@@ -976,5 +965,17 @@
 	<link rel="stylesheet" href="./colorbox/source/colorbox.css">
 	<link rel="stylesheet" href="./fancybox/source/jquery.fancybox.css">
 <!--  END: CSS    -->
+<!-- START: JS -->
+	<script src="./library/jquery.min.js"></script>
+	<script src="./TopicMap/topic_map_func.js"></script> <!-- 順序一定要高於 group.js&index.js by chenchen -->
+	<script src="./js/group.js"></script>
+	<script src="./js/index.js"></script>
+	<script src="./js/workspace.js"></script>
+	<script src="./js/sharing.js"></script>
+	<script src="./fancybox/source/jquery.fancybox.pack.js"></script>
+	<script src="./colorbox/jquery.colorbox.js"></script>
+	<script src="./js/tag.js"></script>
+	<script src="./library/all.js"></script>
+<!-- END -->
 </body>
 </html>
