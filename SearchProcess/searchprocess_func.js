@@ -42,8 +42,8 @@ function get_new_data(){
 				alert('Ajax request 發生錯誤:searchprocess_get_new_data.php');         
 				},         
 		success: function(response){ 	
-				new_data=JSON.parse(response);	
 				console.log(response);
+				new_data=JSON.parse(response);	
 		}
 	});
 }
@@ -68,7 +68,7 @@ function get_member(){
 				alert('Ajax request 發生錯誤:searchprocess_get_member.php');         
 				},         
 		success: function(response){ 	
-				//console.log('group_member='+response);		
+				console.log('group_member='+response);		
 				group_member = JSON.parse(response);
 		}
 	});

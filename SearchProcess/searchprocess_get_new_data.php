@@ -1,4 +1,34 @@
 <?php	
+	/*
+	searchprocess.php(¥Ñget_searchprocess_data()¨ç¦¡ajax©I¥s)
+	   ¥Øªº: §ì¨ú©Ò¦³·j´M¾úµ{(¨Ì®É¶¡¶¶§Ç)
+	   ¤èªk: ¨ú±o"group_member"¤ºG_ID¬°¥Ø«e¿ï¾Ü¸s²ÕªºFB_NAME,FB_ID
+			 ±Nµ²ªG¦s¤J$member°}¦C
+			 ¨Ì§Ç¨ú±o¸s²Õ¤º¦¨­û©Ò¦³ÃöÁä¦r»PÃöÁä¦r·j¯Á¦¸¼Æ¨Ã¨Ì®É¶¡±Æ§Ç
+			 ¿é¥X¦¨jsonª«¥ó
+	   »yªk: SELECT FB_NAME, FB_ID FROM group_member where G_ID='$groupid'
+			 SELECT COUNT('SEARCH_KEYWORD') , SEARCH_KEYWORD , FB_ID FROM  `search_session` WHERE FB_ID = ".$member[$h]['id']." AND SEARCH_KEYWORD !=  '' AND G_ID='$groupid' GROUP BY SEARCH_KEYWORD  order by SEARCH_TIMESTAMP
+       ·sªº¸ê®Æ®w¤èªk: 
+			 ¨ú±o"belongsto"¤ºGroupID¬°¥Ø«e¿ï¾Ü¸s²Õªº©Ò¦³UserID
+			 ±Nµ²ªG¦s¤J$member°}¦C
+			 §Q¥Î"sessionlog"
+			 ®Ú¾ÚUserID»PGroupID¨Ì§Ç¨ú±o¸s²Õ¤º¦¨­û©Ò¦³ÃöÁä¦r»PÃöÁä¦r·j¯Á¦¸¼Æ¨Ã¨Ì®É¶¡±Æ§Ç
+			 ¿é¥X¦¨jsonª«¥ó
+	   ·s»yªk: 
+			 SELECT QueryKeyword , UserID 
+			 FROM `sessionlog` 
+			 WHERE UserID = ".$member[$h]['id']." AND QueryKeyword != '' AND GroupID='$groupid' 
+			 GROUP BY QueryKeyword 
+			 order by StartTimestamp;
+			 
+			 SELECT QueryKeyword , UserID 
+			 FROM  `sessionlog` 
+			 WHERE UserID = ".$member[$h]['id']." AND QueryKeyword !=  '' AND GroupID='$groupid' 
+			 GROUP BY QueryKeyword  
+			 order by StartTimestamp desc 
+			 limit ".$new_data_num_to_get;
+	*/
+
 	if($_POST['sentgroupid']){	
 		$groupid=$_POST['sentgroupid'];
 	}
@@ -6,103 +36,89 @@
 		$groupid=1;
 	}
 	
-	$old_data = json_decode($_POST['sentOldData']);
-	/*	$old_dataçš„è³‡æ–™æ ¼å¼
-		Array
-		(
-		[0] => Array
-			(
-				[0] => stdClass Object
-					(
-						[COUNT] => 1
-						[SEARCH_KEYWORD] => å°å—ç¾Žé£Ÿ
-						[FB_ID] => 100001446709549
-					)
-			)
-		)
-	*/
-	// è³‡æ–™åº«åƒæ•¸  æŠ“å–ä½¿ç”¨è€…æ‰€è¼¸å…¥éŽçš„é—œéµå­—ä¾†åšæ¯”è¼ƒ
+	$old_data = json_decode($_POST['sentOldData']); //©w¸q¬°¤w¬Ý¹LªºÃöÁä¦r¸s
+	
+	// ¸ê®Æ®w°Ñ¼Æ  
 	$dbhost = '127.0.0.1';
 	$dbuser = 'cosearch';
 	$dbpass = '1234567';
-	$dbname = 'collaborative_search';
+	$dbname = 'groupack';
 	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
+	
+	/****	1st_part ¨ú±o©Ò¦³group¤U©Ò¦³ªºuserID  ****/
 	
 	if($groupid==1){
 		$arygroupFBID[0]=$id;
 	}
 	else{
-		$u_word=" SELECT FB_NAME, FB_ID FROM group_member where G_ID='$groupid'";
-		$GROUP_query=mysql_query($u_word);
-		while ( $row = mysql_fetch_assoc($GROUP_query)){
-			$member[]= array( 'name' => $row['FB_NAME'] , 'id' => $row['FB_ID'] );
+		$queryID=" SELECT UserID FROM `belongsto` where GroupID='$groupid' ";
+		$resultID=mysql_query($queryID);
+		while ( $row = mysql_fetch_assoc($resultID) ){
+			$member[]= array( 'id' => $row['UserID'] );
 		}
 	}
 	
-	/*   $memberçš„è³‡æ–™æ ¼å¼
-		Array
-		(
-			[0] => Array
-				(
-					[name] => æ¥Šå­å¯¬
-					[id] => 100001446709549
-				)
+	/****	 2nd_part ¨ú±ouserID©³¤U·s·j´MÃöÁä¦r  ****/
 	
-			[1] => Array
-				(
-					[name] => Chen ShangYo
-					[id] => 100000211046486
-				)   
-		)
-	*/
+	$mem = count($member); //¸s²Õ¤H¼Æ
+	$new_data = array(); //©w¸q¬°·s·j´MªºÃöÁä¦r¸s
 	
-	$links = array(); 
+	/***   ¤À¬°¤wµn¿ý:¥¼µn¿ý   ***/
 	
-	if($_POST['sentOldData'] == '[]'){ 								//localstorage æ²’æœ‰ data	
-		for($h=0;$h<count($member);$h++){			
-			$links[$h][0]=array('COUNT'=> '0' , 'SEARCH_KEYWORD' => 'no_more_searching_process_data', 'FB_ID' => $member[$h]['id'] );
-		
-			$result=mysql_query("SELECT COUNT('SEARCH_KEYWORD') , SEARCH_KEYWORD , FB_ID FROM  `search_session` WHERE FB_ID = ".$member[$h]['id']." AND SEARCH_KEYWORD !=  '' AND G_ID='$groupid' GROUP BY SEARCH_KEYWORD  order by SEARCH_TIMESTAMP");
-			$a=0;		
-		
+	/**  ¥¼µn¿ý¹L, ¬G¨S¦³ÂÂªº·j´M¸ê®Æ  **/	
+	if($_POST['sentOldData'] == '[]'){		
+		for($h=0 ; $h<$mem ; ++$h){
+			/*   ±q¸ê®Æ®w¨ú±o©Ò¦³ÃöÁä¦r   */
+			$new_data[$h][0]=array('SEARCH_KEYWORD' => 'no_more_searching_process_data', 'FB_ID' => $member[$h]['id'] );		
+			$result=mysql_query("SELECT QueryKeyword , UserID 
+								 FROM `sessionlog` 
+								 WHERE UserID = ".$member[$h]['id']." AND QueryKeyword != '' AND GroupID='$groupid' 
+								 GROUP BY QueryKeyword 
+								 order by StartTimestamp");
+			$a=0;				
 			while ( $row = mysql_fetch_assoc($result) ){		
-				$links[$h][$a]=array('COUNT'=> $row["COUNT('SEARCH_KEYWORD')"] , 'SEARCH_KEYWORD' => $row['SEARCH_KEYWORD'], 'FB_ID' => $row['FB_ID'] );
-				$a=$a+1;
+				$new_data[$h][$a]=array('SEARCH_KEYWORD' => $row['QueryKeyword'], 'FB_ID' => $row['UserID'] );
+				++$a;
 			}			
 		}	
-	//echo 'phpé€²å…¥æ²’æœ‰è³‡æ–™çš„è¿´åœˆ';
 	}	
-	else{  															//localstorage æœ‰ data	
-		for($h=0;$h<count($member);$h++){		
-			$result_num=mysql_query("SELECT COUNT('SEARCH_KEYWORD') , SEARCH_KEYWORD , FB_ID FROM  `search_session` WHERE FB_ID = ".$member[$h]['id']." AND SEARCH_KEYWORD !=  '' AND G_ID='$groupid' GROUP BY SEARCH_KEYWORD  order by SEARCH_TIMESTAMP");
-			$all_num= mysql_num_rows($result_num);
+	/**  ¤wµn¿ý¹L, ¬G¦³ÂÂªº·j´M¸ê®Æ  **/
+	else{  						
+		for($h=0 ; $h<$mem ; ++$h){
 		
+			/*   ­pºâ­n¨ú±oªº·sÃöÁä¦r¼Æ¶q   */
+			$result_num=mysql_query("SELECT COUNT('QueryKeyword') , QueryKeyword , UserID 
+									 FROM  `sessionlog` WHERE UserID = ".$member[$h]['id']." AND QueryKeyword !=  '' AND GroupID='$groupid' 
+									 GROUP BY QueryKeyword  
+									 order by StartTimestamp");
+			$all_num= mysql_num_rows($result_num); //©Ò¦³ÃöÁä¦rªº¼Æ¶q(¥¼¬Ý¹L+¤w¬Ý¹L)
+			//¦pªG¥ý«e¬Ý¹LªºÃöÁä¦r¸s¬°0, «h¨ú¥þ³¡.
 			if($old_data[$h][0]->SEARCH_KEYWORD == 'no_more_searching_process_data')
-				$link_num_to_get = $all_num;
+				$new_data_num_to_get = $all_num;
+			//¦pªG¬Ý¹LªºÃöÁä¦r¼Æ¶qµ¥©ó©Ò¦³ÃöÁä¦r, «h¨ú0.
 			else if( ($all_num - count($old_data[$h]) )==0 )
-				$link_num_to_get = 0;
+				$new_data_num_to_get = 0;
+			//¨ä¾l³£­n°õ¦æ¬Û´î¨ú±o¥¼¬Ý¹LªºÃöÁä¦r¼Æ¶q
 			else 
-				$link_num_to_get = $all_num - count($old_data[$h]) +1;
-				
-			//echo $link_num_to_get;
-		
-			$links[$h][0]=array('COUNT'=> '0' , 'SEARCH_KEYWORD' => 'no_more_searching_process_data', 'FB_ID' => $member[$h]['id'] );
-		
-			$result=mysql_query("SELECT COUNT('SEARCH_KEYWORD') , SEARCH_KEYWORD , FB_ID FROM  `search_session` WHERE FB_ID = ".$member[$h]['id']." AND SEARCH_KEYWORD !=  '' AND G_ID='$groupid' GROUP BY SEARCH_KEYWORD  order by SEARCH_TIMESTAMP desc limit ".$link_num_to_get);
-			$a=0;		
-		
+				$new_data_num_to_get = $all_num - count($old_data[$h]) +1;	
+
+			/*   ±q¸ê®Æ®w¨ú±oÃöÁä¦r   */	
+			$new_data[$h][0]=array('SEARCH_KEYWORD' => 'no_more_searching_process_data', 'FB_ID' => $member[$h]['id'] );		
+			$result=mysql_query("SELECT QueryKeyword , UserID 
+								 FROM  `sessionlog` 
+								 WHERE UserID = ".$member[$h]['id']." AND QueryKeyword !=  '' AND GroupID='$groupid' 
+								 GROUP BY QueryKeyword  
+								 order by StartTimestamp desc 
+								 limit ".$new_data_num_to_get);
+			$a=0;			
 			while ( $row = mysql_fetch_assoc($result) ){		
-				$links[$h][$a]=array('COUNT'=> $row["COUNT('SEARCH_KEYWORD')"] , 'SEARCH_KEYWORD' => $row['SEARCH_KEYWORD'], 'FB_ID' => $row['FB_ID'] );
+				$new_data[$h][$a]=array('SEARCH_KEYWORD' => $row['QueryKeyword'], 'FB_ID' => $row['UserID'] );
 				$a=$a+1;
 			}			
-			$links[$h]=array_reverse($links[$h]);
-			
+			$new_data[$h]=array_reverse($new_data[$h]);			
 		}	
-	//echo 'phpé€²å…¥æœ‰è³‡æ–™çš„è¿´åœˆ';
-    }
-	
-	echo json_encode($links);
-	
-?>
+    }	
+	echo json_encode($new_data);
+?>	

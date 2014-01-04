@@ -1,4 +1,16 @@
 <?php	
+    /*
+	searchprocess_get_member.php(¥Ñget_member()¨ç¦¡ajax©I¥s)
+	   ¥Øªº: §ì¨ú¸s²Õ¤º©Ò¦³¦¨­û
+	   ¤èªk: ¨ú±o"group_member"¤ºG_ID¬°¥Ø«e¿ï¾Ü¸s²ÕªºFB_NAME,FB_ID
+			 ¿é¥X¦¨jsonª«¥ó
+	   »yªk: SELECT FB_NAME, FB_ID FROM group_member where G_ID='$groupid'
+	   ·sªº¸ê®Æ®w¤è¦¡: ¨ú±o"BelongsTo"¤ºGroupID¬°¥Ø«e¸s²ÕªºUserID 
+	                   ¥HUserID°µ¬°¬d¸ßUserInfoªºkey,¬d¸ß¨Ï¥ÎªÌªºFullName
+	   ·sªº»yªk: SELECT UserID FROM belongsto where GroupID='$groupid'
+				 SELECT FullName FROM userinfo where UserID= '$row['UserID']'
+    */	
+
 	if($_POST['sentgroupid']){	
 		$groupid=$_POST['sentgroupid'];
 	}
@@ -6,22 +18,26 @@
 		$groupid=1;
 	}
 	
-	// è³‡æ–™åº«åƒæ•¸  æŠ“å–ä½¿ç”¨è€…æ‰€è¼¸å…¥éŽçš„é—œéµå­—ä¾†åšæ¯”è¼ƒ
 	$dbhost = '127.0.0.1';
 	$dbuser = 'cosearch';
 	$dbpass = '1234567';
-	$dbname = 'collaborative_search';
+	$dbname = 'groupack';
 	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
 	
-
-	$u_word=" SELECT FB_NAME, FB_ID FROM group_member where G_ID= '$groupid'";
-	$GROUP_query=mysql_query($u_word);
-	while ( $row = mysql_fetch_assoc($GROUP_query)){
-		$member[]= array( 'name' => $row['FB_NAME'] , 'id' => $row['FB_ID'] );
+	$queryID=" SELECT UserID 
+			   FROM `belongsto` 
+			   where GroupID='$groupid' ";
+	$resultID=mysql_query($queryID);
+	while ( $row = mysql_fetch_assoc($resultID)){
+		$queryNAME=" SELECT FullName 
+					 FROM `userinfo` 
+					 where UserID= '$row[UserID]' ";
+		$resultName=mysql_query($queryNAME);
+		$name_arr=mysql_fetch_assoc($resultName);
+		$member[]= array( 'name' => $name_arr['FullName'] , 'id' => $row['UserID'] );
 	}
-
-	 echo json_encode($member);   
-		
+	//print_r($member);
+	echo json_encode($member);   		
 ?>	
