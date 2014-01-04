@@ -4,7 +4,7 @@ padding: 0px;
 margin: 0em auto 0em auto;
 position: absolute;
 top: 0px;
-z-index: 150;
+z-index: 301;
 min-height: 100%;
 border-right: 1px solid #CCC;
 text-align: center;
@@ -21,7 +21,7 @@ left: 0;
 right: 0;
 }
 .tag_area{
-z-index: 151;
+z-index: 301;
 height: 95%;
 width: 95%;
 display: inline-block;
