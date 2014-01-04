@@ -1,31 +1,25 @@
 <?php set_time_limit(0); error_reporting(E_ERROR);
 
-$dbhost = '127.0.0.1';
-$dbuser = 'cosearch';
-$dbpass = '1234567';
-$dbname = 'collaborative_search';
-$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Not connected: '.mysql_error());
-mysql_select_db($dbname, $connect) or die('Failed selecting: '.mysql_error());  
-mysql_set_charset('utf8') or die('Failed to set utf-8');
+require "../db/connect.php";
 
-$gid = $_POST['gid'];
+$gid = isset($_POST['gid']) ? $_POST['gid'] : die("No data transmitted");
 
 // 選取所有成員
-$sql = "SELECT FB_ID FROM group_member WHERE G_ID = '$gid' ";
-$result = mysql_query($sql) or die('MySQL failed: '.mysql_error()); 
+$sql = "SELECT UserID FROM belongsto WHERE GroupID = '$gid' ";
+$result = mysql_query($sql) or die('Invalid belongsto query: '.mysql_error()); 
 
 $members = array();
 while ($row = mysql_fetch_assoc($result)) {
-    $members[] = $row['FB_ID'];
+    $members[] = $row['UserID'];
 }
 
 $keywords = array();
 for ($i = 0; $i < count($members); $i++) {
     // 選取 topics
-    $sql = "SELECT DISTINCT `SEARCH_KEYWORD` FROM `browsing_log` WHERE FB_ID = '$members[$i]' AND G_ID = '$gid'";
-    $result = mysql_query($sql) or die('MySQL failed: '.mysql_error());
+    $sql = "SELECT DISTINCT QueryKeyword FROM sessionlog WHERE UserID = '$members[$i]' AND GroupID = '$gid'";
+    $result = mysql_query($sql) or die('Invalid sessionlog query : '.mysql_error().' '.$sql);
     while ($row = mysql_fetch_assoc($result)) {
-        $keywords[] = $row['SEARCH_KEYWORD'];    
+        $keywords[] = $row['QueryKeyword'];    
     }
 }
 
@@ -35,13 +29,17 @@ $topics = array();
 foreach ($keywords as $value) {
     
     // 隨機選擇網址
-    $r = mysql_query("SELECT count(*) FROM `browsing_log` WHERE `SEARCH_KEYWORD` = '$value' AND G_ID = '$gid'");
+    $query = "SELECT count(*) FROM sessionlog
+        WHERE QueryKeyword = '$value' AND GroupID = '$gid'";
+    $r = mysql_query($query) or die('Invalid query : '. mysql_error().'\n'. $query);
     $d = mysql_fetch_row($r);
     $rand = mt_rand(0,$d[0] - 1);
-    $r = mysql_query("SELECT `URL`,`SEARCH_KEYWORD` FROM `browsing_log` WHERE `SEARCH_KEYWORD` = '$value' AND G_ID = '$gid' LIMIT $rand, 1") or die('MySQL failed: '.mysql_error());
+    $query = "SELECT browsinglog.URL, sessionlog.QueryKeyword FROM browsinglog,sessionlog
+        WHERE sessionlog.QueryKeyword = '$value' AND sessionlog.GroupID = '$gid' LIMIT $rand, 1";
+    $r = mysql_query($query) or die('Invalid query : '.mysql_error() . '\n'. $query);
     
     while ($row = mysql_fetch_assoc($r)) {
-         $topics[] = array( 'url' => $row['URL'] , 'topic' => $row['SEARCH_KEYWORD'] );    
+         $topics[] = array( 'url' => $row['URL'] , 'topic' => $row['QueryKeyword'] );    
     }
     
 }

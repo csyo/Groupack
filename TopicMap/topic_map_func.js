@@ -139,7 +139,7 @@ $(document).ready(function(e){
 	    function get_search_topics(){  
 	        var group_ID = localStorage.group_selected; 
 			$.ajax({         
-			url: 'http://chding.es.ncku.edu.tw/Groupack/TopicMap/getSearchTopic.php',         
+			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/r_getSearchTopic.php',         
 			cache: false,         
 			dataType: 'html',     
 			type: 'POST',        
@@ -167,7 +167,7 @@ $(document).ready(function(e){
 		    var group_ID = localStorage.group_selected;   //假設groupID 已被存入localstorage G_ID
 			var my_ID = localStorage.FB_id;
 			$.ajax({         
-			url: 'http://chding.es.ncku.edu.tw/Groupack/TopicMap/get_Topicmembers.php',         
+			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/r_get_Topicmembers.php',         
 			cache: false,         
 			dataType: 'html',     
 			type: 'POST',         
@@ -185,7 +185,6 @@ $(document).ready(function(e){
 				alert('Ajax request 發生錯誤');         
 			},         
 			success: function(response){
-				var gmembers = JSON.parse( response ); 
 				localStorage.setItem("topic_members",response);
 			}     
 		}); 	
@@ -195,7 +194,7 @@ $(document).ready(function(e){
 	        var group_ID = localStorage.group_selected;   //假設groupID 已被存入localstorage G_ID
 			var Topic = localStorage.TopicMap_NodesTopic;
 			$.ajax({         
-			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/getTopicsImportance.php',         
+			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/r_getTopicsImportance.php',         
 			cache: false,         
 			dataType: 'html',     
 			type: 'POST',       
@@ -214,7 +213,6 @@ $(document).ready(function(e){
 			},         
 			success: function(response){
 				localStorage.setItem( 'topics_importance', response );
-				console.log(JSON.parse( response ));
 			}     
 		});	
 	    }  		
@@ -226,7 +224,7 @@ $(document).ready(function(e){
 			***										**/
 			var group_ID = localStorage.group_selected;
 			$.ajax({
-				url: 'pscws4/getSim.php',
+				url: 'TopicSim/getSim.php',
 				cache: false,
 				dataType: 'html',
 				type: 'POST',

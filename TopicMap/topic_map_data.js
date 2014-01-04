@@ -9,16 +9,15 @@
 			*********註:自己:ID_dic[0]  群組其他成員:ID_dic[1]~[n]**********
 			***************************************************************/
 			
-		    var friendsJson = localStorage.getItem( 'topic_members' );    
+		    var friendsJson = localStorage.topic_members;    
 			friends =[];
             friends= JSON.parse( friendsJson );//global
-						
+
 			ID_dic=[];//global
 			ID_dic[0] =  localStorage.FB_id ;
-			
-			
+						
 			for(var i=0;i<friends.length;i++){ 
-                ID_dic[i+1]=friends[i].FB_id;   	 
+                ID_dic[i+1]=friends[i].id;   	 
 			}
 			
 			/**    自己:       localStorage.FB_id
@@ -53,9 +52,8 @@
 			
 			//群組其他成員	
 			friends = JSON.parse( friendsJson );    	
-			
 			for(var i=0;i<friends.length;i++){
-			var friends_pic = '<a class="user_pic_for_topicmap" id="' + friends[i].FB_id + '"title="' + friends[i].FB_name +'"><img class="pics_for_fb data_on" style="border-style:solid; border-color:'+color[i+1]+';" src="https://graph.facebook.com/' + friends[i].FB_id + '/picture" width="40px"></a>';
+			var friends_pic = '<a class="user_pic_for_topicmap" id="' + friends[i].id + '"title="' + friends[i].name +'"><img class="pics_for_fb data_on" style="border-style:solid; border-color:'+color[i+1]+';" src="https://graph.facebook.com/' + friends[i].id + '/picture" width="40px"></a>';
 			$('#user_nav_for_topicmap').append( friends_pic );
 			}
 		}			
@@ -215,8 +213,9 @@
 			**************註:1表示user有下過該topic ;0則相反****************
 			***************************************************************/
 			
-			var user_topicJSON = localStorage.m_topics;                  
+			var user_topicJSON = localStorage.m_topics;      		
             var user_topic= JSON.parse( user_topicJSON );
+			console.log(ID_dic);
 			users_arr = new Array(topics.length);  //global
 			for(var y=0; y< topics.length ; y++){
 			    users_arr[y] = new Array(ID_dic.length); 

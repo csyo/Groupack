@@ -3,14 +3,14 @@
 	$dbhost = '127.0.0.1';
 	$dbuser = 'cosearch';
 	$dbpass = '1234567';
-	$dbname = 'collaborative_search';
+	$dbname = 'groupack';
 	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
 	
 	//取得groupID
 	$Group_ID = $_POST['sendgroup_ID'];
-		
+	
 	//取得group裏所有成員的ID
 	$queryUser="SELECT UserID 
 		  FROM `belongsto` 

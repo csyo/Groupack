@@ -7,7 +7,7 @@
 	$dbhost = '127.0.0.1';
 	$dbuser = 'cosearch';
 	$dbpass = '1234567';
-	$dbname = 'collaborative_search';
+	$dbname = 'groupack';
 	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
@@ -22,9 +22,9 @@
 		  Group by GroupID , QueryKeyword";
 	
 	$resultTime=mysql_query($quertTime);	
-	while ($row = mysql_fetch_assoc($resultTime)) {
-	     $data[]= array('topic' => $row['QueryKeyword'],
-						'importance' => $row['sum( UNIX_TIMESTAMP(`EndTimestamp`) - UNIX_TIMESTAMP(`StartTimestamp`)']);	
+	while ($row = mysql_fetch_row($resultTime)) {
+	     $data[]= array('topic' => $row[0],
+						'importance' => $row[1]);	
 	}
 	$data = filter($data,$Topic_key);
 	$data = sort_arr($data,$Topic_key);

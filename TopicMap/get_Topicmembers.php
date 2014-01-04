@@ -12,10 +12,8 @@
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
 	
-	
 	$Group_ID = $_POST['sendgroup_ID'];
 	$userID = $_POST['sendmy_id'];
-	
 	
 	$str00="SELECT FB_ID,FB_NAME FROM `group_member` WHERE G_ID = '$Group_ID' AND FB_ID != '$userID'";
     $result00=mysql_query($str00);
