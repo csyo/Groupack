@@ -1,5 +1,5 @@
 function draw_map(){
-
+	
 	var links = link;
 
 	var nodes = {};
