@@ -1,27 +1,33 @@
 <?php
     /*
-	   ¨ú±ogroup¦¨­û(Topic map) ¦]¬°ÁÙ¦b­×§ï¨ä±`±`·|§ì¤£­Ë¦¨­û ©Ò¥H¼È®É»Ý­n¦s¦b
+	   å–å¾—groupæˆå“¡(Topic map) å› ç‚ºé‚„åœ¨ä¿®æ”¹å…¶å¸¸å¸¸æœƒæŠ“ä¸å€’æˆå“¡ æ‰€ä»¥æš«æ™‚éœ€è¦å­˜åœ¨
     */
 	  
-	// ¸ê®Æ®w°Ñ¼Æ
+	// è³‡æ–™åº«åƒæ•¸
 	$dbhost = '127.0.0.1';
 	$dbuser = 'cosearch';
 	$dbpass = '1234567';
-	$dbname = 'collaborative_search';
+	$dbname = 'groupack';
 	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
-	
+		
 	$Group_ID = $_POST['sendgroup_ID'];
-	$userID = $_POST['sendmy_id'];
-	
-	$str00="SELECT FB_ID,FB_NAME FROM `group_member` WHERE G_ID = '$Group_ID' AND FB_ID != '$userID'";
-    $result00=mysql_query($str00);
-	
-	while ($row = mysql_fetch_assoc($result00)) {
-	    $g_member[]= array('FB_id' => $row['FB_ID'],'FB_name'=>$row['FB_NAME']); //¤@ºû°}¦C °}¦C¸Ì¦sªº¬Oª«¥ó
-		}
-   
-	echo json_encode($g_member);
+	$userID = $_POST['sendmy_id'];	
     
+	$queryID=" SELECT UserID
+			   FROM `belongsto` 
+			   WHERE GroupID =  '$Group_ID' AND UserID !=  '$userID' ";   
+	$resultID=mysql_query($queryID);
+	while ( $row = mysql_fetch_assoc($resultID) ){
+		//echo $row[UserID];
+		$queryNAME=" SELECT FullName 
+					 FROM `userinfo` 
+					 where UserID= '$row[UserID]' ";
+		$resultName=mysql_query($queryNAME);
+		$name=mysql_fetch_assoc($resultName);
+		$member[]= array( 'name' => $name['FullName'] , 'id' => $row['UserID'] );
+	}
+	//print_r($member);
+	echo json_encode($member);   	   
 ?>

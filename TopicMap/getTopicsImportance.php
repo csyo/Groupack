@@ -1,13 +1,13 @@
 <?php
-    /*¥ı±q`gropup member`¨ú±oG_ID©³¤UªºFB_ID 
-	  ¦Ó«á±q`browsing log`©³¤U§ìurl(where FB_ID & SEARCHKEYWORD)
-	  µM«á¦A±q`search result`¨ú±ourlªºsummary */
+    /*å…ˆå¾`gropup member`å–å¾—G_IDåº•ä¸‹çš„FB_ID 
+	  è€Œå¾Œå¾`browsing log`åº•ä¸‹æŠ“url(where FB_ID & SEARCHKEYWORD)
+	  ç„¶å¾Œå†å¾`search result`å–å¾—urlçš„summary */
 	  
-	// ¸ê®Æ®w°Ñ¼Æ
+	// è³‡æ–™åº«åƒæ•¸
 	$dbhost = '127.0.0.1';
 	$dbuser = 'cosearch';
 	$dbpass = '1234567';
-	$dbname = 'collaborative_search';
+	$dbname = 'groupack';
 	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
 	mysql_select_db($dbname, $connect);  
 	mysql_query("SET NAMES 'utf8'"); 
@@ -16,20 +16,20 @@
 	$Topic = json_decode($_POST['sendtopic']);
 	$Topic_key = array_flip($Topic);
 	
-	$str="SELECT SEARCH_KEYWORD, sum(TIME_INTERVAL) 
-		  FROM `search_session` 
-		  WHERE G_ID='$Group_ID' 
-		  Group by G_ID , SEARCH_KEYWORD";
+	$quertTime="SELECT QueryKeyword, sum( UNIX_TIMESTAMP(`EndTimestamp`) - UNIX_TIMESTAMP(`StartTimestamp`)) 
+		  FROM `sessionlog` 
+		  WHERE GroupID='$Group_ID' 
+		  Group by GroupID , QueryKeyword";
 	
-	$result=mysql_query($str);	
-	while ($row = mysql_fetch_assoc($result)) {
-	     $data[]= array('topic' => $row['SEARCH_KEYWORD'],
-						'importance' => $row['sum(TIME_INTERVAL)']);	
+	$resultTime=mysql_query($quertTime);	
+	while ($row = mysql_fetch_row($resultTime)) {
+	     $data[]= array('topic' => $row[0],
+						'importance' => $row[1]);	
 	}
 	$data = filter($data,$Topic_key);
 	$data = sort_arr($data,$Topic_key);
 	
-	/* ®Ú¾Úclientºİ¶Ç¨Óªº$Topic¹LÂoÃöÁä¦r¸s */
+	/* æ ¹æ“šclientç«¯å‚³ä¾†çš„$Topicéæ¿¾é—œéµå­—ç¾¤ */
 	function filter($data_arr,$Topic_key_arr){
 		$output_arr = array();
 		$length = count($data_arr);
@@ -39,7 +39,7 @@
 		}
 		return $output_arr;		
 	}
-	/* Åı$data®Ú¾Úclientºİ¶Ç¨Óªº$Topic¶i¦æ±Æ§Ç */
+	/* è®“$dataæ ¹æ“šclientç«¯å‚³ä¾†çš„$Topicé€²è¡Œæ’åº */
 	function sort_arr($data_arr, $key_arr){
 		$output_arr = $data_arr;
 		$data_length = count($data_arr);

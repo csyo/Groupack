@@ -139,7 +139,7 @@ $(document).ready(function(e){
 	    function get_search_topics(){  
 	        var group_ID = localStorage.group_selected; 
 			$.ajax({         
-			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/r_getSearchTopic.php',         
+			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/getSearchTopic.php',         
 			cache: false,         
 			dataType: 'html',     
 			type: 'POST',        
@@ -167,7 +167,7 @@ $(document).ready(function(e){
 		    var group_ID = localStorage.group_selected;   //假設groupID 已被存入localstorage G_ID
 			var my_ID = localStorage.FB_id;
 			$.ajax({         
-			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/r_get_Topicmembers.php',         
+			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/get_Topicmembers.php',         
 			cache: false,         
 			dataType: 'html',     
 			type: 'POST',         
@@ -194,7 +194,7 @@ $(document).ready(function(e){
 	        var group_ID = localStorage.group_selected;   //假設groupID 已被存入localstorage G_ID
 			var Topic = localStorage.TopicMap_NodesTopic;
 			$.ajax({         
-			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/r_getTopicsImportance.php',         
+			url: 'http://chding.es.ncku.edu.tw/Groupack_new/TopicMap/getTopicsImportance.php',         
 			cache: false,         
 			dataType: 'html',     
 			type: 'POST',       
