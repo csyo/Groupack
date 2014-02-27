@@ -1,4 +1,32 @@
-$(function(){  // 瀏覽器窗口大小改變
+/* global FB: false, $: false, console: false */
+'use strict';
+window.fbAsyncInit = function() {
+    FB.init({
+        appId: '282881761865946',
+        status: true,
+        cookie: true, // enable cookies to allow the server to access the session
+        xfbml: false
+    });
+
+    FB.Event.subscribe('auth.authResponseChange', function(response) {
+        if (response.status === 'connected') {
+            console.log('welcome back');
+            console.log('this message means you alread authorized to our app.');
+        } else { // if (response.status === 'not_authorized') {
+            fblogin();
+        }
+    });
+};
+// Load the SDK asynchronously
+(function(d){
+var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+if (d.getElementById(id)) {return;}
+js = d.createElement('script'); js.id = id; js.async = true;
+js.src = "//connect.facebook.net/en_US/all/debug.js";
+ref.parentNode.insertBefore(js, ref);
+}(document));
+// 瀏覽器窗口大小改變
+$(function(){  
 	$(window).resize(function(){
 		var a = $('#FeatureWrapper').hasClass('Feature_on');
 		if( window.matchMedia('(max-width:600px)').matches ){  //手機
@@ -131,7 +159,6 @@ function Initial(){  // groupack 首頁 初始化
 	}
 }
 function oplogin(){  // facebook api 初始化
-	FB.init({ appId: '711866978838967', status: true, cookie: true, xfbml: true, channelUrl: './library/channel.html' });
 	// appid請去FB申請應用程式
 	fbstatus();
 	$('#InputWrapper').show();

@@ -29,19 +29,28 @@ $topics = array();
 foreach ($keywords as $value) {
     
     // 隨機選擇網址
-    $query = "SELECT count(*) FROM sessionlog
-        WHERE QueryKeyword = '$value' AND GroupID = '$gid'";
-    $r = mysql_query($query) or die('Invalid query : '. mysql_error().'\n'. $query);
+    $query = "SELECT count(*) FROM browsinglog, sessionlog
+        WHERE sessionlog.QueryKeyword = '$value'
+        AND sessionlog.GroupID = '$gid'
+        AND sessionlog.SID = browsinglog.SID";
+    $r = mysql_query($query) or die('Invalid query : '. mysql_error()."\n". $query);
     $d = mysql_fetch_row($r);
-    $rand = mt_rand(0,$d[0] - 1);
-    $query = "SELECT browsinglog.URL, sessionlog.QueryKeyword FROM browsinglog,sessionlog
-        WHERE sessionlog.QueryKeyword = '$value' AND sessionlog.GroupID = '$gid' LIMIT $rand, 1";
-    $r = mysql_query($query) or die('Invalid query : '.mysql_error() . '\n'. $query);
-    
+    $rand = $d[0] == 0 ? 1 : mt_rand(0,$d[0] - 1); // 防止 0 row 
+    $query = "SELECT browsinglog.URL, sessionlog.QueryKeyword, searchresult.LongURL
+        FROM browsinglog, sessionlog, searchresult
+        WHERE sessionlog.SID = browsinglog.SID
+        AND browsinglog.URL = searchresult.URL
+        AND sessionlog.QueryKeyword = '$value'
+        AND sessionlog.GroupID = '$gid'
+        LIMIT $rand, 1";
+    $r = mysql_query($query) or die('Invalid query : '.mysql_error() . "\n". $query);
     while ($row = mysql_fetch_assoc($r)) {
-         $topics[] = array( 'url' => $row['URL'] , 'topic' => $row['QueryKeyword'] );    
-    }
-    
+        if( $row['LongURL'] == null )
+         $topics[] = array( 'url' => $row['URL'] , 'topic' => $row['QueryKeyword'] );
+        else
+         $topics[] = array( 'url' => $row['LongURL'] , 'topic' => $row['QueryKeyword'] );
+
+    }    
 }
 
 require "multi_curl.php";
@@ -103,7 +112,7 @@ foreach ($pair as $num => &$data_array) {
     $words = array();
     foreach ($data as $array)
         $words[] = $array['word'];
-    $words = array_unique($words);  // print("<pre>".print_r($words,true)."</pre>");
+    $words = array_unique($words);   // print("<pre>".print_r($words,true)."</pre>");
     
     $idf = array();
     // 找出詞彙的權重

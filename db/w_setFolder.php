@@ -22,7 +22,7 @@
             mysql_real_escape_string($_POST['fbid']));
         mysql_query($query) or die('Invalid query 1: ' . mysql_error());
     
-        echo "New Folder: ".$fname." (".$fid.") of Workspace: ".$wid." created by ".$fbid.".";
+        echo "New Folder: ".$fname." (".$fid.") of Workspace: ".$wid." created by ".$_POST['fbid'].".";
     } else {
         // 更新
         $query = sprintf( "UPDATE folderinfo SET FolderName = '%s', FolderComment = '%s'
