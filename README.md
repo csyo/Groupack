@@ -1,2 +1,3 @@
 Groupack
 ========
+Groupack = Group + Pack.
