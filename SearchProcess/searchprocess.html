@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+<link rel="stylesheet" href="searchprocess.css">
+<link rel="stylesheet" href="../css/Setfont.css">
+<link rel="shortcut icon" type="image/x-icon" href="../Image/groupack_logo.ico"/>
+<link rel="Bookmark" type="image/x-icon"  href="../Image/groupack_logo.ico"/> 
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<script src="../library/jquery-2.1.0.min.js"></script>
+<script src="./searchprocess_func.js"></script>
+<script src="./searchprocess_draw.js"></script>
+<title>個人搜尋歷程</title>
+</head>
+
+<body>
+<div id="fiexd_header">
+	<div id="headNav">	
+		<table>
+			<tbody>
+				<tr>
+					<td align="left" class="left">
+						<div class="left_area">
+							<a id="_back" title="Back"></a>
+							<div class="left_back">	
+								<div class="_back">&nbsp; 返回</div>	
+							</div>	
+						</div>
+					</td>
+					<td align="center" class="center">Search Process</td>
+					<td align="right" class="right">
+						<div class="right_slider">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="wrapper">
+	<div class="container">	  
+		<div id='outside_wrapper'>
+			<ul id='search_process_map'></ul>
+		</div>
+	</div>
+</div>
+<script>	
+    /**  主要架構: 
+	     取得資料 [Data 已瀏覽過 old_data ; 未瀏覽過 new_data ] [Function(定義在searchprocess_func.js) get_old_data(); get_new_data(); get_member(); ]
+	 =>  資料處理 [Data 要放置入目前圖中的資料 link ;] [Function(定義在searchprocess.html) combine_two_data(); clear_the_data(); add_data_to_link(); add_user_to_link(); slice_the_data(); ]
+	 =>  畫圖     [Function(定義在searchprocess_draw.js) draw_map(); ]
+	**/	
+	if(localStorage.group_selected==null){		
+		alert('請先選擇群組');
+		window.location.href = '../index.html';
+	}
+	//資料處理
+	else{
+		/**************************
+		         宣告變數
+		**************************/
+		
+		var new_data =[]; //定義為使用者尚未瀏覽過的關鍵字群。(由伺服器資料庫取得資料)
+		var old_data =[]; //定義為使用者已瀏覽過的關鍵字群。(由伺服器底下的Search_Process_Old_Data資料夾下txt檔取得資料)
+		var all_data =[]; //定義為old_data加上new_data=>使用者下次登入時為已瀏覽過的資料
+		var json_old_data; //定義為已瀏覽過的關鍵字群
+		var	group_member =[]; 
+		/** group_member
+			[{id: '100001446709549', name: '楊子寬'},
+			 {id: '100000211046486', name: 'Chen ShangYo'}]
+		**/		
+		var	link = []; //global
+		
+		get_member(); 
+		get_old_data();	//取得Search_Process_Old_Data資料夾下的txt檔(已瀏覽過的關鍵字群)
+		get_new_data(); //從資料庫抓取新搜尋的關鍵字群(未瀏覽過的關鍵字群)
+		
+		
+		
+		var new_type_prototype = ["#0300FA","#7100DC","#00DC03","#DC0300","#FA8000","#DC006B","#DC00D9","#F7FA00","#7AFA00","#00DC71","#00F7FA","#006BDC"];	
+		/** new_type_prototype
+			顯示的顏色: new_type_prototype: 深色系(用來尚未看過的) ;
+		**/
+		var old_type_prototype = ["#9291FF","#C991FF","#AFFFB0","#FF9291","#FFC991","#FF91C7","#FFAFFE","#FEFFAF","#C7FF91","#91FFC9","#91FEFF","#91C7FF"];
+		/** old_type_prototype
+			顯示的顏色: old_type_prototype: 淡色系(用來表之前看過) ;
+		**/		
+		var new_type = type_constructor(new_type_prototype, group_member);
+		var old_type = type_constructor(old_type_prototype, group_member);	
+		var type = new_type.concat(old_type);
+	
+		/***資料處理的流程 Start; (將流程區分為兩部分 曾登錄過:未曾登錄過)***/
+			
+		if(json_old_data.length!=0){			
+		//使用者已登入過瀏覽歷程，故需要輸入舊資料。			
+			/**add_data_to_link prepare**/
+		    
+			/*old_data*/
+			
+			old_data = JSON.parse( json_old_data );
+			var show_old_data = JSON.parse(JSON.stringify(old_data));			
+			clear_the_data(show_old_data);			
+		    slice_the_data(show_old_data, 3);			
+			add_data_to_link(show_old_data, old_type);
+			
+			/*new_data*/	
+			
+			clear_the_data(new_data);			
+			add_data_to_link(new_data, new_type);		
+			
+		    /*old_data結合new_data*/			
+		    
+			var show_all_data = combine_two_data(show_old_data, new_data, group_member);	
+			add_user_to_link(group_member, show_all_data, old_type);
+			
+			/**add_data_to_link complete**/
+	
+			/**set_old_data_to_server prepare**/
+			
+			clear_the_data(old_data);
+			//因為新data會重複到old_data 1個
+			for(var i=0;i<new_data.length;i++){
+				if(old_data[i].length != 0 && new_data[i].length != 1 )
+					new_data[i].shift();
+			}						
+			all_data = combine_two_data(old_data, new_data, group_member);		
+			var all_data_JSON = JSON.stringify(all_data);
+			localStorage.setItem( 'search_process_data_for_'+localStorage.group_selected , all_data_JSON );		
+			set_old_data();//將資料從LocalStorage傳到伺服器
+			/**set_old_data_to_server complete**/
+		
+		}
+		else{	
+	    //使用者尚未登入過瀏覽歷程，故沒有舊資料(已瀏覽過的資料)		
+			/**add_data_to_link prepare**/		
+			
+			/*new_data*/
+		
+		    var show_new_data = JSON.parse(JSON.stringify(new_data));
+			slice_the_data(show_new_data, 10);
+			add_data_to_link(show_new_data, new_type);
+			all_data = new_data;
+			add_user_to_link(group_member, show_new_data, new_type);
+			
+			/**add_data_to_link complete**/
+			
+			/**set_old_data_to_server prepare**/			
+			
+			var first_time_data_JSON = JSON.stringify(new_data);
+			localStorage.setItem( 'search_process_data_for_'+localStorage.group_selected , first_time_data_JSON );
+			set_old_data();//將資料從LocalStorage傳到伺服器
+			/**set_old_data_to_server complete**/
+		}
+		
+		/***資料處理的流程 End; (將流程區分為兩部分 曾登錄過:未曾登錄過)***/
+		
+		draw_map();
+		
+		/**************************
+		  宣告常用的資料處理函式
+		**************************/
+		function type_constructor(type_prototype, user){
+			var output_arr=[];
+			var user_num = user.length;
+			while( (user_num -= 12) >=0 ){
+				output_arr = output_arr.concat(type_prototype); 
+			}		
+			output_arr = output_arr.concat( type_prototype.slice(0,user_num) );
+			return output_arr;
+		}
+		/** type_constructor()
+			依據人數與prototype產生type
+		**/
+		
+		
+		function combine_two_data(data_arr1, data_arr2, user){
+			var new_data_arr =[];
+			for( var i=-1, n = user.length ; ++i<n ;){
+				if( data_arr1[i].length == 0 && data_arr2[i].length ==0 ){
+					new_data_arr[i] = [];
+					new_data_arr[i].push({
+						COUNT : 0, 
+						FB_ID : user[i].id,
+						SEARCH_KEYWORD : 'no_more_searching_process_data'
+					});
+				}
+				else
+					new_data_arr[i] = data_arr1[i].concat( data_arr2[i] );	
+			}
+			return new_data_arr;
+		}		
+		/**
+		combine_two_data()
+		結合兩個資料(OldData&NewData)，顯示資料或是儲存資料時，為了保持資料的完整，若發現兩者資料陣列為空，替新陣列加上'no_more_searching_process_data'。		
+		Input:	data1=[[],
+					  ["car","bike","boat"],
+					  ["a","b"]];
+				data2=[[],
+					  ["bus","train"],
+					  []];	  
+		Output: new_data=["no_more_searching_process_data"],
+						 ["car","bike","boat","bus","train"],
+					     ["a","b"]];
+		**/		
+		
+		function clear_the_data(data_arr){ 
+			for( var i=-1, n = data_arr.length ; ++i<n ;){
+				if(data_arr[i][0].SEARCH_KEYWORD == 'no_more_searching_process_data')
+					data_arr[i]=[];
+			}		
+			return data_arr;
+		}
+		/**
+		clear_the_data()
+		資料結合時，將有'no_more_searching_process_data'的陣列，轉回為空陣列。
+		Input:	data=[["car","bike","boat","bus","train"],
+					  ["no_more_searching_process_data"],
+					  ["a","b"]];
+		Output:	data=[["car","bike","boat","bus","train"],
+					  [],
+					  ["a","b"]];  	
+		**/			
+		
+		function add_data_to_link(data_arr, data_type){
+			for( var i=-1, n = data_arr.length ; ++i<n ;){
+				if(data_arr[i].length!=0){
+					for( var j=-1 , m = data_arr[i].length-1 ; ++j<m ;){
+						link.push({
+							source: data_arr[i][j].SEARCH_KEYWORD,
+							target: data_arr[i][j+1].SEARCH_KEYWORD,
+							type: data_type[i]
+						});
+					}
+				}	
+			}
+			return link;
+		}
+		/** 
+		add_data_to_link()
+		將關鍵字的資料加入為link
+		Input:	data=[["1","2","3","4"],
+					  ["a","b"]];
+		Output: link= [{1->2},{2->3},{3->4},{a->b}]  	
+		**/
+		
+		function add_user_to_link(user, data_arr, data_type){
+			for( var i=-1, n = user.length ; ++i<n; ){
+				link.push({
+					source: user[i].name,
+					target: data_arr[i][0].SEARCH_KEYWORD,
+					type: data_type[i]
+				});
+			}
+			return link;
+		}
+		/**
+		add_user_to_link()
+		將群組成員的的資料加入為link, 將使用者與搜尋資料連結上
+		Input: user =["張家誠","陳尚佑","王梓憲"]
+			   data_arr =[["美食","成大育樂街","88燒仙草"],
+						  ["html5","jquery","javascript"],
+						  ["工科系","資訊系","中文系","地科系"]]
+		Output: link= [{張家誠->美食},{陳尚佑->html5},{王梓憲->工科系}]  	
+		**/		
+		
+		function slice_the_data(data_arr, number){		
+			for( var i=-1, n = data_arr.length ; ++i<n; ){
+				if( data_arr[i].length<=number )
+					continue;
+				var start = data_arr[i].length-number;
+				var end = data_arr[i].length;
+				data_arr[i] = data_arr[i].slice(start,end);
+			}
+			return data_arr;
+		}
+		/** 
+		slice_the_data()
+		避免資料列太長，只取得資料陣列之第二為陣列的後幾個，即取得最近的幾個關鍵字 
+		Input:	data=[["apple","orange","Lemon", "Apple", "Mango"],
+					  ["car","bike","boat","bus","train"],
+					  ["1","2","3","4"],
+					  ["a","b"]];
+		執行 slice_the_data(data, 3);
+		Output:	data=[["Lemon", "Apple", "Mango"],
+					  ["boat","bus","train"],
+					  ["2","3","4"],
+					  ["a","b"]];	  	
+		**/
+		
+	}
+</script>
+</body>
+</html>
