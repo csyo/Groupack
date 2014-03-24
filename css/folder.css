@@ -1,0 +1,227 @@
+@media screen and (min-width: 981px){
+.workspace_four_column {
+position: relative;
+float: left;
+width: 29.333333333333333333333333333333333333333333%;
+margin: 10px 2% 10px 2%;
+text-align: center;
+}
+.workspace_folders:hover{
+opacity: 0.6;
+}
+}
+@media screen and (min-width: 601px) and (max-width: 980px){
+.workspace_four_column {
+position: relative;
+float: left;
+width: 46%;
+margin: 10px 2% 10px 2%;
+text-align: center;
+}
+}
+@media screen and (max-width: 600px){
+.workspace_four_column {
+position: relative;
+float: left;
+width: 96%;
+margin: 10px 2% 10px 2%;
+text-align: center;
+}
+}
+.workspace_folder_title_inf{
+position: relative;
+float: left;
+margin: 0 1%;
+width: 98%;
+text-align: left;
+overflow: hidden;
+color: rgb(0, 82, 255);
+display: table;
+font-size: 18px;
+line-height: 22px;
+height: 60%;
+}
+.workspace_folder_title_inf_text{
+position: relative;
+padding: 5% 2%;
+display: table-cell;
+vertical-align: middle;
+border-bottom: 1px solid #CCC;
+}
+.workspace_folder_comment_inf{
+position: relative;
+float: left;
+margin: 0 1%;
+width: 98%;
+height: 40%;
+text-align: left;
+overflow: hidden;
+color: #666;
+display: table;
+font-size: 14px;
+line-height: 20px;
+}
+.workspace_folder_comment_inf_text{
+position: relative;
+width: 100%;
+height: 100%;
+overflow: hidden;
+}
+.workspace_folders_title{
+position: relative;
+width: 20%;
+float: left;
+margin: 0 0 0 5px;
+text-align: center;
+line-height: 30px;
+background-color: yellow;
+padding: 0 10px;
+border-radius: 10px 10px 0 0;
+cursor: pointer;
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+}
+.workspace_folders_manager_area{
+display: none;
+background: #fff;
+border: 1px solid #ccc;
+cursor: default;
+font-size: 13px;
+margin: 0;
+outline: none;
+padding: 6px 0;
+position: absolute;
+z-index: 5;
+top: 15px;
+right: 15px;
+box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+-webkit-box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+-moz-box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+-o-box-shadow: 1px 1px 20px rgba(0,0,0,.4);
+border-radius: 3px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+-o-border-radius: 3px;
+-webkit-transition: opacity .218s;
+-moz-transition: opacity .218s;
+-o-transition: opacity .218s;
+-ms-transition: opacity .218s;
+transition: opacity .218s;
+}
+.workspace_folders_manager_addcard{
+position: relative;
+line-height: 30px;
+cursor: pointer;
+width: 150px;
+text-align: center;
+color: #333;
+background: white;
+margin: 2px 0;
+border-bottom: 1px solid;
+border-top: 1px solid;
+border-color: white;
+}
+.workspace_folders_manager_addcard a{
+width: 100%;
+height: 30px;
+position: absolute;
+left: 0;
+z-index: 10;
+}
+.workspace_folders_manager_addcard_icon{
+position: relative;
+line-height: 30px;
+width: 30%;
+background-image: url('../Image/add_01.png');
+opacity: 0.4;
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+height: 30px;
+}
+.workspace_folders_manager_addcard_text{
+position: absolute;
+line-height: 30px;
+width: 70%;
+top: 0;
+left: 30%;
+}
+.workspace_folders_manager_modifyfolder{
+position: relative;
+line-height: 30px;
+cursor: pointer;
+width: 150px;
+text-align: center;
+color: #333;
+background: white;
+margin: 2px 0;
+border-bottom: 1px solid;
+border-top: 1px solid;
+border-color: white;
+}
+.workspace_folders_manager_modifyfolder  a{
+width: 100%;
+height: 30px;
+position: absolute;
+left: 0;
+z-index: 10;
+}
+.workspace_folders_manager_modifyfolder_icon{
+position: relative;
+line-height: 30px;
+width: 30%;
+background-image: url('../Image/modify.png');
+opacity: 0.6;
+background-repeat: no-repeat;
+background-size: 40%;
+background-position: 50% 50%;
+height: 30px;
+}
+.workspace_folders_manager_modifyfolder_text{
+position: absolute;
+line-height: 30px;
+width: 70%;
+top: 0;
+left: 30%;
+}
+.workspace_folder_area{
+position: absolute;
+width: 100%;
+height: 100%;
+left: 0;
+z-index: 4;
+}
+.workspace_folders_title_icon{
+position: absolute;
+width: 30px;
+height: 30px;
+right: 0;
+cursor: pointer;
+float: right;
+z-index: 5;
+opacity: 0.6;
+}
+.f_engine{
+background: no-repeat url('../Image/engine.png');
+background-position: 50% 50%;
+background-size: 80%;
+}
+.workspace_folders{
+border-radius: 10px;
+position: relative;
+float: left;
+margin: 0;
+width: 100%;
+height: 160px;
+background-color: yellow;
+text-align: center;
+-webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+-o-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
+overflow-y: hidden;
+cursor: pointer;
+font-weight: bold;
+}

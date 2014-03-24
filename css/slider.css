@@ -1,0 +1,220 @@
+#slider_background{
+z-index: 300;
+background: rgba(0, 0, 0, 0.5);
+opacity: 0.5;
+padding: 0px;
+margin: 0;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+}
+#slider_background > div{
+z-index: 301;
+width: 100%;
+position: absolute;
+top: 0px;
+right: 0;
+height: 44px;
+padding: 0;
+margin: 0;
+}
+.slider_background_area{
+background: #006BDC;
+z-index: 151;
+width: 50px;
+height: 100%;
+position: relative;
+float: right;
+}
+.slider_background_area div{
+height: 100%;
+width: 50px;
+background-image: url('../Image/slider.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+position: relative;
+}
+#showtopicmap,
+#showSearchProcess,
+#showtodolist,
+#account{
+height: 100%;
+position: absolute;
+width: 100%;
+line-height: 44px;
+z-index: 201;
+}
+#showtag{
+height: 100%;
+position: absolute;
+width: 100%;
+line-height: 44px;
+z-index: 201;
+}
+.add_workspace{
+width: 100%;
+height: 44px;
+position: absolute;
+z-index: 201;
+}
+.mySidebar_container_left_browsinglog{
+height: 32px;
+position: relative;
+width: 90%;
+line-height: 44px;
+text-align: center;
+margin: 2px 0 10px 5%;
+background-image: url('../Image/History_green.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+}
+.mySidebar_container_left_todolist{
+height: 32px;
+position: relative;
+width: 90%;
+line-height: 44px;
+text-align: center;
+margin: 2px 0 10px 5%;
+background-image: url('../Image/todolist.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+}
+.mySidebar{
+position: fixed;
+width: 400px;
+background: rgb(229, 229, 229);
+font-size: 13px;
+top: 0;
+right: 0;
+bottom: 0;
+z-index: 0;
+color: rgb(107, 106, 106);
+}
+.mySidebar_container_up{
+position: fixed;
+top: 0;
+right: 0;
+height: 90px;
+}
+.mySidebar_container_down{
+top: 180px;
+bottom: 10px;
+right: 0;
+height: auto;
+overflow: hidden;
+position: fixed;
+}
+.mySidebar_container_up_wrapper{
+position: relative;
+height: 44px;
+margin: 0 10px;
+background-color: white;
+border-left: solid 1px #ccc;
+border-right: solid 1px #ccc;
+border-bottom: 1px solid #aaa;
+cursor: pointer;
+}
+.mySidebar_container_up_wrapper_left{
+height: 100%;
+position: relative;
+width: 40%;
+line-height: 44px;
+text-align: center;
+float: left;
+}
+.mySidebar_container_tags_text,
+.mySidebar_container_topicmap_text,
+.mySidebar_container_browsinglog_text{
+height: 100%;
+position: relative;
+width: 60%;
+line-height: 44px;
+text-align: left;
+margin-left: 40%;
+}
+.mySidebar_container_left_tags{
+height: 32px;
+position: relative;
+width: 90%;
+line-height: 44px;
+text-align: center;
+margin: 2px 0 10px 5%;
+background-image: url('../Image/tagspace_red.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+}
+.mySidebar_container_left_topicmap{
+height: 32px;
+position: relative;
+width: 90%;
+line-height: 44px;
+text-align: center;
+margin: 2px 0 10px 5%;
+background-image: url('../Image/topic_map_yellow.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+}
+.mySidebar_container_left_inf{
+height: 8px;
+position: absolute;
+width: 80%;
+line-height: 8px;
+font-size: 8px;
+text-align: center;
+margin: 1px 10%;
+color: rgb(0, 0, 0);
+bottom: 0;
+}
+.mySidebar_container_workspace_area{
+position: relative;
+height: 100%;
+margin: 0 10px;
+background-color: #f1f1f1;
+border: solid 1px #ccc;
+border-top: none;
+overflow-y: auto;
+}
+.mySidebar_container_workspace_area_item{
+position: relative;
+height: 40px;
+margin: 0 20px 0 10px;
+border-bottom: 1px solid rgba(0,0,0,.12);
+cursor: pointer;
+text-align: center;
+}
+.mySidebar_container_workspace_area_item_text{
+display: inline-block;
+width: 100%;
+line-height: 30px;
+margin: 5px 0;
+text-align: center;
+}
+.mySidebar_container_workspace_area_final_item{
+position: relative;
+height: 50px;
+margin: 0 20px 0 10px;
+}
+@media screen and (min-width: 981px){
+.mySidebar_container_workspace_area_item_text:hover{
+background-color: rgba(59, 120, 240, 0.87);
+color: #262626;
+font-weight: bold;
+}
+.mySidebar_container_up_wrapper:hover{
+background-color: rgb(240, 240, 240);
+color: #262626;
+font-weight: bold;
+}
+}
+#show_fbimg{
+height: 36px;
+width: 36px;
+margin-top: 4px;
+}

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<!-- Topic map 1.3版 Beta  -->
+<html lang="zh-TW">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+		<title>主題地圖</title>
+		<script src="d3.v3.min.js" charset="utf-8"></script>
+		<script src="../library/jquery-2.1.0.min.js"></script>
+		<script src="./topic_map_data.js"></script>
+		<script src="./topic_map_func.js"></script>
+		<script src="./topic_map_draw.js"></script>
+		<link rel="stylesheet" href="./topic_map.css">
+		<link rel="stylesheet" href="../css/Setfont.css">
+		<link rel="shortcut icon" type="image/x-icon" href="../Image/groupack_logo.ico"/>
+		<link rel="Bookmark" type="image/x-icon"  href="../Image/groupack_logo.ico"/>  
+	</head>
+	
+	
+	<body onLoad="">
+<div id="fiexd_header">
+	<div id="headNav">	
+		<table>
+			<tbody>
+				<tr>
+					<td align="left" class="left">
+						<div class="left_area">
+							<a id="_back" title="Back"></a>
+							<div class="left_back">	
+								<div class="_back">&nbsp; 返回</div>	
+							</div>	
+						</div>
+					</td>
+					<td align="center" class="center">Topic Map</td>
+					<td align="right" class="right">
+						<div class="right_slider">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="wrapper">
+	<div class="container">	    
+		<!-- 第二層層使用者介面 -->
+		<div id="user_outside_wrapper" >
+			<ul id="user_nav_for_topicmap" ></ul>
+			<ul id="topicmap_wrapper" ></ul>
+			<!-- <div id="user_nav_for_topicmap_notice" >-----點擊一下成員就可以選擇地圖成員</div> -->
+		</div>   
+	</div> 
+</div>
+
+	<!-- 中間那層主題地圖介面 -->	
+
+<script type="text/javascript" charset="utf-8">    	        
+			var vis = d3.select("#topicmap_wrapper")
+						.append("svg:svg")
+						.attr('id','topic_map');
+								
+			var h= parseInt( localStorage.viewport_height )-115;
+			var w= parseInt( localStorage.viewport_width );
+			d3.select("#topic_map").attr("width", w).attr("height", h);
+			
+			var nodes = [];
+			var labelAnchors = [];
+			var labelAnchorLinks = [];
+			var links = [];
+            var topic_count=[]; //某關鍵字的搜索人數
+			var nodes_before = []; //global
+			var links_before = []; //global
+			var	topic_relevance =[]; //global
+			var topic_importance =[]; //global
+			
+			var lineGroup =  vis.append("svg:g")
+								.attr("class", "lineGroup");
+					
+			get_topics_importance(); 
+			get_search_topics(); 
+			get_topic_member(); 
+				
+			User_data();
+			set_Links(); //alert('test');	
+			get_NodeTopics_from_link();
+			localStorage.setItem( 'TopicMap_links', JSON.stringify(links) );//保留最初的所有links資料
+			get_topics_importance();
+			nodes_TopicImportance();
+			original_users_arr();
+			set_Nodes();
+
+			draw_map();	
+		</script>
+	</body>
+</html>

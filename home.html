@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+<link rel="shortcut icon" type="image/x-icon" href="./Image/groupack_logo.ico"/>
+<link rel="Bookmark" type="image/x-icon"  href="./Image/groupack_logo.ico"/>  
+<link rel="stylesheet" href="./css/home.css"/>
+<script src="./library/jquery-2.1.0.min.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/home_swipe.js"></script>
+<title>Groupack</title>
+</head>
+<body onLoad="Initial();oplogin()">
+<header id="LogoWrapper" class="LogoWrapper">
+	<div class="LogoContainer">
+		<div><img src="./Image/groupack_logo1.png"><div>Groupack</div></div>
+	</div>
+</header>
+<nav id="NavWrapper" class="NavWrapper">
+	<div class="NavContainer">
+		<div class="NavInlineContainer">
+			<div class="Item">
+				<a id="NavTutorial" title="Tutorial"></a>
+				<img src="Image/nav_tutorial.png">
+				<div>Tour</div>
+			</div>
+			<div class="Item">
+				<a id="NavContact" title="Tutorial"></a>
+				<img src="Image/nav_contact.png">
+				<div>About</div>
+			</div>
+			<div class="Item">
+				<a id="NavFacebook" title="Login" onclick="javascript:Facebook_btn();return false;"></a>
+				<img src="Image/nav_fb.png">
+				<div>Login</div>
+			</div>
+		</div>
+	</div>
+	<div id="NavAbout">
+		<h1>Groupack Team</h1>
+		<ul>
+			<li>王梓憲</li>
+			<li>陳尚佑</li>
+			<li>張家誠</li>
+			<li><a href="javascript:;">groupackteam@gmail.com</a></li>
+		</ul>
+	</div>
+</nav>
+<div id="InputWrapper" class="InputWrapper">
+	<div class="InputContainer">
+		<div class="InputInlineContainerUp">
+			<div class="InputUp_btn">開始使用 Groupack</div>
+		</div>
+		<div class="InputInlineContainerDown">
+			<form name="TopicForm" method="post" action="">
+				<input type="text" class="InputDown_btn1" id="InputDown_btn1" value="" placeholder="Topic" autofocus="">
+				<button type="submit" class="InputDown_btn2" id="InputDown_btn2" value="Search" onclick="javascript:TopicSubmit();return false;"><span></span></button>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="FeatureWrapper_btn" class="FeatureWrapper_btn">
+	<div class="FeatureWrapper_btn_icon">&nbsp;</div>
+</div>
+<article id="FeatureWrapper" class="FeatureWrapper">
+	<div id="FeatureContainer" class="FeatureContainer">
+		<div id="slider_container">
+			<section class="slider_container_area" style='display:block'>
+				<div class="slider_area_title">
+					<h2><img src="Image/groupack.circle.png">Groupack</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>
+					創建群組並整合你們的專屬計畫，提升組織的工作效率。<br>
+					<a href="http://youtu.be/EPw4osQF_Lk" target="_blank">宣傳影片</a>
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/group.circle.png">Group 群組</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>	進入搜尋介面後，您可以自己新增一個群組來選擇成員，或者點擊他人已創立好的群組名稱來選擇群組。系統所有的功能都需要先選擇群組後才能進行，選定群組後，群組的名稱會出現在搜尋介面的左下方，點開即可看到所有成員的大頭貼。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/workspace.circle.png">Workspace 工作空間</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>工作空間內可以有多個資料夾，每個資料夾都能放入許多搜尋結果卡片。透過三層結構的整理，可以有效的分類搜尋時找到的各種資料。資料夾是每個工作空間的內部分類，卡片則包含一個搜尋結果的資訊。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/timeline.circle.png">Timeline 群組動態</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>可以查看所有跟您有關的群組成員動態，包含了Workspaces、Folders和Cards。另外，在Timeline最上面有四個選單，可以過濾您想要查看的資訊，讓您能夠迅速掌握您所關心的群組成員動態。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/group.circle.png"><img src="Image/timeline.circle.png">即時更新</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>Group以及Timeline皆能夠即時更新，亦能夠及時顯示通知，讓您能夠隨時掌握所有跟您有關的群組之最新動態。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/topicmap.circle.png">Topic Map 主題地圖</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>系統將計算群組成員們搜尋各關鍵字彼此之間的關聯性，讓使用者更加明瞭群組的搜尋方向與關聯性，而關聯性的計算方式是比對使用者所感興趣的網站內容，以0~1作為關聯性的數值，當關連性大於0.5時才會呈現給使用者，另外，亦可以點選僅看群組內哪些、位使用者的搜尋關聯性。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/searchprocess.circle.png">Search Process 搜尋歷程</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>
+					系統將紀錄所有使用者"最近"所下的關鍵字，讓使用者方便參考下關鍵字的方向，顏色分為 深、淺兩色，淺的顏色代表群組成員"之前"所下的關鍵字，深的顏色代表群組成員"最近"所下的關鍵字。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/tag.circle.png">Tag 標籤</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>搜尋界面中，搜尋結果卡片右方選單可以加上專屬個人的標籤。搜尋界面功能選單中的「檢視我的標籤」，即可看到所有被標籤的卡片。一張卡片可以有多個標簽。透過卡片右方選單可以再加上其他標簽或群組共享到工作空間。
+					</p>
+				</div>
+			</section>
+			<section class="slider_container_area" style='display:none'>
+				<div class="slider_area_title">
+					<h2><img src="Image/task.circle.png">Task任務清單</h2>
+				</div>
+				<div class="slider_area_text">
+					<p>可以建立任務並且指派給群組成員。當您建立了某項任務，您就是此項任務之負責人，當然您可以選擇要指派的對象，若是被指派的對象完成了此項任務，只要勾選此項任務旁的方形框即可。另外，Task最上面有一個選單，可以過濾您想要查看的任務，讓您能夠迅速掌握您所關心的任務。
+					</p>
+				</div>
+			</section>
+		</div>
+		<div id="slider_th">1</div>
+	</div>
+	<button id="swipe_prev" title="prev" onclick="javascript:_slider.prev();return false;">‹</button>
+	<button id="swipe_next" title="next" onclick="javascript:_slider.next();return false;">›</button>
+	<script>
+		var _slider = new Swipe( document.getElementById('FeatureContainer') );
+	</script>
+</article>
+<article id="FB_info" style="display: none;">
+	<section id="friends_title" style="display:none;">facebook friends</section>
+	<section id="friends"></section>
+</article>
+<div id="fb-root"></div>
+<script>
+  (function(d){
+   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement('script'); js.id = id; js.async = true;
+   js.src = "//connect.facebook.net/en_US/all.js";
+   ref.parentNode.insertBefore(js, ref);
+  }(document));
+</script>
+</body>
+</html> 
