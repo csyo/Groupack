@@ -383,12 +383,14 @@ left: 0;
 z-index: 10;
 }
 .dom_hidden{
+/*
 overflow: hidden;
 width: 0 !important;
 height: 0 !important;
 border: 0 !important;
 margin: 0 !important;
-padding: 0 !important;
+padding: 0 !important;*/
+display: none !important;
 }
 @media screen and (min-width: 981px){
 #scroll-top-top a:hover {

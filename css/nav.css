@@ -29,7 +29,7 @@ background-repeat: no-repeat;
 background-size: auto;
 background-position: 50% 50%;
 }
-.nav_main_w{
+#nav .icon-Folder {
 height: 45px;
 width: 100%;
 background-image: url('../Image/workspace_w.png');
@@ -37,10 +37,18 @@ background-repeat: no-repeat;
 background-size: auto;
 background-position: 50% 50%;
 }
-.nav_main_search{
+#nav .icon-TopicMap {
 height: 45px;
 width: 100%;
-background-image: url('../Image/search.png');
+background-image: url('../Image/topic_map_w.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 50% 50%;
+}
+#nav .icon-SearchProcess {
+height: 45px;
+width: 100%;
+background-image: url('../Image/history_w.png');
 background-repeat: no-repeat;
 background-size: auto;
 background-position: 50% 50%;
@@ -62,7 +70,7 @@ width: 100%;
 ul.navigation > li {
 position: relative;
 float: left;
-width: 33.333333333333333333333333333333333333333333333333333%;
+width: 25%;
 }
 ul.navigation li a {
 display: block;

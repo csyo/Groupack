@@ -31,7 +31,7 @@ float: right;
 .slider_background_area div{
 height: 100%;
 width: 50px;
-background-image: url('../Image/slider.png');
+background-image: url('../Image/search.png');
 background-repeat: no-repeat;
 background-size: auto;
 background-position: 50% 50%;
@@ -102,7 +102,7 @@ right: 0;
 height: 90px;
 }
 .mySidebar_container_down{
-top: 180px;
+top: 90px;
 bottom: 10px;
 right: 0;
 height: auto;
