@@ -61,8 +61,8 @@
 		<div class="Group_Board_arrow">&nbsp;</div>
 	</div>
 	<div class="Group_Board_wrapper">
-		<div class="Group_Board_container dom_hidden" style="top: -1000px; left: -1000px;">
-			<div id="Group_Board_area" class="dom_hidden" style="top: -1000px; left: -1000px;">none</div>
+		<div class="Group_Board_container dom_hidden">
+			<div id="Group_Board_area" class="dom_hidden">none</div>
 		</div>
 	</div>
 </div>
@@ -75,8 +75,8 @@
 		</div>
 	</div>
 </div>
-<div id="card_wrapper_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
-<div id="card_wrapper" class="dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="card_wrapper_background" class="dom_hidden"></div>
+<div id="card_wrapper" class="dom_hidden">
 	<div class="folders_manager_area">
 		<div class="folders_manager_addcard">
 			<a class="co_a addcard" href="#inline_folders_manager_addcard" onclick="show_addcard()">&nbsp;</a>
@@ -89,8 +89,8 @@
 			<div class="folders_manager_modifyfolder_text">修改 Folder</div>
 		</div>
 	</div>
-	<div class="cards_area dom_hidden" style="top: -1000px; left: -1000px;">
-		<div class="cards_area_header dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="cards_area dom_hidden">
+		<div class="cards_area_header dom_hidden">
 			<div class="cards_area_header_left">
 				<a class="show_cards_area">&nbsp;</a>
 				<div>
@@ -237,9 +237,9 @@
 		</div>
 	</div>
 </div>
-<div id="tag_wrapper_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
-<div id="tag_wrapper" class="dom_hidden" style="top: -1000px; left: -1000px;">
-	<div class="tag_manager dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="tag_wrapper_background" class="dom_hidden"></div>
+<div id="tag_wrapper" class="dom_hidden">
+	<div class="tag_manager dom_hidden">
 		<div class="tag_manager_addtag">
 			<a class="co_a addtag" href="#inline_tag_manager_addtag">&nbsp;</a>
 			<div class="tag_manager_addtag_icon"></div>
@@ -251,8 +251,8 @@
 			<div class="tag_manager_managertag_text">管理 Tag</div>
 		</div>
 	</div>
-	<div class="tag_area dom_hidden" style="top: -1000px; left: -1000px;">
-		<div class="tag_header dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="tag_area dom_hidden">
+		<div class="tag_header dom_hidden">
 			<div class="tag_header_left">
 				<a class="show_tags" class="co_a" href="#inline_all_tags">&nbsp;</a>
 				<div>
@@ -358,9 +358,9 @@
 <!--	left：群組 , middle：登入狀態 , right：搜尋框    -->
 <div id="nav" style="display: block;">
 	<ul class="navigation">
-		<li>
+		<li _nav="Group">
 			<div class="nav_main">
-				<a href="javascript: void(0);" title="group"><div class="co_a nav_main_group"></div></a>
+				<a href="javascript: void(0);" title="顯示 群組"><div class="co_a nav_main_group"></div></a>
 				<div id="group_notificationCountArea">
 					<span>0</span>
 				</div>
@@ -375,9 +375,9 @@
 				</li>
 			</ul>
 		</li>
-		<li>
+		<li _nav="Folder">
 			<div class="nav_main">
-				<a href="javascript: void(0);" title="facebook"><div class="co_a nav_main_w"></div></a>
+				<a href="javascript: void(0);" title="進入 工作空間"><div id="gotofolders" class="co_a icon-Folder"></div></a>
 			</div>
 			<ul id="Workspace_nav" class="dom_hidden">
 				<!--EX:
@@ -392,9 +392,14 @@
 				</li>
 			</ul>
 		</li>
-		<li class="search_box">
+		<li _nav="TopicMap" class="search_box">
 			<div class="nav_main">
-				<a href="javascript: void(0);" title="search"><div class="co_a nav_main_search"></div></a>
+				<a href="javascript: void(0);" title="進入 主題地圖"><div class="co_a icon-TopicMap"></div></a>
+			</div>
+		</li>
+		<li _nav="SearchProcess" class="search_box">
+			<div class="nav_main">
+				<a href="javascript: void(0);" title="進入 搜尋歷程"><div class="co_a icon-SearchProcess"></div></a>
 			</div>
 		</li>
 	</ul>
@@ -467,7 +472,7 @@
 		</div>
 	</div>
 </div>
-<div id="timeline_wrapper" class="dom_hidden" card_remove="" folder_remove="" workspace_remove="" style="top: -1000px; left: -1000px;">
+<div id="timeline_wrapper" class="dom_hidden" card_remove="" folder_remove="" workspace_remove="">
 	<div class="timeline_select_container">
 		<div class="timeline_select_column">
 			<div class="timeline_select_column_inf">群組</div>
@@ -499,9 +504,9 @@
 		</div>
 	</div>
 </div>
-<div id="addgroup_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
-<div id="addgroup" class="dom_hidden" style="top: -1000px; left: -1000px;">
-	<div class="addgroup_container dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="addgroup_background" class="dom_hidden"></div>
+<div id="addgroup" class="dom_hidden">
+	<div class="addgroup_container dom_hidden">
 		<div class="addgroup_header">
 			<div class="addgroup_header_left">
 				<div class="addgroup_header_icon"></div>
@@ -527,7 +532,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="addgroup_members_container dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="addgroup_members_container dom_hidden">
 			<form class="live_search_styled" method="post" action="">
 		        <fieldset>
 		            <input type="text" class="live_search_text_input" id="live-search-filter1" value="">
@@ -535,21 +540,21 @@
 				<!--   選擇的成員顯示於此   -->
 		    </form>
 		</div>
-		<div class="addgroup_footer dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="addgroup_footer dom_hidden">
 			<div class="addgroup_footer_right">
 				<div class="addgroup_footer_cancel">取消</div>
 				<div class="addgroup_footer_submit">完成</div>
 			</div>
-			<div class="addgroup_members_footer_right dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="addgroup_members_footer_right dom_hidden">
 				<div class="addgroup_footer_cancel">返回</div>
 				<div class="addgroup_footer_submit">確定</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div id="checkgroup_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
-<div id="checkgroup" class="dom_hidden" style="top: -1000px; left: -1000px;">
-	<div class="checkgroup_container dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="checkgroup_background" class="dom_hidden"></div>
+<div id="checkgroup" class="dom_hidden">
+	<div class="checkgroup_container dom_hidden">
 		<div class="checkgroup_header">
 			<div class="checkgroup_header_left">
 				<div class="checkgroup_header_icon"></div>
@@ -596,10 +601,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="checkgroup_keepers_container dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="checkgroup_keepers_container dom_hidden">
 			<!--   選擇的成員顯示於此   -->
 		</div>
-		<div class="checkgroup_members_container dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="checkgroup_members_container dom_hidden">
 			<form class="live_search_styled" method="post" action="">
 		        <fieldset>
 		            <input type="text" class="live_search_text_input" id="live-search-filter2" value="">
@@ -607,16 +612,16 @@
 				<!--   選擇的成員顯示於此   -->
 		    </form>
 		</div>
-		<div class="checkgroup_footer dom_hidden" style="top: -1000px; left: -1000px;">
+		<div class="checkgroup_footer dom_hidden">
 			<div class="checkgroup_footer_right">
 				<div class="checkgroup_footer_cancel">取消</div>
 				<div class="checkgroup_footer_submit">完成</div>
 			</div>
-			<div class="checkgroup_keepers_footer_right dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="checkgroup_keepers_footer_right dom_hidden">
 				<div class="checkgroup_footer_cancel">返回</div>
 				<div class="checkgroup_footer_submit" onclick="get_new_member()">確定</div>
 			</div>
-			<div class="checkgroup_members_footer_right dom_hidden" style="top: -1000px; left: -1000px;">
+			<div class="checkgroup_members_footer_right dom_hidden">
 				<div class="checkgroup_footer_cancel">返回</div>
 				<div class="checkgroup_footer_submit" onclick="get_new_member()">確定</div>
 			</div>
@@ -624,8 +629,8 @@
 	</div>
 </div>
 <!--   群組共享 介面    -->
-<div id="sharing_with_group_background" class="dom_hidden" style="top: -1000px; left: -1000px;"></div>
-<div id="sharing_with_group" class="dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="sharing_with_group_background" class="dom_hidden"></div>
+<div id="sharing_with_group" class="dom_hidden">
 	<div class="sharing_with_group_wrapper">
 		<div class="sharing_with_group_header"><img src="./Image/group_icon_black.png">群組共享</div>
 		<div class="sharing_with_group_showarea">
@@ -670,7 +675,7 @@
 	</div>
 </div>
 <!--    WorkSpace 介面    -->
-<div id="myWorkspace" class="workspace dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="myWorkspace" class="workspace dom_hidden">
 	<div class="workspace_container">
 		<div class="workspace_columns isotope">
 			<div class="workspace_title_inf">
@@ -877,15 +882,15 @@
 	</div>
 </div>
 <!--    Slider 介面    -->
-<div id="slider_background" class="dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="slider_background" class="dom_hidden">
 	<div>
 		<div class="slider_background_area">
 			<a id="back_main_slider" class="co_a" href="javascript: void(0);" title="back"><div></div></a>
 		</div>
 	</div>
 </div>
-<div id="Sidebar" class="mySidebar dom_hidden" style="top: -1000px; left: -1000px;">
-	<div class="mySidebar_container_up dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="Sidebar" class="mySidebar dom_hidden">
+	<div class="mySidebar_container_up dom_hidden">
 		<div class="mySidebar_container_up_wrapper">
 			<a class="co_a" id="showtag" href="javascript: void(0);" target="_blank">&nbsp;</a>
 			<div class="mySidebar_container_up_wrapper_left">
@@ -895,30 +900,6 @@
 			<div class="mySidebar_container_tags_text">檢視我的標籤</div>
 		</div>
 		<div class="mySidebar_container_up_wrapper">
-			<a class="co_a" id="showtopicmap">&nbsp;</a>
-			<div class="mySidebar_container_up_wrapper_left">
-				<div class="mySidebar_container_left_topicmap"></div>
-				<div class="mySidebar_container_left_inf">Topic Map</div>
-			</div>
-			<div class="mySidebar_container_topicmap_text">進入主題地圖</div>
-		</div>
-		<div class="mySidebar_container_up_wrapper">
-			<a class="co_a" id="showSearchProcess">&nbsp;</a>
-			<div class="mySidebar_container_up_wrapper_left">
-				<div class="mySidebar_container_left_browsinglog"></div>
-				<div class="mySidebar_container_left_inf">Search Process</div>
-			</div>
-			<div class="mySidebar_container_browsinglog_text">群組搜尋歷程</div>
-		</div>
-		<!-- <div class="mySidebar_container_up_wrapper">
-			<a class="co_a" id="showtodolist">&nbsp;</a>
-			<div class="mySidebar_container_up_wrapper_left">
-				<div class="mySidebar_container_left_todolist"></div>
-				<div class="mySidebar_container_left_inf">Task</div>
-			</div>
-			<div class="mySidebar_container_browsinglog_text">群組任務清單</div>
-		</div> -->
-		<div class="mySidebar_container_up_wrapper">
 			<a class="co_a" id="account" target="_blank">&nbsp;</a>
 			<div class="mySidebar_container_up_wrapper_left">
 				<img id="show_fbimg" src="./Image/todolist.png">
@@ -926,7 +907,7 @@
 			<div id="show_fbname" class="mySidebar_container_browsinglog_text"></div>
 		</div>
 	</div>
-	<div class="mySidebar_container_down dom_hidden" style="top: -1000px; left: -1000px;">
+	<div class="mySidebar_container_down dom_hidden">
 		<div class="mySidebar_container_workspace_area">
 			<div class="mySidebar_container_workspace_area_item">
 				<div id="fblogout" class="mySidebar_container_workspace_area_item_text" title="是否登出？">登出？</div>
@@ -940,13 +921,54 @@
 </div>
 <div id="fb-root"></div>
 <!--    Footer 介面    -->
-<div id="under-footer" class="dom_hidden" style="top: -1000px; left: -1000px;">
+<div id="under-footer" class="dom_hidden">
 	<div id="footer" style="padding-top: 10px;">
 		<h4>Groupack</h4>
 		<font size="0.5em">Powered By Groupack Team © Copyright 2013</font>
 	</div>
 	<div id="scroll-top-top" class="dom_hidden"><a class="co_a" title="scroll top"></a></div>
 </div>
+<!--    Folders 介面    -->
+<article id="folder-box" style="display: none;">
+	<section>
+		<header>
+			<div class="title chinese">工作空間</div>
+			<div id="folder-box_leave" class="chinese">離開</div>
+		</header>
+		<article>
+			<div class="wrapper">
+				<div class="workspace_columns isotope">	
+					<div class="workspace_four_column" id="f1389682135627" sid="20140405_122143">
+						<div class="workspace_folders_title">&nbsp;</div>
+						<div class="workspace_folders_title_icon f_engine" title="管理 folder"></div>
+						<div class="workspace_folders_manager_area">
+							<div class="workspace_folders_manager_addcard">
+								<a class="co_a addcard" href="#inline_folders_manager_addcard" onclick="show_addcard(this)">&nbsp;</a>
+								<div class="workspace_folders_manager_addcard_icon"></div>
+								<div class="workspace_folders_manager_addcard_text">新增 Card</div>
+							</div>
+							<div class="workspace_folders_manager_modifyfolder">
+								<a class="co_a modifyfolder" href="#inline_folders_manager_modifyfolder" onclick="show_modifyfolder()">&nbsp;</a>
+								<div class="workspace_folders_manager_modifyfolder_icon"></div>
+								<div class="workspace_folders_manager_modifyfolder_text">修改 Folder</div>
+							</div>
+						</div>
+						<div class="workspace_folders">
+							<a class="co_a workspace_folder_area" href="javascript: void(0);">&nbsp;</a>
+							<div class="workspace_folder_title_inf"><div class="workspace_folder_title_inf_text">f3</div></div>
+							<div class="workspace_folder_comment_inf"><div class="workspace_folder_comment_inf_text">fff</div></div>
+						</div>
+						<div class="workspace_folders_user">
+							<div class="workspace_folders_user_name" role="100000211046486">Chen ShangYo</div>
+							<span> 創建於 </span>
+							<span role="time">2014-01-14 14:48:55</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</section>
+</article>
 <!--  START: CSS    -->
 	<link rel="stylesheet" href="./css/card.css">
 	<link rel="stylesheet" href="./css/folder.css">
@@ -954,6 +976,7 @@
 	<link rel="stylesheet" href="./css/group.css">
 	<link rel="stylesheet" href="./css/slider.css">
 	<link rel="stylesheet" href="./css/timeline.css">
+	<link rel="stylesheet" href="./css/new_folder.css">
 	<link rel="stylesheet" href="./colorbox/source/colorbox.css">
 	<link rel="stylesheet" href="./fancybox/source/jquery.fancybox.css">
 <!--  END: CSS    -->

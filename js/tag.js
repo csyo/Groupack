@@ -41,22 +41,10 @@ $(function() {
     $('#leave_tag').click(function() { //離開 我的標籤介面
         $('div.tag_on').removeClass('tag_on');
         $('body').attr('tag', 's').css('overflow-y', '');
-        $('#tag_wrapper_background').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('#tag_wrapper').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('#tag_wrapper div.tag_area').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('#tag_wrapper div.tag_header').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#tag_wrapper_background').addClass('dom_hidden');
+        $('#tag_wrapper').addClass('dom_hidden');
+        $('#tag_wrapper div.tag_area').addClass('dom_hidden');
+        $('#tag_wrapper div.tag_header').addClass('dom_hidden');
     });
     $('#showtag').click(function() { //顯示 我的標籤介面
         $('body').css('overflow-y', 'hidden').addClass('tag_on').attr('tag', 't');
@@ -65,18 +53,9 @@ $(function() {
         $('#tag_wrapper div.tag_area').removeClass('dom_hidden').attr('style', '');
         $('#tag_wrapper div.tag_header').removeClass('dom_hidden').attr('style', '');
         $('#slider_btn').removeClass('bar_on');
-        $('#slider_background').attr('style', '').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('#Sidebar > div.mySidebar_container_up').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('#Sidebar > div.mySidebar_container_down').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#slider_background').attr('style', '').addClass('dom_hidden');
+        $('#Sidebar > div.mySidebar_container_up').addClass('dom_hidden');
+        $('#Sidebar > div.mySidebar_container_down').addClass('dom_hidden');
         $('#wrapper').css({
             marginLeft: '',
             marginRight: ''
@@ -113,18 +92,12 @@ $(function() {
             marginLeft: '',
             marginRight: ''
         });
-        $('#Sidebar').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#Sidebar').addClass('dom_hidden');
     });
     $('div').on('click', function() { //關閉 管理標籤選單
         if ($('#show_manager_tags').hasClass('show_manager_tags_on')) {
             $('.show_manager_tags_on').removeClass('show_manager_tags_on').parents('div.tag_area').prev('div.tag_manager').addClass('dom_hidden');
-            $('div.tag_manager').offset({
-                top: -1000,
-                left: -1000
-            });
+            $('div.tag_manager');
         }
         if ($('div.tag_content_inf').hasClass('tag_content_inf_on')) { // 我的標籤介面：關閉 管理card選單
             $('div.tag_content_inf_on').removeClass('tag_content_inf_on').next('div.tag_content_inf_field').hide();

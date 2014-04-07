@@ -2,8 +2,8 @@ $(function () {
 
 	// 關閉介面: 管理 Folder 選項選單
 	$('body').on('click', function () {
-		if ($('#myWorkspace div.f_engine').hasClass('folders_manager_area_on')) {
-			$('#myWorkspace div.folders_manager_area_on').removeClass('folders_manager_area_on').next().hide();
+		if ($('#folder-box div.f_engine').hasClass('folders_manager_area_on')) {
+			$('#folder-box div.folders_manager_area_on').removeClass('folders_manager_area_on').next().hide();
 		}
 	});
 
@@ -17,8 +17,8 @@ $(function () {
 });
 
 // 顯示介面: 管理 Folder 選項選單
-$(document).on('click', '#myWorkspace div.f_engine', function () {
-	($(this).siblings('div.workspace_folders_user').children('div').attr('role') == localStorage.FB_id) ? $('#myWorkspace div.workspace_folders_manager_modifyfolder').show() : $('#myWorkspace div.workspace_folders_manager_modifyfolder').hide();
+$(document).on('click', '#folder-box div.f_engine', function () {
+	($(this).siblings('div.workspace_folders_user').children('div').attr('role') == localStorage.FB_id) ? $('#folder-box div.workspace_folders_manager_modifyfolder').show() : $('#folder-box div.workspace_folders_manager_modifyfolder').hide();
 	if (!$(this).hasClass('folders_manager_area_on')) {
 		$(this).addClass('folders_manager_area_on').next().show();
 	}
@@ -35,7 +35,7 @@ $(document).on('click', '#cards_area_manager', function () {
 $(function () {
 
 	// 顯示介面: 新增 Folder
-	$('#myWorkspace a.addfolder, #sharing_with_group a.addfolder').click(function () {
+	$('#folder-box a.addfolder, #sharing_with_group a.addfolder').click(function () {
 		var box_width, box_height;
 		if (window.matchMedia('(max-width:600px)').matches) { //手機
 			 box_width = '95%';
@@ -75,7 +75,7 @@ $(function () {
 	});
 
 	// 顯示介面: 顯示 Folder 中所有 Cards
-	$('#myWorkspace').on('click', 'a.workspace_folder_area', function () {
+	$('#folder-box').on('click', 'a.workspace_folder_area', function () {
 		/* 處理資料 */
 		cardsInFolder(this);
 		/* 處理介面 */
@@ -94,22 +94,10 @@ $(function () {
 	$('#cards_area_leave').click(function () {
 		localStorage.removeItem('folder_selected');
 		$('#inline_workspace_cards').find('div.workspace_cards_position').remove(); // 清空
-		$('#card_wrapper_background').addClass('dom_hidden').offset({
-			top: -1000,
-			left: -1000
-		});
-		$('#card_wrapper').addClass('dom_hidden').offset({
-			top: -1000,
-			left: -1000
-		});
-		$('div.cards_area').addClass('dom_hidden').offset({
-			top: -1000,
-			left: -1000
-		});
-		$('div.cards_area_header').addClass('dom_hidden').offset({
-			top: -1000,
-			left: -1000
-		});
+		$('#card_wrapper_background').addClass('dom_hidden');
+		$('#card_wrapper').addClass('dom_hidden');
+		$('div.cards_area').addClass('dom_hidden');
+		$('div.cards_area_header').addClass('dom_hidden');
 		$('a.show_card_on').removeClass('show_card_on');
 		$('div.cards_area_nav').hide();
 		$('#inline_workspace_cards').css('top', '42px');
@@ -163,22 +151,10 @@ $(document).on('click', '#inline_folders_manager_modifyfolder div.inline_modifyf
 		$('a.show_card_on').parents('div.workspace_four_column').remove();
 	}
 	$.colorbox.close();
-	$('#card_wrapper_background').addClass('dom_hidden').offset({
-		top: -1000,
-		left: -1000
-	});
-	$('#card_wrapper').addClass('dom_hidden').offset({
-		top: -1000,
-		left: -1000
-	});
-	$('div.cards_area').addClass('dom_hidden').offset({
-		top: -1000,
-		left: -1000
-	});
-	$('div.cards_area_header').addClass('dom_hidden').offset({
-		top: -1000,
-		left: -1000
-	});
+	$('#card_wrapper_background').addClass('dom_hidden');
+	$('#card_wrapper').addClass('dom_hidden');
+	$('div.cards_area').addClass('dom_hidden');
+	$('div.cards_area_header').addClass('dom_hidden');
 	$('#inline_modifyfolder_wrapper_comment').val('');
 	$('#inline_modifyfolder_wrapper_name').val('');
 });
@@ -280,8 +256,8 @@ function addFolder(name, comment) {
 	return folderID;
 }
 
-// 顯示 folder 於 workspace 介面
-function foldersInWS(fid, name, comment, time, creator) {
+// folder 介面樣板
+function folderTemplate(fid, name, comment, time, creator) {
 
 	// 新增 folder 調整參數
 	if (typeof time === 'undefined' || time === null) time = '0000-00-00 00:00:00';
@@ -291,7 +267,7 @@ function foldersInWS(fid, name, comment, time, creator) {
 	var a = nowTime().split(" ");
 	Time = (time == '0000-00-00 00:00:00') ? a[1] : time;
 
-	$('div.workspace_user').after(
+	return '' +
 		'<div class="workspace_four_column" id="' + fid + '" sid="' + a[0] + '">' +
 		'<div class="workspace_folders_title">&nbsp;</div>' +
 		'<div class="workspace_folders_title_icon f_engine" title="管理 folder"></div>' +
@@ -322,8 +298,7 @@ function foldersInWS(fid, name, comment, time, creator) {
 		'<span> 創建於 </span>' +
 		'<span role="time">' + Time + '</span>' +
 		'</div>' +
-		'</div>'
-	);
+		'</div>';
 }
 
 // 修改 Folder 介面: 確定修改 Folder
@@ -348,20 +323,6 @@ function editFolder() {
 		.done(function (r) {
 			console.log(r);
 			getGroupUpdated();
-			// console.log('editFolder: T_savedata');
-			// if (localStorage.T_savedataTimeout) {
-			// 	window.setTimeout(function () {
-			// 		var a = window.setTimeout(function () {
-			// 			T_savedata('none', 'none', fid, 'none');
-			// 		}, 1000);
-			// 		localStorage.setItem('T_savedataTimeout', a);
-			// 	}, 3000);
-			// } else {
-			// 	var a = window.setTimeout(function () {
-			// 		T_savedata('none', 'none', fid, 'none');
-			// 	}, 1000);
-			// 	localStorage.setItem('T_savedataTimeout', a);
-			// }
 			$('#inline_modifyfolder_wrapper_comment').val('');
 			$('#inline_modifyfolder_wrapper_name').val('');
 		});
@@ -375,3 +336,22 @@ $(document).on('click', '#inline_folders_manager_modifyfolder div.inline_modifyf
 		$('div.workspace_user').after('<div class="noFolder">目前還沒有任何資料夾</div>');
 	}
 });
+
+// 顯示群組所有 folder
+function showAllFolders() {
+   if (!localStorage.group_selected) {
+      alert('請先選擇群組!');
+      return;
+   }
+   var folders = processGroupData().folders,
+      div = '',
+      $div = $('#folder-box').find('div.workspace_columns').find('div.workspace_four_column').remove().end();
+   if (folders) {
+   	  console.log(folders);
+      for (var i = folders.length - 1; i >= 0; i--) {
+ 		 var item = folders[i]
+         div += folderTemplate(item.f_id, item.f_name, item.f_comment, item.createdTime, item.createID);
+      }
+      $div.prepend(div);
+   }
+}

@@ -175,24 +175,15 @@ $(function() {
         $('#wrapper').css({
             marginLeft: '',
             marginRight: ''
-        }).addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        }).addClass('dom_hidden');
         $('#under-footer').css({
             marginLeft: '',
             marginRight: ''
-        }).addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        }).addClass('dom_hidden');
         $('#timeline_wrapper').css({
             marginLeft: '',
             marginRight: ''
-        }).addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        }).addClass('dom_hidden');
     });
 
     // 離開介面: 離開 Workspace 中所有 Folders
@@ -292,22 +283,10 @@ $(function() {
     $('#cards_area_leave').click(function() {
         localStorage.removeItem('folder_selected');
         $('#inline_workspace_cards').find('div.workspace_cards_position').remove(); // 清空
-        $('#card_wrapper_background').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('#card_wrapper').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('div.cards_area').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
-        $('div.cards_area_header').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#card_wrapper_background').addClass('dom_hidden');
+        $('#card_wrapper').addClass('dom_hidden');
+        $('div.cards_area').addClass('dom_hidden');
+        $('div.cards_area_header').addClass('dom_hidden');
         $('a.show_card_on').removeClass('show_card_on');
         $('div.cards_area_nav').hide();
         $('#inline_workspace_cards').css('top', '42px');
@@ -344,17 +323,11 @@ function closeWShelper() {
     if (!a) {
         $('#wrapper').removeClass('dom_hidden').attr('style', '');
         $('#under-footer').removeClass('dom_hidden').attr('style', '');
-        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
         $('div.workspace_on_now').removeClass('workspace_on_now');
     } else {
         $('#timeline_wrapper').removeClass('dom_hidden').attr('style', '');
-        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
         $('div.workspace_on_now').removeClass('workspace_on_now');
         if ($('#timeline_update_temp > div').length != 0) {
             $('#timeline_notificationCountArea').hide();
@@ -390,22 +363,10 @@ $(document).on('click', '#inline_folders_manager_modifyfolder div.inline_modifyf
         $('a.show_card_on').parents('div.workspace_four_column').remove();
     }
     $.colorbox.close();
-    $('#card_wrapper_background').addClass('dom_hidden').offset({
-        top: -1000,
-        left: -1000
-    });
-    $('#card_wrapper').addClass('dom_hidden').offset({
-        top: -1000,
-        left: -1000
-    });
-    $('div.cards_area').addClass('dom_hidden').offset({
-        top: -1000,
-        left: -1000
-    });
-    $('div.cards_area_header').addClass('dom_hidden').offset({
-        top: -1000,
-        left: -1000
-    });
+    $('#card_wrapper_background').addClass('dom_hidden');
+    $('#card_wrapper').addClass('dom_hidden');
+    $('div.cards_area').addClass('dom_hidden');
+    $('div.cards_area_header').addClass('dom_hidden');
     $('#inline_modifyfolder_wrapper_comment').val('');
     $('#inline_modifyfolder_wrapper_name').val('');
 });
@@ -757,17 +718,11 @@ $(document).on('click', '#inline_workspace_manager_modifyworkspace div.inline_mo
     if (!$('body').hasClass('timeline_on')) {
         $('#wrapper').removeClass('dom_hidden').attr('style', '');
         $('#under-footer').removeClass('dom_hidden').attr('style', '');
-        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
         $('div.workspace_on_now').removeClass('workspace_on_now');
     } else {
         $('#timeline_wrapper').removeClass('dom_hidden').attr('style', '');
-        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-        });
+        $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
         $('div.workspace_on_now').removeClass('workspace_on_now');
     }
     $('div.workspace_four_column').remove();

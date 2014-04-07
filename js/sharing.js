@@ -1,14 +1,8 @@
 function close_sharing() {
     $('.this_sharing_with_group_on').removeClass('this_sharing_with_group_on');
     $('.this_tag_sharing_with_group_on').removeClass('this_tag_sharing_with_group_on');
-    $('#sharing_with_group').removeClass('sharing_with_group_on').addClass('dom_hidden').offset({
-        top: -1000,
-        left: -1000
-    });
-    $('#sharing_with_group_background').addClass('dom_hidden').offset({
-        top: -1000,
-        left: -1000
-    });
+    $('#sharing_with_group').removeClass('sharing_with_group_on').addClass('dom_hidden');
+    $('#sharing_with_group_background').addClass('dom_hidden');
     $('.sharing_with_group_select_field').show().css('border', '');
     $('#sharing_with_group div._select_workspace').removeClass('_select_workspace_on');
     $('._select_card_on').hide();

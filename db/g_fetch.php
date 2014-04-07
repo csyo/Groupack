@@ -37,47 +37,31 @@
             }
         }
 
-        // 取 workspaceinfo 資料
-        $sql = sprintf("SELECT * FROM workspaceinfo WHERE GroupID = '%s'",
+        // 取 folderinfo 資料
+        $sql = sprintf("SELECT * FROM folderinfo WHERE GroupID = '%s'",
                 mysql_real_escape_string($groupID));
-        $workspaceinfo = mysql_query($sql) or responseMsg('Invalid query #3: '.mysql_error());
-        responseMsg(( $workspaceinfo ? $sql."\n" : '' ));
-        while ($row = mysql_fetch_assoc($workspaceinfo)) {
+        $folderinfo = mysql_query($sql) or responseMsg('Invalid query #3: '.mysql_error());
+        responseMsg(( $folderinfo ? $sql."\n" : '' ));
+        while ($row = mysql_fetch_assoc($folderinfo)) {
             $groupID = $row['GroupID'];
-            $workspaceID = $row['WorkspaceID'];
+            $folderID = $row['FolderID'];
             
-            // 取 folderinfo 資料
-            $folders = array();
-            $sql = sprintf("SELECT * FROM folderinfo WHERE WorkspaceID = '%s'",
-                    mysql_real_escape_string($workspaceID));
-            $folderinfo = mysql_query($sql) or responseMsg('Invalid query #4: '.mysql_error());
-            while ($item = mysql_fetch_assoc($folderinfo)) {
-                $folders[] = array(
-                    'f_id' => $item['FolderID'],
-                    'f_name' => $item['FolderName'],
-                    'f_comment' => $item['FolderComment'],
-                    'creatorID' => $item['CreatorID'],
-                    'createdTime' => $item['CreatedTimestamp']
-                );
-            }
+            $folders[] = array(
+                'f_id' => $row['FolderID'],
+                'f_name' => $row['FolderName'],
+                'f_comment' => $row['FolderComment'],
+                'creatorID' => $row['CreatorID'],
+                'createdTime' => $row['CreatedTimestamp']
+            );
 
-            if (empty($folders)) {
-                $data[$groupID]['workspaces'][] = array(
-                    'w_id' => $workspaceID,
-                    'w_name' => $row['WorkspaceName'],
-                    'w_comment' => $row['WorkspaceComment'],
+            if (!empty($folders)) {
+                $data[$groupID]['folders'][] = array(
+                    'f_id' => $row['FolderID'],
+                    'f_name' => $row['FolderName'],
+                    'f_comment' => $row['FolderComment'],
                     'creatorID' => $row['CreatorID'],
                     'createdTime' => $row['CreatedTimestamp']
                 );    
-            } else {
-                $data[$groupID]['workspaces'][] = array(
-                    'w_id' => $workspaceID,
-                    'w_name' => $row['WorkspaceName'],
-                    'w_comment' => $row['WorkspaceComment'],
-                    'creatorID' => $row['CreatorID'],
-                    'createdTime' => $row['CreatedTimestamp'],
-                    'folders' => $folders
-                );  
             }
 
         }

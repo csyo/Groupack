@@ -56,24 +56,15 @@ $(function() {
       $('#wrapper').css({
          marginLeft: '',
          marginRight: ''
-      }).addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      }).addClass('dom_hidden');
       $('#under-footer').css({
          marginLeft: '',
          marginRight: ''
-      }).addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      }).addClass('dom_hidden');
       $('#timeline_wrapper').css({
          marginLeft: '',
          marginRight: ''
-      }).addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      }).addClass('dom_hidden');
       EnterWS(this);
    });
 
@@ -130,17 +121,11 @@ function closeWShelper() {
    if (!a) {
       $('#wrapper').removeClass('dom_hidden').attr('style', '');
       $('#under-footer').removeClass('dom_hidden').attr('style', '');
-      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
       $('div.workspace_on_now').removeClass('workspace_on_now');
    } else {
       $('#timeline_wrapper').removeClass('dom_hidden').attr('style', '');
-      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
       $('div.workspace_on_now').removeClass('workspace_on_now');
       if ($('#timeline_update_temp > div').length != 0) {
          $('#timeline_notificationCountArea').hide();
@@ -324,17 +309,11 @@ $(document).on('click', '#inline_workspace_manager_modifyworkspace div.inline_mo
    if (!$('body').hasClass('timeline_on')) {
       $('#wrapper').removeClass('dom_hidden').attr('style', '');
       $('#under-footer').removeClass('dom_hidden').attr('style', '');
-      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
       $('div.workspace_on_now').removeClass('workspace_on_now');
    } else {
       $('#timeline_wrapper').removeClass('dom_hidden').attr('style', '');
-      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
       $('div.workspace_on_now').removeClass('workspace_on_now');
    }
    $('div.workspace_four_column').remove();
@@ -342,19 +321,19 @@ $(document).on('click', '#inline_workspace_manager_modifyworkspace div.inline_mo
 });
 
 // 顯示群組所有 Workspaces
-$(document).on('click', 'div.nav_main_w', function() {
-   if (!localStorage.group_selected) {
-      alert('請先選擇群組!');
-      return;
-   }
-   var workspaces = processGroupData().workspaces,
-      div = '',
-      $ul = $('#Workspace_nav').find('li.w-item').remove().end();
-   if (workspaces) {
-      for (var i = workspaces.length - 1; i >= 0; i--) {
-         div += '<li class="w-item" name="' + workspaces[i].w_id + '">' +
-            '<a class="co_a" name="' + workspaces[i].w_id + '">' + workspaces[i].w_name + '</a>';
-      }
-      $ul.prepend(div);
-   }
-});
+// $(document).on('click', 'div.icon-Folder', function() {
+//    if (!localStorage.group_selected) {
+//       alert('請先選擇群組!');
+//       return;
+//    }
+//    var workspaces = processGroupData().workspaces,
+//       div = '',
+//       $ul = $('#Workspace_nav').find('li.w-item').remove().end();
+//    if (workspaces) {
+//       for (var i = workspaces.length - 1; i >= 0; i--) {
+//          div += '<li class="w-item" name="' + workspaces[i].w_id + '">' +
+//             '<a class="co_a" name="' + workspaces[i].w_id + '">' + workspaces[i].w_name + '</a>';
+//       }
+//       $ul.prepend(div);
+//    }
+// });

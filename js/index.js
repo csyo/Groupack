@@ -71,39 +71,12 @@ $(function(e) {
          $('#Group_Board_area').removeClass('dom_hidden').attr('style', '').parent().removeClass('dom_hidden').attr('style', '');
          $('#Group_Board .Group_Board_arrow').addClass('Group_Board_arrow_bottom');
       } else {
-         $('#Group_Board_area').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         }).parent().addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
+         $('#Group_Board_area').addClass('dom_hidden').parent().addClass('dom_hidden');
          $('#Group_Board .Group_Board_arrow').removeClass('Group_Board_arrow_bottom');
          $('.Group_Board_on').removeClass('Group_Board_on');
       }
    });
-   $('#showtopicmap').click(function() { // 顯示 topicmap 介面
-      var a = localStorage.group_selected || null;
-      if (a == null || a == '') {
-         alert('請先選擇群組');
-      } else if (sessionStorage.getItem('topic_relevance_for' + a) == null) {
-         alert('關聯性尚未計算完成,請過1~2分鐘後再進入Topic map');
-      } else if (sessionStorage.getItem('topic_relevance_for' + a) == "[] ") {
-         alert('目前搜尋的關鍵字經過計算都沒有關聯耶!');
-      } else {
-         localStorage.setItem('where', 'slider_a');
-         window.top.location.href = './TopicMap/topic_map.html';
-      }
-   });
-   $('#showSearchProcess').click(function() { // 顯示 SearchProcess 介面
-      var a = localStorage.group_selected || null;
-      if (a == null || a == '') {
-         alert('請先選擇群組');
-      } else {
-         localStorage.setItem('where', 'slider_a');
-         window.top.location.href = './SearchProcess/searchprocess.html';
-      }
-   });
+
    $('body').click(function() {
       if ($('.search_result_read').hasClass('search_result_read_on')) {
          $('.search_result_read').css('opacity', '1');
@@ -121,7 +94,22 @@ $(function(e) {
       }, 400);
    });
    $('#nav > ul.navigation > li').click(function(e) { // nav選單 顯示與變色
-      if ( $(e.target).hasClass('nav_main_w') && !localStorage.group_selected ) return;
+      if ( $(e.target).hasClass('icon-Folder') && !localStorage.group_selected ) return;
+	  var _nav = $(this).attr('_nav'); console.log(_nav);
+	  if( _nav === 'TopicMap' ){
+		GoToTopicMap();
+		return false;
+	  }
+	  if( _nav === 'SearchProcess' ){
+		GoToSearchProcess();
+		return false;
+	  }
+	  if( _nav === 'Folder' ){
+		$('#folder-box').show();
+		$('body').css('overflow', 'hidden');
+      showAllFolders();
+		return false;
+	  }
       if (!$('#nav').hasClass('li_on')) {
          if (!$(this).hasClass('search_box')) {
             $('#nav').addClass('li_on');
@@ -135,7 +123,6 @@ $(function(e) {
                'color': '#666',
                'background': 'rgb(55, 116, 235)'
             }).end().end().addClass('search_box_on');
-            $('#navigation_input').removeClass('dom_hidden');
          }
       } else {
          if (!$(this).hasClass('on')) {
@@ -144,7 +131,6 @@ $(function(e) {
                'color': '#FFF',
                'background': '#222'
             });
-            $('#navigation_input').addClass('dom_hidden');
             $('ul.navigation > li:nth-child(3)').removeClass('search_box_on');
             if (!$(this).hasClass('search_box')) {
                $(this).addClass('on').children('div.nav_main').children('a:first').css({
@@ -156,11 +142,9 @@ $(function(e) {
                   'color': '#666',
                   'background': 'rgb(55, 116, 235)'
                }).end().end().addClass('search_box_on');
-               $('#navigation_input').removeClass('dom_hidden');
             }
          } else {
             $('#nav').removeClass('li_on');
-            $('#navigation_input').addClass('dom_hidden');
             $('ul.navigation > li:nth-child(3)').removeClass('search_box_on');
             $(this).removeClass('on').children('ul:first').addClass('dom_hidden').end().children('div.nav_main').children('a:first').css({
                'color': '#FFF',
@@ -177,7 +161,6 @@ $(function(e) {
             'background': '#222'
          });
          $('#nav').removeClass('li_on');
-         $('#navigation_input').addClass('dom_hidden');
          $('li.search_box_on').removeClass('search_box_on');
       }
    });
@@ -251,6 +234,10 @@ function ShowUserInfo(a, b) {
 }
 $(document).on('click', 'div.nav_main_search', function(e) {
    $('#search_again_btn').focus().select();
+});
+$(document).on('click', '#folder-box_leave', function(e) {  // 離開 folder 介面
+	$('#folder-box').hide();
+	$('body').css('overflow', '');
 });
 //facebook 分享
 $(document).on('click', 'div.search_result_inf_field > div.search_result_inf_field_content:nth-child(3)', {
@@ -509,18 +496,9 @@ function CheckSlider() {
 
 function HideSlider() { // 隱藏 slider 介面
    $('#slider_btn').removeClass('bar_on');
-   $('#slider_background').attr('style', '').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
-   $('#Sidebar > div.mySidebar_container_up').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
-   $('#Sidebar > div.mySidebar_container_down').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
+   $('#slider_background').attr('style', '').addClass('dom_hidden');
+   $('#Sidebar > div.mySidebar_container_up').addClass('dom_hidden');
+   $('#Sidebar > div.mySidebar_container_down').addClass('dom_hidden');
    $('#wrapper').css({
       marginLeft: '',
       marginRight: ''
@@ -557,20 +535,14 @@ function HideSlider() { // 隱藏 slider 介面
       marginLeft: '',
       marginRight: ''
    });
-   $('#Sidebar').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
+   $('#Sidebar').addClass('dom_hidden');
    //左右滑動切換 slider
    $('#slider_background').off('touchmove', MoveSlider_bg).off('touchend', EndSlider_bg);
 }
 
 function ShowSlider() { // 顯示 slider 介面
    var a = $('#Sidebar').data('width');
-   $('#Sidebar').removeClass('dom_hidden').css({
-      'top': '',
-      'left': ''
-   });
+   $('#Sidebar').removeClass('dom_hidden');
    $('#slider_btn').addClass('bar_on');
    $('#wrapper').css({
       marginLeft: '-' + a + 'px',
@@ -605,14 +577,8 @@ function ShowSlider() { // 顯示 slider 介面
       marginRight: a + 'px'
    });
    $('#slider_background').removeClass('dom_hidden').attr('style', '').css('right', a + 'px');
-   $('#Sidebar > div.mySidebar_container_up').css({
-      'top': '',
-      'left': ''
-   }).removeClass('dom_hidden');
-   $('#Sidebar > div.mySidebar_container_down').css({
-      'top': '',
-      'left': ''
-   }).removeClass('dom_hidden');
+   $('#Sidebar > div.mySidebar_container_up').removeClass('dom_hidden');
+   $('#Sidebar > div.mySidebar_container_down').removeClass('dom_hidden');
    $('#scroll-top-top').css({
       marginLeft: '-' + a,
       marginRight: a
@@ -724,4 +690,28 @@ function FeedToFacebook(event) { // 分享到 facebook
          $('#Timeline_NotificationArea').delay(3000).html(update_notify).show().delay(3300).hide(200);
       }
    });
+}
+
+function GoToTopicMap(){ // 顯示 topicmap 介面
+	var a = localStorage.group_selected || null;
+	if (a == null || a == '') {
+		alert('請先選擇群組');
+	} else if (sessionStorage.getItem('topic_relevance_for' + a) == null) {
+		alert('關聯性尚未計算完成,請過1~2分鐘後再進入Topic map');
+	} else if (sessionStorage.getItem('topic_relevance_for' + a) == "[] ") {
+		alert('目前搜尋的關鍵字經過計算都沒有關聯耶!');
+	} else {
+		localStorage.setItem('where', 'slider_a');
+		window.top.location.href = './TopicMap/topic_map.html';
+	}
+}
+
+function GoToSearchProcess(){ // 顯示 SearchProcess 介面
+	var a = localStorage.group_selected || null;
+	if (a == null || a == '') {
+		alert('請先選擇群組');
+	} else {
+		localStorage.setItem('where', 'slider_a');
+		window.top.location.href = './SearchProcess/searchprocess.html';
+	}
 }

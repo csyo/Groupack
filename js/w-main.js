@@ -65,20 +65,6 @@ function removeById(xid) {
         .done(function(r) {
             console.log(r);
             getGroupUpdated();
-            // console.log('removeById: T_savedata');
-            // if (localStorage.T_savedataTimeout) {
-            //    window.setTimeout(function () {
-            //       var a = window.setTimeout(function () {
-            //          T_savedata(xid, 'none', 'none', 'none');
-            //       }, 1000);
-            //       localStorage.setItem('T_savedataTimeout', a);
-            //    }, 3000);
-            // } else {
-            //    var a = window.setTimeout(function () {
-            //       T_savedata(xid, 'none', 'none', 'none');
-            //    }, 1000);
-            //    localStorage.setItem('T_savedataTimeout', a);
-            // }
         });
 }
 

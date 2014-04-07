@@ -90,17 +90,11 @@ $(document).on('click', 'li.group-item > a', function show_select_group(e) {
    if (!$('body').hasClass('timeline_on')) {
       $('#wrapper').removeClass('dom_hidden').attr('style', '');
       $('#under-footer').removeClass('dom_hidden').attr('style', '');
-      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
       $('div.workspace_on_now').removeClass('workspace_on_now');
    } else {
       $('#timeline_wrapper').removeClass('dom_hidden').attr('style', '');
-      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#myWorkspace').removeClass('workspace_on').addClass('dom_hidden');
       $('div.workspace_on_now').removeClass('workspace_on_now');
       if ($('#timeline_update_temp > div').length != 0) {
          $('#timeline_notificationCountArea').hide();
@@ -280,54 +274,27 @@ $(function interface() {
    $('div.addgroup_members_footer_right').children('div.addgroup_footer_submit').click(function submit_choose_member() {
       $('div.addgroup_members_container div.checkgroup_members_container_item').css('background-color', '').removeClass('checkgroup_friends_select_be_selected');
       $('div.addgroup_member_container > a').filter('#temp_').attr('id', '');
-      $('div.addgroup_members_container').addClass('dom_hidden').offset({
-         top: -5000,
-         left: -5000
-      });
-      $('div.addgroup_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.addgroup_members_footer_right').addClass('dom_hidden').offset({
-         top: -5000,
-         left: -5000
-      });
+      $('div.addgroup_members_container').addClass('dom_hidden');
+      $('div.addgroup_footer_right').removeClass('dom_hidden');
+      $('div.addgroup_members_footer_right').addClass('dom_hidden');
    });
 
    // 確定 in 選擇成員 (檢視群組)
    $('.checkgroup_members_footer_right').children('div.checkgroup_footer_submit').click(function submit_choose_member() {
       $('div.checkgroup_members_container div.checkgroup_members_container_itemText').css('background-color', '').removeClass('checkgroup_friends_select_be_selected');
       $('div.checkgroup_member_container > a').filter('#temp_').attr('id', '');
-      $('div.checkgroup_members_container').addClass('dom_hidden').offset({
-         top: -5000,
-         left: -5000
-      });
-      $('div.checkgroup_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.checkgroup_members_footer_right').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('div.checkgroup_members_container').addClass('dom_hidden');
+      $('div.checkgroup_footer_right').removeClass('dom_hidden');
+      $('div.checkgroup_members_footer_right').addClass('dom_hidden');
    });
 
    // 確定 in 選擇管理者 (檢視群組)
    $('.checkgroup_keepers_footer_right').children('div.checkgroup_footer_submit').click(function submit_choose_admin() {
       $('div.checkgroup_keepers_container div.checkgroup_members_container_itemText').css('background-color', '').removeClass('checkgroup_keepers_select_be_selected');
       $('div.checkgroup_keeper_container > a').filter('#temp_').attr('id', '');
-      $('div.checkgroup_keepers_container').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.checkgroup_keepers_footer_right').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('div.checkgroup_keepers_container').addClass('dom_hidden');
+      $('div.checkgroup_footer_right').removeClass('dom_hidden');
+      $('div.checkgroup_keepers_footer_right').addClass('dom_hidden');
    });
 
    // 刪除/離開群組 in 檢視群組 (管理者/成員)
@@ -347,18 +314,9 @@ $(function interface() {
                   console.log(r);
                });
             removeGroupDom(groupID);
-            $('div.checkgroup_members_container').addClass('dom_hidden').offset({
-               top: -5000,
-               left: -5000
-            });
-            $('div.checkgroup_footer_right').removeClass('dom_hidden').css({
-               'top': '',
-               'left': ''
-            });
-            $('div.checkgroup_members_footer_right').addClass('dom_hidden').offset({
-               top: -1000,
-               left: -1000
-            });
+            $('div.checkgroup_members_container').addClass('dom_hidden');
+            $('div.checkgroup_footer_right').removeClass('dom_hidden');
+            $('div.checkgroup_members_footer_right').addClass('dom_hidden');
          }
       } else {
          if (confirm('確定刪除這個群組？\nAre you sure to delete the group?')) {
@@ -371,18 +329,9 @@ $(function interface() {
                   console.log(r);
                });
             removeGroupDom(groupID);
-            $('div.checkgroup_members_container').addClass('dom_hidden').offset({
-               top: -5000,
-               left: -5000
-            });
-            $('div.checkgroup_footer_right').removeClass('dom_hidden').css({
-               'top': '',
-               'left': ''
-            });
-            $('div.checkgroup_members_footer_right').addClass('dom_hidden').offset({
-               top: -1000,
-               left: -1000
-            });
+            $('div.checkgroup_members_container').addClass('dom_hidden');
+            $('div.checkgroup_footer_right').removeClass('dom_hidden');
+            $('div.checkgroup_members_footer_right').addClass('dom_hidden');
          }
       }
    });
@@ -405,22 +354,10 @@ $(function interface() {
          var groupID = "g" + (new Date().getTime()); // 設定群組 ID
          setGroup(groupID, groupName, "ADD"); // 設定群組資料
          // 隱藏新增群組界面
-         $('#addgroup').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
-         $('#addgroup_background').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
-         $('div.addgroup_container').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
-         $('div.addgroup_footer').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
+         $('#addgroup').addClass('dom_hidden');
+         $('#addgroup_background').addClass('dom_hidden');
+         $('div.addgroup_container').addClass('dom_hidden');
+         $('div.addgroup_footer').addClass('dom_hidden');
          $('div.addgroup_member_container > a').children('[class=temp_]').remove();
          $('div.addgroup_member_container > a:empty').remove();
          $('div.checkgroup_members_container_itemText').removeClass('addgroup_friends_select_on');
@@ -440,22 +377,10 @@ $(function interface() {
          }
       }
       setGroup(groupID, groupName, 'EDIT'); // 設定修改後群組資料
-      $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('#checkgroup_background').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_container').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_footer').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden');
+      $('#checkgroup_background').addClass('dom_hidden');
+      $('div.checkgroup_container').addClass('dom_hidden');
+      $('div.checkgroup_footer').addClass('dom_hidden');
       $('div.checkgroup_member_container > a').children('[class=temp_]').remove();
       $('div.checkgroup_member_container > a:empty').remove();
       $('div.checkgroup_members_container_itemText').removeClass('checkgroup_friends_select_on').removeClass('checkgroup_keepers_select_on');
@@ -463,22 +388,10 @@ $(function interface() {
    });
    // 取消 in 新增群組
    $('div.addgroup_footer_right').children('div.addgroup_footer_cancel').click(function cancel_addG() {
-      $('#addgroup').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('#addgroup_background').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.addgroup_container').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.addgroup_footer').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#addgroup').addClass('dom_hidden');
+      $('#addgroup_background').addClass('dom_hidden');
+      $('div.addgroup_container').addClass('dom_hidden');
+      $('div.addgroup_footer').addClass('dom_hidden');
       $('div.addgroup_member_container > a').children('[class=temp_]').remove();
       $('div.addgroup_member_container > a:empty').remove();
       //$('ul.addgroup_friends_select > li').attr('class', '');
@@ -487,22 +400,10 @@ $(function interface() {
    });
    // 取消 in 檢視群組
    $('div.checkgroup_footer_right').children('div.checkgroup_footer_cancel').click(function cancel_editG() {
-      $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('#checkgroup_background').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_container').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_footer').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden');
+      $('#checkgroup_background').addClass('dom_hidden');
+      $('div.checkgroup_container').addClass('dom_hidden');
+      $('div.checkgroup_footer').addClass('dom_hidden');
       $('div.checkgroup_member_container > a').children('[class=temp_]').remove();
       $('div.checkgroup_member_container > a:empty').remove();
       $('div.checkgroup_keeper_container > a').children('[class=temp_]').remove();
@@ -530,18 +431,9 @@ $(function interface() {
                $('div.checkgroup_members_container_item [role=' + temp + ']').addClass('checkgroup_friends_select_on').css('background-color', '');
             }
          }
-         $('div.checkgroup_members_container').removeClass('dom_hidden').css({
-            'top': '',
-            'left': ''
-         });
-         $('div.checkgroup_footer_right').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
-         $('div.checkgroup_members_footer_right').removeClass('dom_hidden').css({
-            'top': '',
-            'left': ''
-         });
+         $('div.checkgroup_members_container').removeClass('dom_hidden');
+         $('div.checkgroup_footer_right').addClass('dom_hidden');
+         $('div.checkgroup_members_footer_right').removeClass('dom_hidden');
       } else {
          var li_num = $('div.addgroup_member_container').children('a').length;
          for (var x = 1; x <= li_num; x++) {
@@ -550,18 +442,9 @@ $(function interface() {
                $('div.addgroup_members_container [role=' + role + ']').addClass('addgroup_friends_select_on').css('background-color', '');
             }
          }
-         $('div.addgroup_members_container').removeClass('dom_hidden').css({
-            'top': '',
-            'left': ''
-         });
-         $('div.addgroup_footer_right').addClass('dom_hidden').offset({
-            top: -1000,
-            left: -1000
-         });
-         $('div.addgroup_members_footer_right').removeClass('dom_hidden').css({
-            'top': '',
-            'left': ''
-         });
+         $('div.addgroup_members_container').removeClass('dom_hidden');
+         $('div.addgroup_footer_right').addClass('dom_hidden');
+         $('div.addgroup_members_footer_right').removeClass('dom_hidden');
       }
    });
    // 顯示 選擇管理者 介面
@@ -573,53 +456,26 @@ $(function interface() {
             $('div.checkgroup_keepers_container [role=' + temp + ']').attr('class', 'checkgroup_keepers_select_on').css('background-color', '');
          }
       }
-      $('div.checkgroup_keepers_container').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.checkgroup_footer_right').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_keepers_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
+      $('div.checkgroup_keepers_container').removeClass('dom_hidden');
+      $('div.checkgroup_footer_right').addClass('dom_hidden');
+      $('div.checkgroup_keepers_footer_right').removeClass('dom_hidden');
    });
    // 離開 選擇成員 介面 (新增群組)
    $('div.addgroup_members_footer_right').children('div.addgroup_footer_cancel').click(function close_choose_member() {
       $('div.addgroup_member_container > a').filter('#temp_').remove();
       $('div.addgroup_members_container div.checkgroup_members_container_itemText').css('background-color', '').removeClass('addgroup_friends_select_be_selected');
-      $('div.addgroup_members_container').addClass('dom_hidden').offset({
-         top: -5000,
-         left: -5000
-      });
-      $('div.addgroup_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.addgroup_members_footer_right').addClass('dom_hidden').offset({
-         top: -5000,
-         left: -5000
-      });
+      $('div.addgroup_members_container').addClass('dom_hidden');
+      $('div.addgroup_footer_right').removeClass('dom_hidden');
+      $('div.addgroup_members_footer_right').addClass('dom_hidden');
       removeList();
    });
    // 離開 選擇成員 介面 (檢視群組)
    $('.checkgroup_members_footer_right').children('div.checkgroup_footer_cancel').click(function close_choose_member() {
       $('div.checkgroup_member_container > a').filter('#temp_').remove();
       $('.checkgroup_members_container div.checkgroup_members_container_itemText').css('background-color', '').removeClass('checkgroup_friends_select_be_selected');
-      $('div.checkgroup_members_container').addClass('dom_hidden').offset({
-         top: -5000,
-         left: -5000
-      });
-      $('div.checkgroup_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.checkgroup_members_footer_right').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('div.checkgroup_members_container').addClass('dom_hidden');
+      $('div.checkgroup_footer_right').removeClass('dom_hidden');
+      $('div.checkgroup_members_footer_right').addClass('dom_hidden');
       //removeList();
    });
    // 離開 選擇管理者 介面 (檢視群組)
@@ -628,18 +484,9 @@ $(function interface() {
       $('div.checkgroup_member_container > a').filter('#temp_').attr('id', '');
       $('div.checkgroup_keeper_container > a').filter('#temp_').remove();
       $('div.checkgroup_keepers_container div.checkgroup_members_container_itemText').css('background-color', '').removeClass('checkgroup_keepers_select_be_selected');
-      $('div.checkgroup_keepers_container').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
-      $('div.checkgroup_footer_right').removeClass('dom_hidden').css({
-         'top': '',
-         'left': ''
-      });
-      $('div.checkgroup_keepers_footer_right').addClass('dom_hidden').offset({
-         top: -1000,
-         left: -1000
-      });
+      $('div.checkgroup_keepers_container').addClass('dom_hidden');
+      $('div.checkgroup_footer_right').removeClass('dom_hidden');
+      $('div.checkgroup_keepers_footer_right').addClass('dom_hidden');
    });
 
 });
@@ -904,22 +751,10 @@ function removeGroupDom(groupID) {
    }
    $('li#' + groupID).remove();
    localStorage.removeItem(groupID);
-   $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
-   $('#checkgroup_background').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
-   $('div.checkgroup_container').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
-   $('div.checkgroup_footer').addClass('dom_hidden').offset({
-      top: -1000,
-      left: -1000
-   });
+   $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden');
+   $('#checkgroup_background').addClass('dom_hidden');
+   $('div.checkgroup_container').addClass('dom_hidden');
+   $('div.checkgroup_footer').addClass('dom_hidden');
    $('div.checkgroup_member_container > a').children('[class=temp_]').remove();
    $('div.checkgroup_member_container > a:empty').remove();
    $('div.checkgroup_keeper_container > a').children('[class=temp_]').remove();
