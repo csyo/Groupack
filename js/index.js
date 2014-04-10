@@ -58,7 +58,7 @@ $(function(e) {
          CheckSlider();
       }
       if (window.matchMedia('(max-width:600px)').matches) { // 手機
-         $('#Group_Board').css('width', 160);
+         $('#Group_Board').css('width', 200);
       } else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { // 平板
          $('#Group_Board').css('width', 320);
       } else { // 電腦

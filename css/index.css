@@ -15,7 +15,8 @@ body {
 font: normal 100% Helvetica, Arial, sans-serif;
 overflow-x: hidden;
 margin: 0em 0em  0em  0em !important;
-background: #e9e9e9;
+/*background: #e9e9e9;*/
+background: url(../Image/geometry.png);
 }
 .co_h2{
 font: normal 100% Helvetica, Arial, sans-serif;
@@ -29,15 +30,11 @@ margin: 0 !important;
 .isotope , .two_column {
 -webkit-transition-property: height, width;
 -moz-transition-property: height, width;
--ms-transition-property: height, width;
--o-transition-property: height, width;
 transition-property: height, width;
 }
 .isotope, .isotope .isotope-item, .two_column {
 -webkit-transition-duration: 0.8s;
 -moz-transition-duration: 0.8s;
--ms-transition-duration: 0.8s;
--o-transition-duration: 0.8s;
 transition-duration: 0.8s;
 }
 .co_a{
@@ -45,8 +42,6 @@ text-decoration: none;
 outline: 0;
 -webkit-transition: color 0.1s ease-in-out;
 -moz-transition: color 0.1s ease-in-out;
--o-transition: color 0.1s ease-in-out;
--transition: color 0.1s ease-in-out;
 }
 .co_a{
 color: #ffbb09;
@@ -62,7 +57,6 @@ z-index: 999;
 background: #006BDC;
 -webkit-border-radius: 20px;
 -moz-border-radius: 20px;
--o-border-radius: 20px;
 border-radius: 20px;
 }
 #scroll-top-top a {
@@ -74,16 +68,12 @@ background-size: 100%;
 background-position: 50% 50%;
 -webkit-border-radius: 20px;
 -moz-border-radius: 20px;
--o-border-radius: 20px;
 border-radius: 20px;
 -webkit-transition: all 0.1s ease-in-out;
 -moz-transition: all 0.1s ease-in-out;
--o-transition: all 0.1s ease-in-out;
--ms-transition: all 0.1s ease-in-out;
 transition: all 0.1s ease-in-out;
 -webkit-box-shadow: 2px 2px 8px rgb(107, 106, 106);
 -moz-box-shadow: 2px 2px 8px rgb(107, 106, 106);
--o-box-shadow: 2px 2px 8px rgb(107, 106, 106);
 box-shadow: 2px 2px 8px rgb(107, 106, 106);
 cursor: pointer;
 }
@@ -232,7 +222,8 @@ left: 30%;
 .showtopic_span{
 position: relative;
 width: 100%;
-font-size: 14px;
+font-size: 18px;
+font-weight: bold;
 float: left;
 }
 .showtopic_span div{
@@ -241,7 +232,6 @@ display: inline-block;
 line-height: 20px;
 }
 #select_group_notify{
--o-box-shadow: rgba(51, 51, 102, 0.498039) 2px 2px 8px;
 -moz-box-shadow: rgba(51, 51, 102, 0.498039) 2px 2px 8px;
 -webkit-box-shadow: rgba(51, 51, 102, 0.498039) 2px 2px 8px;
 box-shadow: 2px 2px 8px;
@@ -327,7 +317,6 @@ float: left;
 transition: All 0.4s ease-in-out;
 -webkit-transition: All 0.4s ease-in-out;
 -moz-transition: All 0.4s ease-in-out;
--o-transition: All 0.4s ease-in-out;
 }
 .group_member_area_inf_on{
 position: fixed;
@@ -357,7 +346,6 @@ float: left;
 transition: All 0.4s ease-in-out;
 -webkit-transition: All 0.4s ease-in-out;
 -moz-transition: All 0.4s ease-in-out;
--o-transition: All 0.4s ease-in-out;
 }
 #show_all_group_member_area_btn{
 display: block;
@@ -406,7 +394,6 @@ background-color: rgba(59, 120, 240, 0.87);
 transform: scale(1.2);
 -webkit-transform: scale(1.2);
 -moz-transform: scale(1.2);
--o-transform: scale(1.2);
 -ms-transform: scale(1.2);
 }
 }

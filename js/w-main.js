@@ -45,12 +45,10 @@ $(document).on('click', 'a.modifycard', function() {
 // 顯示於群組共享
 
 function addToSharing(id, name) {
-    var folder = '' +
-        '<div class="_select_folder" style="display: block;">' +
-        '<div class="_select_folder_area" data="' + id + '" style="">' + name + '</div>' +
-        '</div>';
-    $('div._select_workspace_on').after(folder);
-    $('div.sharing_with_group_addworkspace').hide();
+    var folder = '<div class="sharing_with_group_select_field" style="display: block;">'
+                + '<div class="_select_workspace" data="' + id + '" style="">' + name + '</div>'
+                + '</div>';
+    $('div.sharing_with_group_select').append(folder);
 }
 
 // 移除 workspace / folder / card

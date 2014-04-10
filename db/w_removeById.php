@@ -12,7 +12,7 @@
             echo $id." (card) is deleted.";
             break;
         case "f": // remove folder
-            $query = sprintf( "DELETE FROM folerinfo WHERE FolderID = '%s'" , mysql_real_escape_string($id));
+            $query = sprintf( "DELETE FROM folderinfo WHERE FolderID = '%s'" , mysql_real_escape_string($id));
             mysql_query($query) or die('Invalid query #2: ' . mysql_error());
             echo $id." (folder) is deleted.";
             break;

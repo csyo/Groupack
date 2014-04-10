@@ -8,7 +8,6 @@ function close_sharing() {
     $('._select_card_on').hide();
     $('#sharing_with_group div._select_folder').hide();
     $('.sharing_with_group_back').hide();
-    document.getElementById('sharing_with_group_showarea_title').innerHTML = '選擇 WorkSpace';
     $('._select_card_on').css({
         'background-color': '',
         'color': ''
@@ -24,6 +23,7 @@ function close_sharing() {
         $('#sharing_with_group_background').css('z-index', '');
         $('.sharing_with_group_z').removeClass('sharing_with_group_z');
     }
+    delete localStorage.folder_selected;
 }
 
 // 顯示介面: 群組共享 ( Workspace )
@@ -47,7 +47,6 @@ $(document).on('click', '#sharing_with_group div.sharing_with_group_back', funct
     $('._select_card_on').hide();
     $('#sharing_with_group div._select_folder').hide();
     $(this).hide();
-    document.getElementById('sharing_with_group_showarea_title').innerHTML = '選擇 WorkSpace';
     $('._select_card_on').css({
         'background-color': '',
         'color': ''
@@ -77,22 +76,21 @@ $(document).on('click', 'h2 .fancy_iframe', function() {
 });
 
 // 群組共享介面： 選擇 workspace
-$(document).on('click', '#sharing_with_group div._select_workspace', function select_WS() {
-    if (!$(this).hasClass('_select_workspace_on')) {
+$(document).on('click', '#sharing_with_group div._select_workspace', function () {
+    if (!$('._select_workspace_on').attr('data') && !$(this).hasClass('_select_workspace_on')) {
         $(this).addClass('_select_workspace_on');
-        $('.sharing_with_group_select_field').css('border', '0');
-        $('.sharing_with_group_select_field').has('._select_workspace:not(._select_workspace_on)').hide();
-        $(this).nextAll('._select_folder').show(100);
-        $('#sharing_with_group_showarea_title').html('選擇 Folder');
+        // $('.sharing_with_group_select_field').css('border', '0');
+        // $('.sharing_with_group_select_field').has('._select_workspace:not(._select_workspace_on)').hide();
+        // $(this).nextAll('._select_folder').show(100);
         //$('.sharing_with_group_addfolder').hide();
-        $('.sharing_with_group_back').show();
+        // $('.sharing_with_group_back').show();
         // 顯示按鈕: 新增 (folder)
         //		if ( $(this).siblings().length == 0 ) { 
-        $('.sharing_with_group_addworkspace').hide();
-        $('.sharing_with_group_addfolder').show();
+        // $('.sharing_with_group_addworkspace').hide();
+        // $('.sharing_with_group_addfolder').show();
 
         // 記錄當前 workspace
-        localStorage.setItem('workspace_selected', $('._select_workspace_on').attr('data'));
+        localStorage.setItem('folder_selected', $('._select_workspace_on').attr('data'));
         //		}
     }
 });
@@ -125,9 +123,8 @@ $(document).on('click', '#portfolio_wrapper1 div.search_result_inf_field_content
 
 // 確認 群組共享
 $(document).on('click', '#sharing_with_group div.sharing_with_group_submit', function() {
-    var select = $('#sharing_with_group_showarea_title').html();
-    if (select == "選擇 Folder") {
-        var fID = $('._select_folder_on').attr('data');
+    var fID = $('._select_workspace_on').attr('data');
+    if (fID) {
         var cID = 'c' + createID();
         var page_info = JSON.parse(localStorage.page_info);
         var data = {
@@ -144,40 +141,28 @@ $(document).on('click', '#sharing_with_group div.sharing_with_group_submit', fun
             close_sharing();
         });
     } else {
-        alert('請選擇完 Workspace 和 Folder 之後再按確定!');
+        alert('請選擇 Folder !');
     }
 });
 
 // 顯示 worksapces, folders
 function showWS() {
-    var data = processGroupData();
+    var data = processGroupData().folders;
     console.log(data);
-    // 顯示按鈕: 新增 (workspace)
-    $('div.sharing_with_group_addfolder').hide();
-    $('div.sharing_with_group_addworkspace').show();
-    // 清空
-    $('.sharing_with_group_select').remove();
-    if (data.workspaces) {
-        data = data.workspaces;
+    var $sharing = $('#sharing_with_group').find('div.sharing_with_group_select').remove().end();
+    if (data) {
         // 加入新截取資料
         var div = '<div class="sharing_with_group_select">';
-        data.forEach(function(workspace){
-            div += '<div class="sharing_with_group_select_field" style="display: block;">\
-            <div class="_select_workspace" data="' + workspace.w_id + '" style="">' + workspace.w_name + '</div>';
-            if( workspace.folders ){
-            	workspace.folders.forEach(function(folder){
-	                div += '<div class="_select_folder" style="display: none;">'
-		                +'<div class="_select_folder_area" data="' + folder.f_id + '"style="">'
-		                + folder.f_name + '</div></div>';
-            	})
-            }
-            div += '</div>';
+        data.forEach(function(folder){
+            div += '<div class="sharing_with_group_select_field" style="display: block;">'
+                + '<div class="_select_workspace" data="' + folder.f_id + '" style="">' + folder.f_name + '</div>'
+                + '</div>';
         });
         div += '</div>';
-        $('.sharing_with_group_container').before(div);
+        $sharing.find('.sharing_with_group_container').before(div);
         // 卡片檢視界面: 隱藏所在 folder
         if ($('#card_wrapper').css('display') === 'block') {
-            $('._select_folder_area[data=' + localStorage.folder_selected + ']').hide();
+            $('div._select_folder_area[data=' + localStorage.folder_selected + ']').hide();
         }
     }
 }

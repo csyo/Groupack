@@ -39,7 +39,7 @@
 	</div>
 	<div class="Timeline_Notification isotope">
 		<div class="Timeline_Notification_icon">
-			<img src="./Image/folder_blue.png" width="30px">
+			<img src="./Image/folder_y.png" width="30px">
 		</div>
 		<div class="Timeline_Notification_event">
 			<span role="100000689016726">王梓憲</span>
@@ -51,10 +51,6 @@
 <div id="Group_Board" class="isotope">
 	<div class="Group_Board_header">
 		<a class="co_a">&nbsp;</a>
-		<div class="Group_Board_logo">
-			<div class="Group_Board_logo_icon">&nbsp;</div>
-			<div class="Group_Board_logo_text">群組</div>
-		</div>
 		<div class="Group_Board_inf">
 			<div class="Group_Board_inf_text">none</div>
 		</div>
@@ -99,15 +95,13 @@
 				</div>
 			</div>
 			<div class="cards_area_header_right">
-				<div class="cards_area_header_leave">
+				<div class="cards_area_header_leave" style="margin-right: 10px;">
 					<a id="cards_area_leave" class="co_a">&nbsp;</a>
-					<div class="cards_area_leave_icon">&nbsp;</div>
-					<div class="cards_area_leave_text">離開</div>
+					<div class="cards_area_leave_icon">離開</div>
 				</div>
 				<div class="cards_area_header_manager">
 					<a id="cards_area_manager" class="co_a folders_manager_area_on">&nbsp;</a>
-					<div class="cards_area_manager_icon">&nbsp;</div>
-					<div class="cards_area_manager_text">管理</div>
+					<div class="cards_area_manager_icon">動作</div>
 				</div>
 			</div>
 		</div>
@@ -635,7 +629,7 @@
 		<div class="sharing_with_group_header"><img src="./Image/group_icon_black.png">群組共享</div>
 		<div class="sharing_with_group_showarea">
 			<div class="sharing_with_group_showarea_container">
-				<div id="sharing_with_group_showarea_title">選擇 Workspace</div>
+				<div id="sharing_with_group_showarea_title">選擇資料夾</div>
 			</div>
 			<div class="sharing_with_group_addworkspace">
 				<a class="co_a add_workspace" href="#inline_workspace">&nbsp;</a>
@@ -645,14 +639,13 @@
 				<a class="co_a addfolder" href="#inline_workspace_manager_addfolder">&nbsp;</a>
 				<input type="button" value="新增">
 			</div>
-			<div class="sharing_with_group_back">
+			<!-- <div class="sharing_with_group_back">
 				<input type="button" value="返回">
-			</div>
+			</div> -->
 		</div>
 		<div class="sharing_with_group_container">
 			<div class="sharing_with_group_select">
-				<div class="sharing_with_group_select_field">
-					<!-- EX:
+				<!-- <div class="sharing_with_group_select_field">
 					<div class="_select_workspace">workspace1</div>
 					<div class="_select_folder">
 						<div class="_select_folder_area">folder1</div>
@@ -664,8 +657,8 @@
 						<div class="_select_card">card1</div>
 						<div class="_select_card">card2</div>
 						<div class="_select_card">card3</div>
-					</div>-->
-				</div>
+					</div>
+				</div> -->
 			</div>
 			<div class="sharing_with_group_submit_wrapper">
 				<div class="sharing_with_group_delete">取消</div>
@@ -933,6 +926,7 @@
 	<section>
 		<header>
 			<div class="title chinese">工作空間</div>
+			<div id="folder-box_add" class="chinese">新增</div>
 			<div id="folder-box_leave" class="chinese">離開</div>
 		</header>
 		<article>
@@ -940,7 +934,7 @@
 				<div class="workspace_columns isotope">	
 					<div class="workspace_four_column" id="f1389682135627" sid="20140405_122143">
 						<div class="workspace_folders_title">&nbsp;</div>
-						<div class="workspace_folders_title_icon f_engine" title="管理 folder"></div>
+						<div class="workspace_folders_title_icon f_engine" title="管理 folder">動作</div>
 						<div class="workspace_folders_manager_area">
 							<div class="workspace_folders_manager_addcard">
 								<a class="co_a addcard" href="#inline_folders_manager_addcard" onclick="show_addcard(this)">&nbsp;</a>

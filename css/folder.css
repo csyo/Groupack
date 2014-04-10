@@ -195,18 +195,17 @@ z-index: 4;
 }
 .workspace_folders_title_icon{
 position: absolute;
-width: 30px;
 height: 30px;
-right: 0;
+line-height: 30px;
+right: 5px;
 cursor: pointer;
-float: right;
 z-index: 5;
 opacity: 0.6;
 }
 .f_engine{
-background: no-repeat url('../Image/engine.png');
+/*background: no-repeat url('../Image/engine.png');
 background-position: 50% 50%;
-background-size: 80%;
+background-size: 80%;*/
 }
 .workspace_folders{
 border-radius: 10px;

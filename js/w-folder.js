@@ -224,10 +224,10 @@ function newFolder() {
 // 新增 folder 到資料庫
 function addFolder(name, comment) {
 	var folderID = "f" + createID(),
-		wID = localStorage.workspace_selected;
+		gID = localStorage.group_selected;
 	// 傳送到資料庫
 	$.post("db/w_setFolder.php", {
-		wid: wID,
+		gid: gID,
 		fid: folderID,
 		fname: name,
 		comment: comment,
@@ -239,19 +239,6 @@ function addFolder(name, comment) {
 		.done(function (r) {
 			console.log(r);
 			getGroupUpdated();
-			// if (localStorage.T_savedataTimeout) {
-			// 	window.setTimeout(function () {
-			// 		var a = window.setTimeout(function () {
-			// 			T_savedata('none', 'none', folderID, 'none');
-			// 		}, 1000);
-			// 		localStorage.setItem('T_savedataTimeout', a);
-			// 	}, 3000);
-			// } else {
-			// 	var a = window.setTimeout(function () {
-			// 		T_savedata('none', 'none', folderID, 'none');
-			// 	}, 1000);
-			// 	localStorage.setItem('T_savedataTimeout', a);
-			// }
 		});
 	return folderID;
 }
@@ -270,7 +257,7 @@ function folderTemplate(fid, name, comment, time, creator) {
 	return '' +
 		'<div class="workspace_four_column" id="' + fid + '" sid="' + a[0] + '">' +
 		'<div class="workspace_folders_title">&nbsp;</div>' +
-		'<div class="workspace_folders_title_icon f_engine" title="管理 folder"></div>' +
+		'<div class="workspace_folders_title_icon f_engine" title="管理 folder">動作</div>' +
 		'<div class="workspace_folders_manager_area">' +
 		'<div class="workspace_folders_manager_addcard">' +
 		'<a class="co_a addcard" href="#inline_folders_manager_addcard" onclick="show_addcard(this)">&nbsp;</a>' +
@@ -307,12 +294,12 @@ $(document).on('click', '#inline_folders_manager_modifyfolder div.inline_modifyf
 function editFolder() {
 	var name = $('#inline_modifyfolder_wrapper_name').val();
 	var comment = $('#inline_modifyfolder_wrapper_comment').val();
-	var wid = localStorage.workspace_selected;
+	var gid = localStorage.group_selected;
 	var fid = localStorage.folder_selected;
 
 	// 傳送到資料庫
 	$.post("db/w_setFolder.php", {
-		wid: wid,
+		gid: gid,
 		fid: fid,
 		fname: name,
 		comment: comment,

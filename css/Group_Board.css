@@ -1,5 +1,4 @@
 #Group_Board{
-display: block;
 box-shadow: 2px 2px 8px;
 position: fixed;
 left: 0;
@@ -8,38 +7,11 @@ width: auto;
 max-width: 480px;
 z-index: 149;
 overflow: hidden;
-background-color: rgb(241, 241, 241);
 border: 1px solid rgb(204, 204, 204);
 font-family: Roboto, arial, sans-serif;
 color: rgb(107, 106, 106);
 display: none;
-}
-.Group_Board_logo{
-position: relative;
-margin: 1px;
-height: 30px;
-float: left;
-}
-.Group_Board_logo_icon{
-height: 18px;
-position: relative;
-width: 18px;
-text-align: center;
-margin: 0 auto;
-background-image: url('../Image/group_icon_gray.png');
-background-repeat: no-repeat;
-background-size: 120%;
-background-position: 50% 50%;
-}
-.Group_Board_logo_text{
-height: 8px;
-position: relative;
-width: 100%;
-line-height: 8px;
-font-size: 8px;
-text-align: center;
-margin-top: 2px;
-color: #444;
+background: url(../Image/geometry.png);
 }
 .Group_Board_inf{
 display: none;
@@ -47,7 +19,7 @@ position: absolute;
 margin: 1px;
 height: 30px;
 margin-right: 18px;
-left: 32px;
+left: 0;
 bottom: 0;
 color: #006BDC;
 font-weight: 600;
@@ -72,8 +44,6 @@ margin-top: 8px;
 transform: rotate(180deg);
 -webkit-transition-duration: 0.5s;
 -moz-transition-duration: 0.5s;
--ms-transition-duration: 0.5s;
--o-transition-duration: 0.5s;
 transition-duration: 0.5s;
 }
 .Group_Board_arrow_bottom{
@@ -96,14 +66,13 @@ height: 32px;
 width: 100%;
 cursor: pointer;
 border-bottom: 1px solid #ccc;
-background-color: #e5e5e5;
 overflow: hidden;
+background: url(../Image/bright_squares.png);
 }
 .Group_Board_wrapper{
 position: relative;
 width: 100%;
 -moz-transition: all 0.2s ease;
--o-transition: all 0.2s ease;
 -webkit-transition: all 0.2s ease;
 transition: all 0.2s ease;
 }

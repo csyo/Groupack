@@ -251,6 +251,7 @@ transition: All 0.2s ease-in-out;
 color: #555;
 margin: 1px 20px;
 cursor: text;
+text-align: left;
 font-size: 13px;
 }
 .item-description .post_url {
@@ -259,6 +260,7 @@ margin: 1px 20px 0 20px;
 cursor: text;
 font-size: 10px;
 overflow-x: hidden;
+text-align: left;
 }
 .item-description.alt {
 margin-bottom: 0;
