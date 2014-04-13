@@ -244,7 +244,9 @@ function addFolder(name, comment) {
 }
 
 // folder 介面樣板
-function folderTemplate(fid, name, comment, time, creator) {
+function folderTemplate(data) {
+
+	var fid = data.fid, name = data.name, comment = data.comment, time = data.time, creator = data.creator;
 
 	// 新增 folder 調整參數
 	if (typeof time === 'undefined' || time === null) time = '0000-00-00 00:00:00';
@@ -334,10 +336,15 @@ function showAllFolders() {
       div = '',
       $div = $('#folder-box').find('div.workspace_columns').find('div.workspace_four_column').remove().end();
    if (folders) {
-   	  console.log(folders);
-      for (var i = folders.length - 1; i >= 0; i--) {
- 		 var item = folders[i]
-         div += folderTemplate(item.f_id, item.f_name, item.f_comment, item.createdTime, item.createID);
+      for (var i = 0, item; item = folders[i]; i++) {
+      	 var data = {
+      	 	fid: item.f_id,
+      	 	name: item.f_name,
+      	 	comment: item.f_comment,
+      	 	time: item.createdTime,
+      	 	creator: item.creatorID
+      	 };
+         div += folderTemplate(data);
       }
       $div.prepend(div);
    }
