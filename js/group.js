@@ -540,11 +540,16 @@ function getGroupUpdated() {
 
 function updateGroupData(r) {
    // 將群組資料暫存，附上時間戳
-   var data = JSON.parse(r);
-   data.timestamp = new Date();
-   localStorage.setItem('group_data', JSON.stringify(data));
-   delete data.timestamp;
-   return data;
+   try {
+      var data = JSON.parse(r);
+      data.timestamp = new Date();
+      localStorage.setItem('group_data', JSON.stringify(data));
+      delete data.timestamp;
+      return data;
+   } catch (e) {
+      console.err(e);
+      return;
+   }
 }
 
 // 處理群組資料
@@ -611,7 +616,8 @@ function sendGroup(data) {
    if (data) {
       console.log(JSON.stringify(data));
       $.post('./db/g_setting.php', {
-         data: JSON.stringify(data)
+         data: JSON.stringify(data),
+         fid: 'f' + createID()
       })
          .fail(function(x) {
             console.log(x.responseText);
@@ -619,7 +625,7 @@ function sendGroup(data) {
          .done(function(r) {
             console.log(r);
             Group_Board_showMember();
-            updateGroupData()
+            getGroupUpdated();
          });
       removeList();
    }

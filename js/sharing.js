@@ -145,7 +145,7 @@ $(document).on('click', '#sharing_with_group div.sharing_with_group_submit', fun
     }
 });
 
-// 顯示 worksapces, folders
+// 顯示 folders
 function showWS() {
     var data = processGroupData().folders;
     console.log(data);
@@ -155,7 +155,9 @@ function showWS() {
         var div = '<div class="sharing_with_group_select">';
         data.forEach(function(folder){
             div += '<div class="sharing_with_group_select_field" style="display: block;">'
-                + '<div class="_select_workspace" data="' + folder.f_id + '" style="">' + folder.f_name + '</div>'
+                + '<div class="_select_workspace'
+                + (folder.f_name === '未分類' ? ' _select_workspace_on' : '')
+                + '" data="' + folder.f_id + '" style="">' + folder.f_name + '</div>'
                 + '</div>';
         });
         div += '</div>';

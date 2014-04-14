@@ -28,11 +28,11 @@
     function store( $data ){
         // 儲存管理員資料
         foreach ( $data->admins as $admins) {
-            $sql = sprintf("INSERT INTO userinfo VALUES ('%s', '%s')"
+            $sql = sprintf("INSERT IGNORE userinfo VALUES ('%s', '%s')"
                 , mysql_real_escape_string($admins->id)
                 , mysql_real_escape_string($admins->name));
             mysql_query($sql) or responseMsg('Invalid query #3: ' . mysql_error() . "\n");
-            $sql = sprintf("INSERT INTO belongsto VALUES ('%s', '%s', '%s')"
+            $sql = sprintf("INSERT IGNORE belongsto VALUES ('%s', '%s', '%s')"
                 , mysql_real_escape_string($admins->id)
                 , mysql_real_escape_string($data->ID)
                 , mysql_real_escape_string('ADMIN'));
@@ -41,11 +41,11 @@
         }
         // 儲存成員資料
         foreach ( $data->members as $members) { 
-            $sql = sprintf("INSERT INTO userinfo VALUES ('%s', '%s')"
+            $sql = sprintf("INSERT IGNORE userinfo VALUES ('%s', '%s')"
                 , mysql_real_escape_string($members->id)
                 , mysql_real_escape_string($members->name));
             mysql_query($sql) or responseMsg('Invalid query #5: ' . mysql_error() . "\n");
-            $sql = sprintf("INSERT INTO belongsto VALUES ('%s', '%s', '%s')"
+            $sql = sprintf("INSERT IGNORE belongsto VALUES ('%s', '%s', '%s')"
                 , mysql_real_escape_string($members->id)
                 , mysql_real_escape_string($data->ID)
                 , mysql_real_escape_string('MEMBER'));
@@ -64,7 +64,15 @@
         $sql = sprintf("INSERT INTO groupinfo (GroupID, GroupName) VALUES ('%s', '%s')"
                 , mysql_real_escape_string($groupID)
                 , mysql_real_escape_string($groupNAME));
-        $result = mysql_query($sql) or responseMsg('Invalid query #2: ' . mysql_error() . "\n");
+        $result = mysql_query($sql) or responseMsg('Invalid query #2.0: ' . mysql_error() . "\n");
+        responseMsg(( $result ? $sql."\n" : '' ));
+
+        $sql = sprintf( "INSERT INTO folderinfo (GroupID,FolderID,FolderName,FolderComment,CreatorID)
+            VALUES ('%s','%s','%s','%s','%s')",
+            mysql_real_escape_string($groupID),  mysql_real_escape_string($_POST['fid']),
+            mysql_real_escape_string('未分類'), mysql_real_escape_string('預設資料夾'),
+            mysql_real_escape_string($data->admins[0]->id));
+        $result = mysql_query($sql) or responseMsg('Invalid query #2.1: ' . mysql_error() . "\n");
         responseMsg(( $result ? $sql."\n" : '' ));
 
         store($data);

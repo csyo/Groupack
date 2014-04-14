@@ -259,7 +259,7 @@ function folderTemplate(data) {
 	return '' +
 		'<div class="workspace_four_column" id="' + fid + '" sid="' + a[0] + '">' +
 		'<div class="workspace_folders_title">&nbsp;</div>' +
-		'<div class="workspace_folders_title_icon f_engine" title="管理 folder">動作</div>' +
+		( name === '未分類' ? '' : ('<div class="workspace_folders_title_icon f_engine" title="管理 folder">動作</div>' +
 		'<div class="workspace_folders_manager_area">' +
 		'<div class="workspace_folders_manager_addcard">' +
 		'<a class="co_a addcard" href="#inline_folders_manager_addcard" onclick="show_addcard(this)">&nbsp;</a>' +
@@ -271,7 +271,7 @@ function folderTemplate(data) {
 		'<div class="workspace_folders_manager_modifyfolder_icon"></div>' +
 		'<div class="workspace_folders_manager_modifyfolder_text">修改 Folder</div>' +
 		'</div>' +
-		'</div>' +
+		'</div>') ) +
 		'<div class="workspace_folders">' +
 		'<a class="co_a workspace_folder_area" href="javascript: void(0);">&nbsp;</a>' +
 		'<div class="workspace_folder_title_inf">' +
@@ -281,12 +281,12 @@ function folderTemplate(data) {
 		'<div class="workspace_folder_comment_inf_text">' + comment + '</div>' +
 		'</div>' +
 		'</div>' +
-		'<div class="workspace_folders_user">' +
+		(name === '未分類' ? '' : ('<div class="workspace_folders_user">' +
 		'<div class="workspace_folders_user_name" role="' + creator + '">' + getName(creator) +
 		'</div>' +
 		'<span> 創建於 </span>' +
 		'<span role="time">' + Time + '</span>' +
-		'</div>' +
+		'</div>')) +
 		'</div>';
 }
 
