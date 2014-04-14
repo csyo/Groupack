@@ -131,7 +131,7 @@ function Initial(){  // groupack 首頁 初始化
 	}
 }
 function oplogin(){  // facebook api 初始化
-	FB.init({ appId: '520695818049915', status: true, cookie: true, xfbml: true });
+	FB.init({ appId: window.location.host === 'localhost' ? '282881761865946' : '520695818049915', status: true, cookie: true, xfbml: true });
 	// appid請去FB申請應用程式
 	fbstatus();
 	$('#InputWrapper').show();

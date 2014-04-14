@@ -626,7 +626,7 @@ function get_new_member() { // 確認新增的群組成員
 
 function FBInitial() { // 初始化 facebook api
    FB.init({
-      appId: '520695818049915',
+      appId: window.location.host === 'localhost' ? '282881761865946' : '520695818049915',
       status: true,
       cookie: true,
       xfbml: true
