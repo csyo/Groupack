@@ -78,21 +78,10 @@ $(document).on('click', 'h2 .fancy_iframe', function() {
 
 // 群組共享介面： 選擇 workspace
 $(document).on('click', '#sharing_with_group div._select_workspace', function () {
-    if (!$('._select_workspace_on').attr('data') && !$(this).hasClass('_select_workspace_on')) {
-        $(this).addClass('_select_workspace_on');
-        // $('.sharing_with_group_select_field').css('border', '0');
-        // $('.sharing_with_group_select_field').has('._select_workspace:not(._select_workspace_on)').hide();
-        // $(this).nextAll('._select_folder').show(100);
-        //$('.sharing_with_group_addfolder').hide();
-        // $('.sharing_with_group_back').show();
-        // 顯示按鈕: 新增 (folder)
-        //		if ( $(this).siblings().length == 0 ) { 
-        // $('.sharing_with_group_addworkspace').hide();
-        // $('.sharing_with_group_addfolder').show();
-
-        // 記錄當前 workspace
-        localStorage.setItem('folder_selected', $('._select_workspace_on').attr('data'));
-        //		}
+    if (!$(this).hasClass('_select_workspace_on')) {
+            $(this).parent().siblings().children().removeClass('_select_workspace_on');
+            $(this).addClass('_select_workspace_on');
+            localStorage.setItem('folder_selected', $('._select_workspace_on').attr('data'));
     }
 });
 
