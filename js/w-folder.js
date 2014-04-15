@@ -81,7 +81,6 @@ function cardsInFolder(that){
 			console.log(txt);
 		})
 		.done(function (r) {
-			console.log(r);
 			console.log("成功取得 Card 資料 from " + folderID);
 			var data = JSON.parse(r);
 			for (var i = 0, item; item = data[i]; i++) {

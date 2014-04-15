@@ -41,25 +41,6 @@ $(document).on('click', '#share_with_group', function() {
     showWS();
 });
 
-// 群組共享介面： 返回 選擇 workspace
-$(document).on('click', '#sharing_with_group div.sharing_with_group_back', function() {
-    $('.sharing_with_group_select_field').css('border', '').show();
-    $('#sharing_with_group div._select_workspace').removeClass('_select_workspace_on');
-    $('._select_card_on').hide();
-    $('#sharing_with_group div._select_folder').hide();
-    $(this).hide();
-    $('._select_card_on').css({
-        'background-color': '',
-        'color': ''
-    });
-    $('._select_folder_area').css({
-        'background-color': '',
-        'color': ''
-    }).removeClass('_select_folder_on');
-    $('._select_card').removeClass('_select_card_on');
-    $('#sharing_with_group div.sharing_with_group_addfolder').hide();
-    $('#sharing_with_group div.sharing_with_group_addworkspace').show();
-});
 // 關閉 群組共享介面
 $(document).on('click', '#sharing_with_group div.leave', close_sharing);
 
@@ -76,7 +57,7 @@ $(document).on('click', 'h2 .fancy_iframe', function() {
     localStorage.setItem('page_info', JSON.stringify(pageInfo));
 });
 
-// 群組共享介面： 選擇 workspace
+// 群組共享介面： 選擇
 $(document).on('click', '#sharing_with_group div.sharing_with_group_select_field > div._select_workspace', function () {
     if (!$(this).hasClass('_select_workspace_on')) {
             $(this).parent().siblings().children().removeClass('_select_workspace_on');
@@ -85,29 +66,20 @@ $(document).on('click', '#sharing_with_group div.sharing_with_group_select_field
     }
 });
 
-// 群組共享介面： 選擇 folder
-$(document).on('click', '#sharing_with_group div._select_folder_area', function() {
-    if (!$(this).hasClass('_select_folder_on')) {
-        $(this).addClass('_select_folder_on');
-        $(this).css('background-color', 'rgba(6, 82, 231, 0.870588)');
-        $(this).css('color', 'rgb(245, 255, 0)');
-        $('._select_workspace_on').nextAll('._select_folder').has('._select_folder_area:not(._select_folder_on)').hide();
-        $(this).nextAll('._select_card').show(100);
-    }
-});
-
 // 顯示群組共享介面 (at 搜尋結果)
-$(document).on('click', '#portfolio_wrapper1 div.search_result_inf_field_content:nth-child(1)', function() {
+function showSharing() {
     if (localStorage.group_selected) {
         showWS();
         $(this).addClass('this_sharing_with_group_on');
         $('#sharing_with_group').addClass('sharing_with_group_on').removeClass('dom_hidden').attr('style', '');
-		$('body').css('overflow', 'hidden');
+        $('body').css('overflow', 'hidden');
         $('#sharing_with_group_background').removeClass('dom_hidden').attr('style', '');
     } else {
         alert('選擇群組後才能使用「群組共享」功能');
     }
-});
+}
+$(document).on('click', '#portfolio_wrapper1 div.search_result_inf_field_content:nth-child(1)', showSharing);
+$(document).on('click', '#inline_workspace_cards div.workspace_cards_content_inf_field_content:nth-child(1)', showSharing);
 
 // 確認 群組共享
 $(document).on('click', '#sharing_with_group div.submit', function() {
