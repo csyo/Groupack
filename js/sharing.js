@@ -2,6 +2,7 @@ function close_sharing() {
     $('.this_sharing_with_group_on').removeClass('this_sharing_with_group_on');
     $('.this_tag_sharing_with_group_on').removeClass('this_tag_sharing_with_group_on');
     $('#sharing_with_group').removeClass('sharing_with_group_on').addClass('dom_hidden');
+	$('body').css('overflow', '');
     $('#sharing_with_group_background').addClass('dom_hidden');
     $('.sharing_with_group_select_field').show().css('border', '');
     $('#sharing_with_group div._select_workspace').removeClass('_select_workspace_on');
@@ -60,7 +61,7 @@ $(document).on('click', '#sharing_with_group div.sharing_with_group_back', funct
     $('#sharing_with_group div.sharing_with_group_addworkspace').show();
 });
 // 關閉 群組共享介面
-$(document).on('click', '#sharing_with_group div.sharing_with_group_delete', close_sharing);
+$(document).on('click', '#sharing_with_group div.leave', close_sharing);
 
 // 點擊搜尋結果，儲存該項資訊
 $(document).on('click', 'h2 .fancy_iframe', function() {
@@ -100,18 +101,16 @@ $(document).on('click', '#portfolio_wrapper1 div.search_result_inf_field_content
     if (localStorage.group_selected) {
         showWS();
         $(this).addClass('this_sharing_with_group_on');
-        $('#sharing_with_group').addClass('sharing_with_group_on');
-        $('#sharing_with_group').removeClass('dom_hidden');
-        $('#sharing_with_group').attr('style', '');
-        $('#sharing_with_group_background').removeClass('dom_hidden');
-        $('#sharing_with_group_background').attr('style', '');
+        $('#sharing_with_group').addClass('sharing_with_group_on').removeClass('dom_hidden').attr('style', '');
+		$('body').css('overflow', 'hidden');
+        $('#sharing_with_group_background').removeClass('dom_hidden').attr('style', '');
     } else {
         alert('選擇群組後才能使用「群組共享」功能');
     }
 });
 
 // 確認 群組共享
-$(document).on('click', '#sharing_with_group div.sharing_with_group_submit', function() {
+$(document).on('click', '#sharing_with_group div.submit', function() {
     var fID = $('._select_workspace_on').attr('data');
     if (fID) {
         var cID = 'c' + createID();
@@ -150,7 +149,7 @@ function showWS() {
                 + '</div>';
         });
         div += '</div>';
-        $sharing.find('.sharing_with_group_container').before(div);
+        $sharing.find('.sharing_with_group_wrapper').append(div);
         // 卡片檢視界面: 隱藏所在 folder
         if ($('#card_wrapper').css('display') === 'block') {
             $('div._select_folder_area[data=' + localStorage.folder_selected + ']').hide();
