@@ -48,7 +48,7 @@ function addToSharing(id, name) {
     var folder = '<div class="sharing_with_group_select_field" style="display: block;">'
                 + '<div class="_select_workspace" data="' + id + '" style="">' + name + '</div>'
                 + '</div>';
-    $('div.sharing_with_group_select').append(folder);
+    $('div.sharing-addfolder').before(folder);
 }
 
 // 移除 workspace / folder / card

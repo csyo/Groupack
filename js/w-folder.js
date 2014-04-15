@@ -297,7 +297,8 @@ function showAllFolders() {
    }
    var folders = processGroupData().folders,
       div = '',
-      $div = $('#folder-box').find('div.workspace_columns').find('div.workspace_four_column').remove().end();
+      $div = $('#folder-box').find('div.workspace_columns')
+      			.find('div.workspace_four_column').remove().end();
    if (folders) {
       for (var i = 0, item; item = folders[i]; i++) {
       	 var data = {
@@ -351,4 +352,15 @@ function showAddFolder(){
 			$('body').removeClass('my_add_folder_on').removeClass('workspace_resize_on');
 		}
 	});
+}
+
+function foldersInWS(id, name, comment) {
+	var data = {
+      	 	id: id,
+      	 	name: name,
+      	 	comment: comment,
+      	 	time: getNow(),
+      	 	creator: localStorage.FB_id
+    };
+	$('#folder-box').find('div.workspace_columns').prepend(folderTemplate(data));
 }
