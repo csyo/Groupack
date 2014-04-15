@@ -77,7 +77,7 @@ $(document).on('click', 'h2 .fancy_iframe', function() {
 });
 
 // 群組共享介面： 選擇 workspace
-$(document).on('click', '#sharing_with_group div._select_workspace', function () {
+$(document).on('click', '#sharing_with_group div.sharing_with_group_select_field > div._select_workspace', function () {
     if (!$(this).hasClass('_select_workspace_on')) {
             $(this).parent().siblings().children().removeClass('_select_workspace_on');
             $(this).addClass('_select_workspace_on');
@@ -142,14 +142,17 @@ function showWS() {
         // 加入新截取資料
         var div = '<div class="sharing_with_group_select">';
         data.forEach(function(folder){
-            div += '<div class="sharing_with_group_select_field" style="display: block;">'
+            div += '<div class="sharing_with_group_select_field">'
                 + '<div class="_select_workspace'
                 + (folder.f_name === '未分類' ? ' _select_workspace_on' : '')
                 + '" data="' + folder.f_id + '" style="">' + folder.f_name + '</div>'
                 + '</div>';
         });
-        div += '</div>';
+        div += '<div class="sharing-addfolder"><div class="_select_workspace" style=" font-size: 30px;"><a class="co_a addfolder" href="#inline_workspace_manager_addfolder" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;">&nbsp;</a>+</div></div>';
+		div += '</div>';
         $sharing.find('.sharing_with_group_wrapper').append(div);
+		// re-bind click event of showAddFolder box
+		$sharing.find('a.addfolder').click( showAddFolder );
         // 卡片檢視界面: 隱藏所在 folder
         if ($('#card_wrapper').css('display') === 'block') {
             $('div._select_folder_area[data=' + localStorage.folder_selected + ']').hide();

@@ -92,13 +92,14 @@ position: absolute;
 margin: 0;
 padding: 0;
 border: 0;
-top: 93px;
+top: 45px;
 bottom: 10px;
 overflow-y: auto;
 background: #e5e5e5;
 border-top: 2px solid #d8d8d8;
 }
-.sharing_with_group_select_field{
+#sharing_with_group .sharing-addfolder ,
+#sharing_with_group .sharing_with_group_select_field {
 width: 80%;
 position: relative;
 margin: 4px 10%;
@@ -144,17 +145,16 @@ padding: 1px 10px;
 cursor: pointer;
 color: #fff;
 }
-#sharing_with_group div.submit {
+#sharing_with_group .submit {
 position: absolute;
-right: 10px;
+right: 66px;
 top: 6px;
 font-size: 18px;
 line-height: 31px;
 height: 30px;
 padding: 1px 10px;
 cursor: pointer;
-color: #444;
-font-weight: 700;
+color: #fff;
 }
 .sharing_with_group_submit input,
 .sharing_with_group_delete  input{
@@ -326,10 +326,10 @@ height: 30px;
 margin: 5px;
 float: left;
 }
-.sharing_with_group_select_field:first-child {
+#sharing_with_group  .sharing_with_group_select_field:first-child {
 margin-top: 8px;
 }
-.sharing_with_group_select_field:last-child {
+#sharing_with_group  .sharing-addfolder {
 margin-bottom: 8px;
 }
 @media screen and (min-width: 981px){

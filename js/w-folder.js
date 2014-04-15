@@ -35,44 +35,7 @@ $(document).on('click', '#cards_area_manager', function () {
 $(function () {
 
 	// 顯示介面: 新增 Folder
-	$('#folder-box a.addfolder, #sharing_with_group a.addfolder').click(function () {
-		var box_width, box_height;
-		if (window.matchMedia('(max-width:600px)').matches) { //手機
-			 box_width = '95%';
-			 box_height = '90%';
-		} else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { //平板
-			 box_width = '80%';
-			 box_height = '80%';
-		} else { //電腦
-			 box_width = '70%';
-			 box_height = '70%';
-		}
-		$('a.addfolder').colorbox({
-			inline: true,
-			fixed: true,
-			width: box_width,
-			height: box_height,
-			reposition: true,
-			transition: 'none',
-			title: false,
-			onComplete: function () {
-				var a = $('body').hasClass('sharing_with_group_z');
-				if (a) {
-					$('#cboxOverlay').css('z-index', 100001);
-					$('#colorbox').css('z-index', 100001);
-				}
-				$('body').addClass('my_add_folder_on').addClass('workspace_resize_on');
-			},
-			onClosed: function () {
-				var a = $('body').hasClass('sharing_with_group_z');
-				if (a) {
-					$('#cboxOverlay').css('z-index', '');
-					$('#colorbox').css('z-index', '');
-				}
-				$('body').removeClass('my_add_folder_on').removeClass('workspace_resize_on');
-			}
-		});
-	});
+	$('#folder-box a.addfolder').click( showAddFolder );
 
 	// 顯示介面: 顯示 Folder 中所有 Cards
 	$('#folder-box').on('click', 'a.workspace_folder_area', function () {
@@ -348,4 +311,44 @@ function showAllFolders() {
       }
       $div.prepend(div);
    }
+}
+
+// 顯示新增 folder 介面
+function showAddFolder(){
+	var box_width, box_height;
+	if (window.matchMedia('(max-width:600px)').matches) { //手機
+		 box_width = '95%';
+		 box_height = '90%';
+	} else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { //平板
+		 box_width = '80%';
+		 box_height = '80%';
+	} else { //電腦
+		 box_width = '70%';
+		 box_height = '70%';
+	}
+	$('a.addfolder').colorbox({
+		inline: true,
+		fixed: true,
+		width: box_width,
+		height: box_height,
+		reposition: true,
+		transition: 'none',
+		title: false,
+		onComplete: function () {
+			var a = $('body').hasClass('sharing_with_group_z');
+			if (a) {
+				$('#cboxOverlay').css('z-index', 100001);
+				$('#colorbox').css('z-index', 100001);
+			}
+			$('body').addClass('my_add_folder_on').addClass('workspace_resize_on');
+		},
+		onClosed: function () {
+			var a = $('body').hasClass('sharing_with_group_z');
+			if (a) {
+				$('#cboxOverlay').css('z-index', '');
+				$('#colorbox').css('z-index', '');
+			}
+			$('body').removeClass('my_add_folder_on').removeClass('workspace_resize_on');
+		}
+	});
 }
