@@ -188,7 +188,7 @@ $(function(e) {
          }
 		var groupID = localStorage.group_selected || 1;
          $.ajax({
-            url: 'db/pageresult.php',
+            url: 'db/searchresult.php',
             cache: false,
             dataType: 'html',
             type: 'POST',

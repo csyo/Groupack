@@ -1,5 +1,5 @@
 $(function() {
-    getTagData(); // 頁面載入完成 , 取得 Tag 資料
+    // getTagData(); // 頁面載入完成 , 取得 Tag 資料
 
     $('body').attr('tag', 's');
     $(window).resize(function() { // 視窗改變時觸發

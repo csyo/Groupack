@@ -12,7 +12,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//禁止直接顯示獲取的内容
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 $response = curl_exec($ch);
-$data = json_decode( $response);
+$data = json_decode($response);
 
 foreach( $data->items as $postdata ){
 	$arrayTitle['Result_Page'] = $postdata->title;
@@ -73,7 +73,7 @@ if( isset($aryTitle[0]) ){
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	$response = curl_exec($ch);
-	$data = json_decode( $response);
+	$data = json_decode($response);
 	foreach ( $old_data->{'responseData'}->{'results'} as $postdata ){
 	    $arrayTitle['Result_Page'] = $postdata->{'titleNoFormatting'};
 	    $arraySummary['Summary'] = $postdata->{'content'};	    	 
