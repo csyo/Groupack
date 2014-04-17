@@ -92,10 +92,10 @@ position: absolute;
 margin: 0;
 padding: 0;
 border: 0;
-top: 45px;
+top: 95px;
 bottom: 10px;
 overflow-y: auto;
-background: #e5e5e5;
+background: url(../Image/geometry.png);
 border-top: 2px solid #d8d8d8;
 }
 #sharing_with_group .sharing-addfolder ,
@@ -341,4 +341,47 @@ background-color: #FFF509;
 ._select_workspace_on:hover{
 background: #ccc;
 }
+}
+#sharing_with_group .sharing-tagSection {
+position: relative;
+height: 50px;
+line-height: 39px;
+width: 100%;
+color: white;
+background: #444;
+float: left;
+text-align: left;
+}
+#sharing_with_group .tagSubmit {
+position: absolute;
+right: 10px;
+top: 9px;
+font-size: 18px;
+line-height: 31px;
+height: 30px;
+padding: 1px 10px;
+cursor: pointer;
+color: #fff;
+}
+#sharing_with_group div.sharing-tagSection > div.box {
+position: relative;
+margin: 9px 102px 9px 10px;
+height: 32px;
+}
+#sharing_with_group div.sharing-tagSection > div.box > input {
+width: 100%;
+border: 1px solid #ccc;
+height: 32px;
+line-height: 24px;
+padding: 4px 6px;
+font-size: 20px;
+color: #444;
+cursor: pointer;
+vertical-align: top;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
 }

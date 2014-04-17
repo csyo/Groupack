@@ -120,7 +120,7 @@ function showWS() {
                 + '" data="' + folder.f_id + '" style="">' + folder.f_name + '</div>'
                 + '</div>';
         });
-        div += '<div class="sharing-addfolder"><div class="_select_workspace" style=" font-size: 30px;"><a class="co_a addfolder" href="#inline_workspace_manager_addfolder" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;">&nbsp;</a>+</div></div>';
+        div += '<div class="sharing-addfolder"><div class="_select_workspace" style="color: white; font-size: 30px; background: -webkit-linear-gradient(bottom,#006BDC,rgb(61, 126, 255)) no-repeat; background: -moz-linear-gradient(bottom,#006BDC,rgb(61, 126, 255)) no-repeat; background: -o-linear-gradient(bottom,#006BDC,rgb(61, 126, 255)) no-repeat; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#006BDC, endColorstr=rgb(61, 126, 255) no-repeat); -ms-filter: progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#006BDC, endColorstr=rgb(61, 126, 255) no-repeat);"><a class="co_a addfolder" href="#inline_workspace_manager_addfolder" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;">&nbsp;</a>+</div></div>';
 		div += '</div>';
         $sharing.find('.sharing_with_group_wrapper').append(div);
 		// re-bind click event of showAddFolder box
