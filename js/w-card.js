@@ -268,27 +268,15 @@ function editCard() {
 function sendCard(cardInfo, config) {
 	var data = cardInfo;
 
-	// 
-	if (config){
+	if (config) {
 		data.fbid = localStorage.FB_id;
+	}
+	if (data.tags){
+		data.tags = JSON.stringify(data.tags);
+		data.gid = localStorage.group_selected;
 	}
 
 	return $.post("db/w_setCard.php", data);
-			// console.log('sendCard: T_savedata');
-			// if (localStorage.T_savedataTimeout) {
-			// 	window.setTimeout(function () {
-			// 		var a = window.setTimeout(function () {
-			// 			T_savedata('none', 'none', cid, 'none');
-			// 		}, 1000);
-			// 		localStorage.setItem('T_savedataTimeout', a);
-			// 	}, 3000);
-			// } else {
-			// 	var a = window.setTimeout(function () {
-			// 		T_savedata('none', 'none', cid, 'none');
-			// 	}, 1000);
-			// 	localStorage.setItem('T_savedataTimeout', a);
-			// }
-			// return r.substr(0, 19); // 回傳資料庫內的時間
 }
 
 // 刪除 Card 介面: 確定刪除 Card

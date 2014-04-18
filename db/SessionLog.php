@@ -10,15 +10,15 @@
 
 	// personal seesion
 	if ( !$gid ) {
-		$sql = sprintf("INSERT INTO userinfo VALUES ('%s', '%s')",
+		$sql = sprintf("INSERT IGNORE userinfo VALUES ('%s', '%s')",
 			mysql_real_escape_string($_POST['id']),
 			mysql_real_escape_string($_POST['name']));
 		mysql_query($sql) or logMsg('Invalid for `userinfo`: ' . mysql_error());
-		$sql = sprintf("INSERT INTO groupinfo (GroupID,GroupName) VALUES ('%s','%s')",
+		$sql = sprintf("INSERT IGNORE groupinfo (GroupID,GroupName) VALUES ('%s','%s')",
 			mysql_real_escape_string($_POST['id']),
 			mysql_real_escape_string($_POST['name']));
 		mysql_query($sql) or logMsg('Invalid for `groupinfo`: ' . mysql_error());
-		$sql = sprintf("INSERT INTO belongsto VALUES ('%s', '%s', '%s')",
+		$sql = sprintf("INSERT IGNORE belongsto VALUES ('%s', '%s', '%s')",
 			mysql_real_escape_string($_POST['id']),
 			mysql_real_escape_string($_POST['id']),
 			mysql_real_escape_string('ADMIN'));

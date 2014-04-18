@@ -1,3 +1,4 @@
+// Close UI
 function close_sharing() {
     $('.this_sharing_with_group_on').removeClass('this_sharing_with_group_on');
     $('.this_tag_sharing_with_group_on').removeClass('this_tag_sharing_with_group_on');
@@ -24,27 +25,12 @@ function close_sharing() {
         $('#sharing_with_group_background').css('z-index', '');
         $('.sharing_with_group_z').removeClass('sharing_with_group_z');
     }
+    // $('#usertags').val('');
     delete localStorage.folder_selected;
 }
-
-// 顯示介面: 群組共享 ( Workspace )
-$(document).on('click', '#share_with_group', function() {
-    $(this).addClass('this_sharing_with_group_on');
-    $('#sharing_with_group').addClass('sharing_with_group_on').removeClass('dom_hidden').css({
-        top: '',
-        left: ''
-    });
-    $('#sharing_with_group_background').removeClass('dom_hidden').css({
-        top: '',
-        left: ''
-    });
-    showWS();
-});
-
-// 關閉 群組共享介面
 $(document).on('click', '#sharing_with_group div.leave', close_sharing);
 
-// 點擊搜尋結果，儲存該項資訊
+// Store page info when clicking on search result card
 $(document).on('click', 'h2 .fancy_iframe', function() {
     var title = $(this).html();
     var content = $(this).parent().siblings('p').html();
@@ -57,7 +43,7 @@ $(document).on('click', 'h2 .fancy_iframe', function() {
     localStorage.setItem('page_info', JSON.stringify(pageInfo));
 });
 
-// 群組共享介面： 選擇
+// Click on folder to select
 $(document).on('click', '#sharing_with_group div.sharing_with_group_select_field > div._select_workspace', function () {
     if (!$(this).hasClass('_select_workspace_on')) {
             $(this).parent().siblings().children().removeClass('_select_workspace_on');
@@ -66,7 +52,7 @@ $(document).on('click', '#sharing_with_group div.sharing_with_group_select_field
     }
 });
 
-// 顯示群組共享介面 (at 搜尋結果)
+// Show UI
 function showSharing() {
     if (localStorage.group_selected) {
         showWS();
@@ -81,9 +67,10 @@ function showSharing() {
 $(document).on('click', '#portfolio_wrapper1 div.search_result_inf_field_content:nth-child(1)', showSharing);
 $(document).on('click', '#inline_workspace_cards div.workspace_cards_content_inf_field_content:nth-child(1)', showSharing);
 
-// 確認 群組共享
+// Submit
 $(document).on('click', '#sharing_with_group div.submit', function() {
-    var fID = $('._select_workspace_on').attr('data');
+    var fID = $('._select_workspace_on').attr('data'),
+        tags = $('#usertags').val();
     if (fID) {
         var cID = 'c' + createID();
         var page_info = JSON.parse(localStorage.page_info);
@@ -95,20 +82,27 @@ $(document).on('click', '#sharing_with_group div.submit', function() {
             url: page_info.url,
             time: getNow()
         };
+        if (tags) tags.split(',').forEach(function(tag, index){
+            data.tags = data.tags || [];
+            var name = tag.trim();
+            if (name) data.tags.push({ name: name, tid: 't' + (createID() + index) });
+        });
         sendCard(data, true).success(function(r){
             console.log(r);
             localStorage.removeItem('page_info');
             close_sharing();
+        })
+        .fail(function(err){
+            console.log(err);
         });
     } else {
         alert('請選擇 Folder !');
     }
 });
 
-// 顯示 folders
+// Data binding
 function showWS() {
     var data = processGroupData().folders;
-    console.log(data);
     var $sharing = $('#sharing_with_group').find('div.sharing_with_group_select').remove().end();
     if (data) {
         // 加入新截取資料
