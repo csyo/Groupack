@@ -49,17 +49,17 @@ function logSession(groupID, logid) {
       });
    }
 }
+$(window).resize(function() { // 視窗改變時觸發
+	testdevice();
+	if (window.matchMedia('(max-width:600px)').matches) { // 手機
+		$('#Group_Board').css('width', 200);
+	} else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { // 平板
+		$('#Group_Board').css('width', 320);
+	} else { // 電腦
+		$('#Group_Board').css('width', 480);
+	}
+});
 $(function(e) {
-   $(window).resize(function() { // 視窗改變時觸發
-      testdevice();
-      if (window.matchMedia('(max-width:600px)').matches) { // 手機
-         $('#Group_Board').css('width', 200);
-      } else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { // 平板
-         $('#Group_Board').css('width', 320);
-      } else { // 電腦
-         $('#Group_Board').css('width', 480);
-      }
-   });
    $('#Group_Board > div.Group_Board_header > a').click(function() { // 點擊 群組成員中心的大頭貼
       if (!$('#Group_Board').hasClass('Group_Board_on')) {
          $('#Group_Board').addClass('Group_Board_on');
@@ -90,7 +90,8 @@ $(function(e) {
    });
    $('#nav > ul.navigation > li').click(function(e) { // nav選單 顯示與變色
       if ( $(e.target).hasClass('icon-Folder') && !localStorage.group_selected ) return;
-	  var _nav = $(this).attr('_nav'); console.log(_nav);
+	  var _nav = $(this).attr('_nav'), $a = $(this).parents('#nav');
+	  console.log(_nav);
 	  if( _nav === 'TopicMap' ){
 		GoToTopicMap();
 		return false;
@@ -102,61 +103,28 @@ $(function(e) {
 	  if( _nav === 'Folder' ){
 		$('#folder-box').show();
 		$('body').css('overflow', 'hidden');
-      showAllFolders();
+		showAllFolders();
 		return false;
 	  }
-      if (!$('#nav').hasClass('li_on')) {
-         if (!$(this).hasClass('search_box')) {
-            $('#nav').addClass('li_on');
-            $(this).addClass('on').children('div.nav_main').children('a:first').css({
-               'color': '#666',
-               'background': 'rgb(55, 116, 235)'
-            }).end().end().children('ul:first').removeClass('dom_hidden');
-         } else {
-            $('#nav').addClass('li_on');
-            $(this).addClass('on').children('div.nav_main').children('a:first').css({
-               'color': '#666',
-               'background': 'rgb(55, 116, 235)'
-            }).end().end().addClass('search_box_on');
-         }
-      } else {
-         if (!$(this).hasClass('on')) {
-            $('ul.navigation > li > ul').addClass('dom_hidden');
-            $('ul.navigation > li ').removeClass('on').children('div.nav_main').children('a').css({
-               'color': '#FFF',
-               'background': '#222'
-            });
-            $('ul.navigation > li:nth-child(3)').removeClass('search_box_on');
-            if (!$(this).hasClass('search_box')) {
-               $(this).addClass('on').children('div.nav_main').children('a:first').css({
-                  'color': '#666',
-                  'background': 'rgb(55, 116, 235)'
-               }).end().end().children('ul:first').removeClass('dom_hidden');
-            } else {
-               $(this).addClass('on').children('div.nav_main').children('a:first').css({
-                  'color': '#666',
-                  'background': 'rgb(55, 116, 235)'
-               }).end().end().addClass('search_box_on');
-            }
-         } else {
-            $('#nav').removeClass('li_on');
-            $('ul.navigation > li:nth-child(3)').removeClass('search_box_on');
-            $(this).removeClass('on').children('ul:first').addClass('dom_hidden').end().children('div.nav_main').children('a:first').css({
-               'color': '#FFF',
-               'background': '#222'
-            });
-         }
-      }
+	  if( !$a.hasClass('li_on') ){
+		$a.addClass('li_on');
+		$(this).children('div.nav_main').children('a:first').css({
+		   'color': '#666',
+		   'background': 'rgb(55, 116, 235)'
+		}).end().siblings('#addMember').removeClass('dom_hidden');
+	  } else {
+		$a.removeClass('li_on').find('ul.navigation > li > div.nav_main').children('a').css({
+            'color': '#FFF',
+            'background': '#222'
+         }).end().siblings('#addMember').addClass('dom_hidden');
+	  }
    });
    $('#fiexd-header, #wrapper, #myWorkspace').click(function() { // 點擊 #fiexd-header, #wrapper, #myWorkspace 隱藏 nav
       if ($('#nav').hasClass('li_on')) {
-         $('ul.navigation > li > ul').addClass('dom_hidden');
-         $('ul.navigation > li ').removeClass('on').children('div.nav_main').children('a').css({
+         $('#nav').removeClass('li_on').find('ul.navigation > li > div.nav_main').children('a').css({
             'color': '#FFF',
             'background': '#222'
-         });
-         $('#nav').removeClass('li_on');
-         $('li.search_box_on').removeClass('search_box_on');
+         }).end().siblings('#addMember').addClass('dom_hidden');
       }
    });
    $('input.page_btn').click(function() { // 換頁
@@ -213,14 +181,6 @@ $(function(e) {
 
    $('#search_again_btn').attr('placeholder', localStorage.k_word).attr('value', localStorage.k_word);
 });
-$(function() { // facebook 登入、登出與顯示
-   $('#fblogout').click(function() {
-      localStorage.clear();
-      alert('成功登出');
-      window.top.location.href = 'home.html';
-   });
-   ShowUserInfo(localStorage.FB_id, localStorage.FB_name);
-});
 
 function ShowUserInfo(a, b) {
    $('#show_fbname').text(b).prev().children().attr('src', 'https://graph.facebook.com/' + a + '/picture').end().prev().attr('title', b).attr('href', localStorage.FB_userURL);
@@ -263,6 +223,32 @@ $(document).on('click', 'div.search_result_inf', function() { // 顯示 search r
    };
    localStorage.setItem("page_info", JSON.stringify(page_info));
 });
+
+$(document).on('click', '#fiexd-header div.leave', function() { // 離開 再次搜尋介面
+	$(this).parent().hide();
+});
+
+$(document).on('click', '#search-again-btn', function() { // 顯示 再次搜尋介面
+	$(this).parents('#headNav').siblings('div.search-again').show().find('#search-box').focus();
+});
+
+$(document).on('keydown', '#search-box', function(e){  // 再次搜尋時
+	if( $(this).is(':focus') && (e.keyCode == 13) ){
+		if( $(this).val().trim() === '' ){ alert('請輸入搜尋內容'); return false; }
+			localStorage.setItem( 'k_word', $(this).val().trim() );
+			getsearchresult();
+	}
+});
+
+$(document).on('click', '#logout', function() { // 登出
+	if( confirm('確定要登出 Groupack 嗎？') ){
+		localStorage.clear();
+		alert('成功登出');
+		window.top.location.href = 'home.html';
+		ShowUserInfo(localStorage.FB_id, localStorage.FB_name);
+	}
+});
+
 $(document).on('click', 'div.search_result_read', function() { // 顯示 類似關鍵字推薦
    if (!$(this).hasClass('search_result_read_on')) {
       if ($(this).children('div').text() > 0) {
@@ -305,7 +291,7 @@ $(document).on('click', '#portfolio_wrapper1 a.fancy_iframe', function() {
 
 function testdevice() { // 測試瀏覽器大小
    var a = $.viewport.set();
-   $('#Workspace_nav, #addMember').css('max-height', parseInt(a.split(',')[1]) - 91 + 'px');
+   $('#addMember').css('max-height', parseInt(a.split(',')[1]) - 91 + 'px');
 }
 
 function SetPage() { // 設定當前頁面在哪
@@ -334,8 +320,7 @@ window.onbeforeunload = function() {
 
 function getsearchresult() { // 抓 google 搜尋結果
    $('#preloader').find('span').text('請稍後...').end().removeClass('dom_hidden');
-   localStorage.setItem('start_move', '');
-   var k_word = localStorage.getItem('k_word'),
+   var k_word = localStorage.k_word,
       viewport_width_now = localStorage.viewport_width;
 
    var group = localStorage.group_selected || 1;
@@ -362,6 +347,7 @@ function getsearchresult() { // 抓 google 搜尋結果
             get_topic_relevance(); //edit by chenchenbox
             $('#under-footer').removeClass('dom_hidden').attr('style', '');
             $('#preloader').addClass('dom_hidden');
+			$('#showtopic').children('div.showtopic_span').children().text( k_word );
             if (!localStorage.group_selected) $('#wrapper').find('div.search_result_inf_field_content').addClass('dom_hidden');
          }
       });
@@ -395,6 +381,7 @@ function getsearchresult() { // 抓 google 搜尋結果
                get_topic_relevance(); //edit by chenchenbox
                $('#under-footer').removeClass('dom_hidden');
                $('#preloader').addClass('dom_hidden');
+			   $('#showtopic').children('div.showtopic_span').children().text( k_word );
                if (!localStorage.group_selected) $('#wrapper').find('div.search_result_inf_field_content').addClass('dom_hidden');
             }
          });

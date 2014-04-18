@@ -113,6 +113,12 @@
 </div>
 <!--    leftmost: 返回首頁 ,  rightmost: 功能選單    -->
 <div id="fiexd-header">
+	<div class="search-again">
+		<div class="box">
+			<input id="search-box" type="input" placeholder="按下 Enter 即可進行搜尋">
+		</div>
+		<div class="leave chinese">取消</div>
+	</div>
 	<div id="headNav">	
 		<table>
 			<tbody>
@@ -136,7 +142,9 @@
 							</div>
 						</div> -->
 						<div class="right_slider">
-							<a id="slider_btn" class="co_a main_slider" href="javascript: void(0);" title="menu"><div class="_slider"></div></a>
+							<div id="logout"></div>
+							<div id="search-again-btn"></div>
+							<!-- <a id="slider_btn" class="co_a main_slider" href="javascript: void(0);" title="menu"><div class="_slider"></div></a>-->
 						</div>
 					</td>
 				</tr>
@@ -168,43 +176,18 @@
 			<div class="nav_main">
 				<a href="javascript: void(0);" title="進入 工作空間"><div id="gotofolders" class="co_a icon-Folder"></div></a>
 			</div>
-			<ul id="Workspace_nav" class="dom_hidden">
-				<!--EX:
-				<li class="w-item">
-					<a class="co_a" title="工作空間1" id="w_1">工作空間1</a>
-				</li>
-				-->
-				<li>
-					<a id="add_workspace" class="co_a add_workspace" href="#inline_workspace" title="新增工作空間">
-						<div><img src="./Image/add_01.png">新增工作空間</div>
-					</a>
-				</li>
-			</ul>
 		</li>
-		<li _nav="TopicMap" class="search_box">
+		<li _nav="TopicMap">
 			<div class="nav_main">
 				<a href="javascript: void(0);" title="進入 主題地圖"><div class="co_a icon-TopicMap"></div></a>
 			</div>
 		</li>
-		<li _nav="SearchProcess" class="search_box">
+		<li _nav="SearchProcess">
 			<div class="nav_main">
 				<a href="javascript: void(0);" title="進入 搜尋歷程"><div class="co_a icon-SearchProcess"></div></a>
 			</div>
 		</li>
 	</ul>
-	<div id="navigation_input" class="dom_hidden">
-		<div class="nav_select_search">
-			<form name="nav_select_search_form" method="POST" id="search_again_form" action="#">
-			<div class="select_search_input"><input id="search_again_btn" name="search" type="input" value="" placeholder=" 搜尋" /></div>
-			<div class="select_search_submit"><input name="search" type="submit" value="搜尋" /></div>
-			</form>
-		</div>
-		<div class="select_search_input_map">
-			<div class="input_map_setting">
-				<a class="co_a" href="javascript: void(0);" title="topic map"><div class="select_search_map"></div></a>
-			</div>
-		</div>
-	</div>
 </div> 
 <div id="timeline_show_update">
 	<div class="timeline_show_update_text">新動態(<span>0</span>)</div>
@@ -428,7 +411,7 @@
 		</div>
 		<div class="sharing-tagSection">
 			<div class="box">
-				<input id="usertags" type="text" placeholder="請輸入標籤，以逗號(,)分隔">
+				<input id="" type="text">
 			</div>
 			<div class="tagSubmit chinese">加上標籤</div>
 		</div>
@@ -498,7 +481,8 @@
 		</div>
 	</div>
 </div>
-<div style="display: none;">    <!-- 新增 Workspace -->  
+<!--
+<div style="display: none;">    <!-- 新增 Workspace --
 	<div id="inline_workspace">
 		<div class="inline_workspace_header">
 			<div class="inline_workspace_header_icon"></div>
@@ -522,7 +506,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>-->
 <div style="display: none;">    <!-- 新增 Folder -->
 	<div id="inline_workspace_manager_addfolder">
 		<div class="inline_folder_header">

@@ -52,7 +52,7 @@ display: table-cell;
 vertical-align: middle;
 }
 #headNav .left {
-width: 75%;
+width: 55%;
 z-index: 103;
 }
 #headNav .center {
@@ -78,15 +78,37 @@ background-position: 50% 50%;
 float: right;
 }
 @media screen and (min-width: 981px){
-._home:hover,
-._slider:hover,
-._timeline:hover{
+._home:hover{
 opacity: 0.5;
 }
 }
 .right_slider{
 height: 30px;
-width: 40px;
+width: 100%;
+}
+#logout {
+height: 30px;
+width: 30px;
+background-image: url('../Image/logout_w.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 0 0;
+float: right;
+padding: 0 5px;
+margin-right: 10px;
+margin-left: 15px;
+cursor: pointer;
+}
+#search-again-btn {
+height: 30px;
+width: 30px;
+background-image: url('../Image/search_w.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 0 0;
+float: right;
+padding: 0 5px;
+cursor: pointer;
 }
 ._slider{
 height: 30px;
@@ -94,7 +116,10 @@ width: 30px;
 background-image: url('../Image/search.png');
 background-repeat: no-repeat;
 background-size: auto;
-background-position: 0 0;	float: left;
+background-position: 0 0;
+float: right;
+margin-right: 10px;
+margin-left: 2px;
 }
 .right_slider_timeline{
 position: absolute;
@@ -162,4 +187,51 @@ line-height: 30px;
 width: 10px;
 text-align: right;
 font-size: 20px;
+}
+#fiexd-header > div.search-again {
+display: none;
+position: absolute;
+top: 0;
+left: 0;
+height: 44px;
+width: 100%;
+z-index: 102;
+background: -webkit-linear-gradient(bottom,#006BDC,rgb(61, 126, 255)) no-repeat;
+background: -moz-linear-gradient(bottom,#006BDC,rgb(61, 126, 255)) no-repeat;
+background: -o-linear-gradient(bottom,#006BDC,rgb(61, 126, 255)) no-repeat;
+filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#006BDC, endColorstr=rgb(61, 126, 255) no-repeat);
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#006BDC, endColorstr=rgb(61, 126, 255) no-repeat)";
+}
+#fiexd-header > div.search-again > div.box {
+position: relative;
+margin: 6px 66px 6px 10px;
+height: 32px;
+}
+#fiexd-header > div.search-again > div.box > input {
+width: 100%;
+border: 1px solid #ccc;
+height: 32px;
+line-height: 20px;
+padding: 4px 6px;
+font-size: 18px;
+color: #444;
+cursor: pointer;
+vertical-align: top;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+}
+#fiexd-header > div.search-again > div.leave {
+position: absolute;
+right: 10px;
+top: 6px;
+font-size: 18px;
+line-height: 31px;
+height: 30px;
+padding: 1px 10px;
+cursor: pointer;
+color: #fff;
 }

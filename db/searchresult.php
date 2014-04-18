@@ -69,7 +69,7 @@ if( isset($aryTitle[0]) ){
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	$response = curl_exec($ch);
 	$data = json_decode($response);
-	foreach ( $old_data->{'responseData'}->{'results'} as $postdata ){
+	foreach ( $data->{'responseData'}->{'results'} as $postdata ){
 	    $arrayTitle['Result_Page'] = $postdata->{'titleNoFormatting'};
 	    $arraySummary['Summary'] = $postdata->{'content'};	    	 
 		$arrayUrl['Url'] = urldecode( $postdata->{'unescapedUrl'} );
