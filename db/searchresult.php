@@ -39,11 +39,6 @@ if( isset($aryTitle[0]) ){
 							<div class=\"post_group\">&nbsp;</div>
 							<div class=\"post_group_text\">群組共享</div>
 						</div>
-						<div class=\"search_result_inf_field_content\" title=\"加上標籤\">
-							<a class=\"co_a AddToTag\" href=\"#inline_AddToTag\" onclick=\"show_AddToTag()\">&nbsp;</a>
-							<div class=\"post_tag\">&nbsp;</div>
-							<div class=\"post_tag_text\">加上標籤</div>
-						</div>
 						<div class=\"search_result_inf_field_content\" title=\"分享\">
 							<div class=\"post_share\">&nbsp;</div>
 							<div class=\"post_share_text\">分享</div>
@@ -95,11 +90,6 @@ if( isset($aryTitle[0]) ){
 						<div class=\"search_result_inf_field_content\" title=\"群組共享\">
 							<div class=\"post_group\">&nbsp;</div>
 							<div class=\"post_group_text\">群組共享</div>
-						</div>
-						<div class=\"search_result_inf_field_content\" title=\"加上標籤\">
-							<a class=\"co_a AddToTag\" href=\"#inline_AddToTag\" onclick=\"show_AddToTag()\">&nbsp;</a>
-							<div class=\"post_tag\">&nbsp;</div>
-							<div class=\"post_tag_text\">加上標籤</div>
 						</div>
 						<div class=\"search_result_inf_field_content\" title=\"分享\">
 							<div class=\"post_share\">&nbsp;</div>

@@ -144,10 +144,10 @@ function showCard(cid, title, content, url, id, t, is_file) {
 			'<div class="post_group">&nbsp;</div>' +
 			'<div class="post_group_text">群組共享</div>' +
 			'</div>' +
-			'<div class="workspace_cards_content_inf_field_content" title="加到標籤">' +
+			'<div class="workspace_cards_content_inf_field_content" title="加上標籤">' +
 			'<a class="co_a AddToTag" href="#inline_AddToTag" onclick="show_AddToTag()">&nbsp;</a>' +
 			'<div class="post_tag">&nbsp;</div>' +
-			'<div class="post_tag_text">加到標籤</div>' +
+			'<div class="post_tag_text">加上標籤</div>' +
 			'</div>' +
 			'<div class="workspace_cards_content_inf_field_content" title="分享">' +
 			'<div class="post_share">&nbsp;</div>' +

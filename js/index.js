@@ -5,7 +5,6 @@ $(function(e) {
    // if ( getName(localStorage.FB_id) === '-------' )
    // 	save_user();
    getsearchresult();
-   SliderInit();
    testdevice();
    CheckGroupBoard();
    show_groups();
@@ -53,10 +52,6 @@ function logSession(groupID, logid) {
 $(function(e) {
    $(window).resize(function() { // 視窗改變時觸發
       testdevice();
-      if ($('#slider_btn').hasClass('bar_on')) {
-         SliderInit();
-         CheckSlider();
-      }
       if (window.matchMedia('(max-width:600px)').matches) { // 手機
          $('#Group_Board').css('width', 200);
       } else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { // 平板
@@ -164,8 +159,6 @@ $(function(e) {
          $('li.search_box_on').removeClass('search_box_on');
       }
    });
-   $('#slider_btn').click(ShowSlider); // 顯示 slider 介面
-   $('#back_main_slider').click(HideSlider); // 關閉 slider 介面
    $('input.page_btn').click(function() { // 換頁
       $('#scroll-top-top').trigger('click');
       $('#preloader').find('span').text('請稍後...').end().removeClass('dom_hidden');
@@ -410,19 +403,6 @@ function getsearchresult() { // 抓 google 搜尋結果
    $('#Group_Board').show();
 }
 
-function SliderInit() { // 滑動選單初始化
-   var width_now = parseInt(localStorage.viewport_width);
-   if (width_now >= 481) {
-      if (width_now <= 700) var a = width_now * 0.85;
-      else var a = 600;
-   } else {
-      var a = width_now - 70;
-   }
-   $('#Sidebar').data('width', a).css('width', a)
-      .children('div.mySidebar_container_up').css('width', a).end()
-      .children('div.mySidebar_container_down').css('width', a);
-}
-
 function search_again() {
    var k_word = document.getElementById('search_again_btn').value;
    localStorage.setItem('k_word_old', localStorage.k_word);
@@ -451,172 +431,6 @@ function CheckGroupBoard() {
    } else { //電腦
       $('#Group_Board').css('width', 480);
    }
-}
-
-function CheckSlider() {
-   var a = $('#Sidebar').data('width');
-   $('#wrapper').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#timeline_wrapper').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#myWorkspace').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#fiexd-header').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#nav').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#nav_bg').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#under-footer').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#scroll-top-top').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#Group_Board').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#slider_background').css('right', a + 'px');
-}
-
-function HideSlider() { // 隱藏 slider 介面
-   $('#slider_btn').removeClass('bar_on');
-   $('#slider_background').attr('style', '').addClass('dom_hidden');
-   $('#Sidebar > div.mySidebar_container_up').addClass('dom_hidden');
-   $('#Sidebar > div.mySidebar_container_down').addClass('dom_hidden');
-   $('#wrapper').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#timeline_wrapper').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#myWorkspace').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#fiexd-header').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#nav').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#nav_bg').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#under-footer').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#scroll-top-top').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#Group_Board').css({
-      marginLeft: '',
-      marginRight: ''
-   });
-   $('#Sidebar').addClass('dom_hidden');
-   //左右滑動切換 slider
-   $('#slider_background').off('touchmove', MoveSlider_bg).off('touchend', EndSlider_bg);
-}
-
-function ShowSlider() { // 顯示 slider 介面
-   var a = $('#Sidebar').data('width');
-   $('#Sidebar').removeClass('dom_hidden');
-   $('#slider_btn').addClass('bar_on');
-   $('#wrapper').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#timeline_wrapper').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#myWorkspace').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#fiexd-header').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#nav').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#nav_bg').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#under-footer').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#Group_Board').css({
-      marginLeft: '-' + a + 'px',
-      marginRight: a + 'px'
-   });
-   $('#slider_background').removeClass('dom_hidden').attr('style', '').css('right', a + 'px');
-   $('#Sidebar > div.mySidebar_container_up').removeClass('dom_hidden');
-   $('#Sidebar > div.mySidebar_container_down').removeClass('dom_hidden');
-   $('#scroll-top-top').css({
-      marginLeft: '-' + a,
-      marginRight: a
-   });
-   //左右滑動切換 slider
-   $('#slider_background').on('touchmove', MoveSlider_bg).on('touchend', EndSlider_bg);
-}
-
-function MoveSlider_bg(e) {
-   if (e.originalEvent.targetTouches.length == 1) {
-      var touch = e.originalEvent.targetTouches[0];
-      if (localStorage.start_move == '') {
-         localStorage.setItem('start_move', touch.pageX + '_' + touch.pageY);
-      }
-      localStorage.setItem('end_position', touch.pageX + '_' + touch.pageY);
-      return false;
-   }
-}
-
-function EndSlider_bg() {
-   if (window.matchMedia('(max-width:600px)').matches) { //手機
-      var d = 5;
-   } else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { //平板
-      var d = 10;
-   } else { //觸碰電腦
-      var d = 30;
-   }
-   var a = localStorage.start_move;
-   a = a.split('_');
-   var b = localStorage.end_position;
-   b = b.split('_');
-   if (Math.abs(parseInt(a[0]) - parseInt(b[0])) > d) {
-      if ((parseInt(a[0]) - parseInt(b[0])) < 0) { //關閉 slider 介面
-         HideSlider();
-      }
-   }
-   localStorage.setItem('start_move', '');
-   localStorage.setItem('end_position', '');
 }
 
 function get_new_member() { // 確認新增的群組成員   
