@@ -75,7 +75,8 @@ function cardsInFolder(that){
 	localStorage.setItem("folder_selected", folderID);
 	// 取得所有 Card
 	$.post("db/w_getCards.php", {
-		fid: folderID
+		fid: folderID,
+		gid: localStorage.group_selected
 	})
 		.fail(function (x, e, txt) {
 			console.log(txt);
@@ -83,6 +84,7 @@ function cardsInFolder(that){
 		.done(function (r) {
 			console.log("成功取得 Card 資料 from " + folderID);
 			var data = JSON.parse(r);
+			cardsInFolder.data = data;
 			for (var i = 0, item; item = data[i]; i++) {
 				showCard(item.cid, item.title, item.content, item.url, item.fbid, item.time, item.is_file);
 			}

@@ -122,8 +122,8 @@ $(document).on('click', 'a.addkeeper_add', function show_admin_list() {
    $keepersContainer.append(div);
 });
 
-// 介面調整
-$(function interface() {
+// interface
+$(function () {
    // 選擇成員 in 新增群組
    $(document).on('click', 'div.addgroup_members_container div.checkgroup_members_container_itemText', function choose_member() {
       if (!$(this).hasClass('addgroup_friends_select_on')) {
