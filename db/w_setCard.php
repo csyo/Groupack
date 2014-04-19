@@ -20,7 +20,7 @@
         $query = sprintf( "INSERT INTO cardinfo (CreatorID,CardID,FolderID,CardName,CardComment,URL)"
             . "SELECT * FROM (SELECT '%s','%s','%s','%s','%s','%s') AS tmp "
             . "WHERE NOT EXISTS ("
-            . "SELECT URL FROM cardinfo WHERE CardName = '%s' AND URL = '%s'"
+            . "SELECT URL FROM cardinfo WHERE CardName = '%s' AND URL = '%s' AND FolderID = '%s'"
             . ") LIMIT 1",
             mysql_real_escape_string($_POST['fbid']),
             mysql_real_escape_string($cid),
@@ -29,12 +29,14 @@
             mysql_real_escape_string($content),
             mysql_real_escape_string($url),
             mysql_real_escape_string($title),
-            mysql_real_escape_string($url));
+            mysql_real_escape_string($url),
+            mysql_real_escape_string($fid));
         mysql_query($query) or die('Invalid query #1: ' . mysql_error());
         echo $query."\n";
-        $query = sprintf("SELECT CardID FROM cardinfo WHERE CardName = '%s' AND URL = '%s'",
+        $query = sprintf("SELECT CardID FROM cardinfo WHERE CardName = '%s' AND URL = '%s' AND FolderID = '%s'",
             mysql_real_escape_string($title),
-            mysql_real_escape_string($url));
+            mysql_real_escape_string($url),
+            mysql_real_escape_string($fid));
         $result = mysql_query($query) or die('Invalid query #1: ' . mysql_error());
         $cid = mysql_fetch_assoc($result)['CardID'];
         echo 'cardID='.$cid."\n";
