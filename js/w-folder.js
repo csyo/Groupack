@@ -86,7 +86,17 @@ function cardsInFolder(that){
 			var data = JSON.parse(r);
 			cardsInFolder.data = data;
 			for (var i = 0, item; item = data[i]; i++) {
-				showCard(item.cid, item.title, item.content, item.url, item.fbid, item.time, item.is_file);
+				var conf = {
+					cid: item.cid,
+					title: item.title,
+					content: item.content,
+					url: item.url,
+					fbid: item.fbid,
+					time: item.time,
+					is_file: item.is_file
+				};
+				if (item.tags) conf.tags = item.tags;
+				showCard(conf);
 			}
 		});
 }

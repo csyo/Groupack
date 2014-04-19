@@ -112,17 +112,16 @@ function show_modifycard() {
 }
 
 // 顯示所有 Cards
-function showCard(cid, title, content, url, id, t, is_file) {
+function showCard(conf) {
 	// 設定參數
-	var fbid = id;
+	var cid = conf.cid, title = conf.title, content = conf.content, url = conf.url, fbid = conf.fbid, is_file = conf.is_file, tags = tagsGen(conf.tags);
 	var fbname = '無資料';
 	if (fbid == '') fbid = '100005642921358';
-	else fbname = getName(id);
-	var time = (time == '0000-00-00 00:00:00' || time == '') ? time = '------' : t;
+	else fbname = getName(fbid);
+	var time = (time == '0000-00-00 00:00:00' || time == '') ? time = '------' : conf.time;
 	var displayLink = (url.substr(0, 5) == 'https') ? url.substr(8) : (url.substr(0, 4) == 'http') ? url.substr(7) : url;
 	if (parseInt(is_file) == 0) {
-		// 新增到 Folder 介面
-		$('div.workspace_cards_folder_comment_inf').after(
+		var div = '' +
 			'<div sid="' + cid + '" class="workspace_cards_position">' +
 			'<div class="workspace_cards_content_user isotope-item">' +
 			'<div class="workspace_cards_content_user_icon">' +
@@ -132,6 +131,7 @@ function showCard(cid, title, content, url, id, t, is_file) {
 			'<div class="workspace_cards_content_user_name" fbid="' + fbid + '">' + fbname + '</div>' +
 			'<span>-</span>' +
 			'<span class="workspace_cards_content_time">' + time + '</span>' +
+			'<span class="tags_area_container">'+ tags +'</span>' +
 			'</div>' +
 			'</div>' +
 			'<div class="workspace_cards_content isotope-item">' +
@@ -173,9 +173,20 @@ function showCard(cid, title, content, url, id, t, is_file) {
 			'</div>' +
 			'</div>' +
 			'</div>' +
-			'</div>'
-		);
+			'</div>';
+		// 新增到 Folder 介面
+		$('div.workspace_cards_folder_comment_inf').after(div);
 	}
+}
+
+function tagsGen(data) {
+	var div = '';
+	if (!data) return div;
+	data.split(',').forEach(function(tag){
+		var tmp = tag.trim().split('_');
+		div += '<span class="tag_span" tid="'+ tmp[0] +'">'+ tmp[1] +'</span>';
+	});
+	return div;
 }
 
 // 新增 Card 介面: 確定新增 Card
