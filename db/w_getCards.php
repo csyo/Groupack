@@ -26,6 +26,7 @@
         WHERE FolderID = '%s' AND GroupID = '%s'
         AND cardinfo.CardID = taginfo.CardID
         AND taginfo.TagID = cardtag.TagID
+        GROUP BY CardID
         ORDER BY CreatedTimestamp ASC",
         mysql_real_escape_string($_POST['fid']),    
         mysql_real_escape_string($_POST['gid']));

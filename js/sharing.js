@@ -90,6 +90,7 @@ $(document).on('click', '#sharing_with_group div.submit', function() {
         sendCard(data, true).success(function(r){
             console.log(r);
             localStorage.removeItem('page_info');
+            getGroupUpdated();
             close_sharing();
         })
         .fail(function(err){

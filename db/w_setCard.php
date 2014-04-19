@@ -65,7 +65,7 @@
             mysql_query($query) or die('Invalid query for "'.$query.'": \n'. mysql_error());
             echo $query."\n";
 
-            $query = sprintf("INSERT INTO taginfo (TagID, CardID)"
+            $query = sprintf("INSERT IGNORE taginfo (TagID, CardID)"
                     . "SELECT TagID,'%s' FROM cardtag WHERE TagName = '%s' AND GroupID = '%s' LIMIT 1",
                 mysql_real_escape_string($cid),
                 mysql_real_escape_string($value->name),
