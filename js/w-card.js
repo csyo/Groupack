@@ -190,8 +190,7 @@ function addToTag() {
 	            var name = tag.trim();
 	            if (name) data.tags.push({ name: name, tid: 't' + (createID() + index) });
 	        });
-
-	        $.post('db/w_setCard.php', data)
+	        sendCard(data)
 	        	.success(function(r){
 	        		console.log(data, r);
 	        		var div = '';
