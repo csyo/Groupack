@@ -174,9 +174,9 @@ width: 1px;
 position: relative;
 line-height: 30px;
 width: 30%;
-background-image: url('../Image/group_icon_gray.png');
+background-image: url('../Image/group_gray.png');
 background-repeat: no-repeat;
-background-size: auto;
+background-size: 80%;
 background-position: 50% 50%;
 }
 .post_group_text{
