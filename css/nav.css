@@ -24,7 +24,7 @@ box-shadow: 0 2px 10px #cbcbcb;
 .nav_main_group{
 height: 45px;
 width: 100%;
-background-image: url('../Image/group_icon.png');
+background-image: url('../Image/group_w.png');
 background-repeat: no-repeat;
 background-size: auto;
 background-position: 50% 50%;
@@ -40,7 +40,7 @@ background-position: 50% 50%;
 #nav .icon-TopicMap {
 height: 45px;
 width: 100%;
-background-image: url('../Image/topic_map_w.png');
+background-image: url('../Image/topicmap_w.png');
 background-repeat: no-repeat;
 background-size: auto;
 background-position: 50% 50%;
