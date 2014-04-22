@@ -7,14 +7,6 @@
     error_reporting(E_ALL);
     require "connect.php";
     
-    // POST 資料
-    $cid = $_POST['cid'];
-    $fid = $_POST['fid'];
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $url = $_POST['url'];
-    $status = '';
-
     // 新增
     if ( isset($_POST['fbid']) ) {
         $query = sprintf( "INSERT INTO cardinfo (CreatorID,CardID,FolderID,CardName,CardComment,URL)"
@@ -23,28 +15,28 @@
             . "SELECT URL FROM cardinfo WHERE CardName = '%s' AND URL = '%s' AND FolderID = '%s'"
             . ") LIMIT 1",
             mysql_real_escape_string($_POST['fbid']),
-            mysql_real_escape_string($cid),
-            mysql_real_escape_string($fid),
-            mysql_real_escape_string($title),
-            mysql_real_escape_string($content),
-            mysql_real_escape_string($url),
-            mysql_real_escape_string($title),
-            mysql_real_escape_string($url),
-            mysql_real_escape_string($fid));
+            mysql_real_escape_string($_POST['cid']),
+            mysql_real_escape_string($_POST['fid']),
+            mysql_real_escape_string($_POST['title']),
+            mysql_real_escape_string($_POST['content']),
+            mysql_real_escape_string($_POST['url']),
+            mysql_real_escape_string($_POST['title']),
+            mysql_real_escape_string($_POST['url']),
+            mysql_real_escape_string($_POST['fid']));
         mysql_query($query) or die('Invalid query #1: ' . mysql_error());
         echo $query."\n";
         $query = sprintf("SELECT CardID FROM cardinfo WHERE CardName = '%s' AND URL = '%s' AND FolderID = '%s'",
-            mysql_real_escape_string($title),
-            mysql_real_escape_string($url),
-            mysql_real_escape_string($fid));
+            mysql_real_escape_string($_POST['title']),
+            mysql_real_escape_string($_POST['url']),
+            mysql_real_escape_string($_POST['fid']));
         $result = mysql_query($query) or die('Invalid query #1: ' . mysql_error());
-        $cid = mysql_fetch_assoc($result)['CardID'];
-        echo 'cardID='.$cid."\n";
+        $_POST['cid'] = mysql_fetch_assoc($result)['CardID'];
+        echo 'cardID='.$_POST['cid']."\n";
     } else {
         // 更新
         $query = sprintf("UPDATE cardinfo SET CardName = '%s', CardComment = '%s', URL = '%s' WHERE CardID = '%s'",
-            mysql_real_escape_string($title), mysql_real_escape_string($content),
-            mysql_real_escape_string($url), mysql_real_escape_string($cid));
+            mysql_real_escape_string($_POST['title']), mysql_real_escape_string($_POST['content']),
+            mysql_real_escape_string($_POST['url']), mysql_real_escape_string($_POST['cid']));
         mysql_query($query) or die('Invalid query #2: ' . mysql_error());
         echo $query."\n";
     }
@@ -68,7 +60,7 @@
 
             $query = sprintf("INSERT IGNORE taginfo (TagID, CardID)"
                     . "SELECT TagID,'%s' FROM cardtag WHERE TagName = '%s' AND GroupID = '%s' LIMIT 1",
-                mysql_real_escape_string($cid),
+                mysql_real_escape_string($_POST['cid']),
                 mysql_real_escape_string($value->name),
                 mysql_real_escape_string($_POST['gid']));
             mysql_query($query) or die('Invalid query for "'.$query.'": \n'. mysql_error());
