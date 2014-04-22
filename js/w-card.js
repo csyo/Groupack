@@ -194,7 +194,7 @@ function addToTag() {
 	        	.success(function(r){
 	        		console.log(data, r);
 	        		var div = '';
-	        		data.tags.forEach(function(tag){
+	        		JSON.parse(data.tags).forEach(function(tag){
 						div += '<span class="tag_span" tid="'+ tag.tid +'">'+ tag.name +'</span>';
 					});
 	        		$('div[sid='+ data.cid +']').find('span.tags_area_container').append(div);
