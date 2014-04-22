@@ -1,5 +1,5 @@
 <?php
-	if ( $_SERVER[HTTP_HOST] === 'localhost') {
+	if ( $_SERVER['HTTP_HOST'] === 'localhost') {
 		$dbhost = '140.116.39.180';
 		$dbuser = 'theadmin';
 		$dbpass = 'groupack';
