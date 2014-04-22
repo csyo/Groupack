@@ -240,12 +240,14 @@ $(document).on('keydown', '#search-box', function(e){  // 再次搜尋時
 });
 
 $(document).on('click', '#logout', function() { // 登出
-	if( confirm('確定要登出 Groupack 嗎？') ){
-		localStorage.clear();
-		alertify.alert('成功登出');
-		window.top.location.href = 'home.html';
-		ShowUserInfo(localStorage.FB_id, localStorage.FB_name);
-	}
+	alertify.confirm('確定要登出 Groupack 嗎？', function (e) {
+      if (e) {
+   		localStorage.clear();
+   		alertify.alert('成功登出');
+   		window.top.location.href = 'home.html';
+   		ShowUserInfo(localStorage.FB_id, localStorage.FB_name);
+   	}
+   });
 });
 
 $(document).on('click', 'div.search_result_read', function() { // 顯示 類似關鍵字推薦

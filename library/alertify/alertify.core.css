@@ -105,6 +105,9 @@
 			        box-sizing: border-box;
 			font-size: 100%;
 		}
+		.alertify-text-wrapper {
+			margin-top: 10px;
+		}
 		.alertify-buttons {
 			margin-top: 20px;
 		}

@@ -42,8 +42,7 @@
         echo 'cardID='.$cid."\n";
     } else {
         // 更新
-        $query = sprintf( "UPDATE cardinfo SET CardName = '%s', CardComment = '%s' , URL = '%s'
-            WHERE CardID = '%s'",
+        $query = sprintf("UPDATE cardinfo SET CardName = '%s', CardComment = '%s', URL = '%s' WHERE CardID = '%s'",
             mysql_real_escape_string($title), mysql_real_escape_string($content),
             mysql_real_escape_string($url), mysql_real_escape_string($cid));
         mysql_query($query) or die('Invalid query #2: ' . mysql_error());
@@ -75,6 +74,6 @@
             mysql_query($query) or die('Invalid query for "'.$query.'": \n'. mysql_error());
             echo $query."\n";
         }
-    }
+    } else echo "No Tags!";
 
 ?>

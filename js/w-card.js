@@ -19,11 +19,13 @@ $(document).on('click', '#inline_workspace_cards div.workspace_cards_content_inf
 		var title = $(info).find('.click_workspace_cards').text();
 		var url = $(info).find('.click_workspace_cards').attr('href');
 		var content = $(info).find('p').text();
+		var cid = $(this).parents('div.workspace_cards_position').attr('sid');
 		info = {
 			title: title,
 			url: url,
 			content: content
 		};
+		if (cid) info.cid = cid;
 		localStorage.setItem('page_info', JSON.stringify(info));
 	} else {
 		$('#inline_workspace_cards div.workspace_cards_content_inf_on').removeClass('workspace_cards_content_inf_on').next().hide();
@@ -145,7 +147,7 @@ function showCard(conf) {
 			'<div class="post_group_text">群組共享</div>' +
 			'</div>' +
 			'<div class="workspace_cards_content_inf_field_content" title="加上標籤">' +
-			'<a class="co_a AddToTag" href="#inline_AddToTag" onclick="show_AddToTag()">&nbsp;</a>' +
+			'<a class="co_a AddToTag" onclick="addToTag()">&nbsp;</a>' +
 			'<div class="post_tag">&nbsp;</div>' +
 			'<div class="post_tag_text">加上標籤</div>' +
 			'</div>' +
@@ -177,6 +179,32 @@ function showCard(conf) {
 		// 新增到 Folder 介面
 		$('div.workspace_cards_folder_comment_inf').after(div);
 	}
+}
+
+function addToTag() {
+	alertify.prompt("加上標籤，並以「,」分隔", function (e, str) {
+	    if (e) {
+	    	var data = JSON.parse(localStorage.page_info);
+	    	if (str) str.split(',').forEach(function(tag, index){
+	            data.tags = data.tags || [];
+	            var name = tag.trim();
+	            if (name) data.tags.push({ name: name, tid: 't' + (createID() + index) });
+	        });
+
+	        $.post('db/w_setCard.php', data)
+	        	.success(function(r){
+	        		console.log(data, r);
+	        		var div = '';
+	        		data.tags.forEach(function(tag){
+						div += '<span class="tag_span" tid="'+ tag.tid +'">'+ tag.name +'</span>';
+					});
+	        		$('div[sid='+ data.cid +']').find('span.tags_area_container').append(div);
+	        	})
+	        	.fail(function(x){
+	        		console.log(x.responseText);
+	        	});
+	    }
+	});
 }
 
 function tagsGen(data) {
