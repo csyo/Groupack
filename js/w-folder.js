@@ -191,7 +191,7 @@ function newFolder() {
 		$('#inline_folder_wrapper_comment').val('');
 		$('#inline_folder_wrapper_name').val('');
 	} else {
-		alert("請輸入 Folder 名稱!");
+		alertify.alert("請輸入 Folder 名稱!");
 	}
 }
 
@@ -301,9 +301,9 @@ $(document).on('click', '#inline_folders_manager_modifyfolder div.inline_modifyf
 });
 
 // 顯示群組所有 folder
-function showAllFolders() {
+function showAllFolders(callback) {
    if (!localStorage.group_selected) {
-      alert('請先選擇群組!');
+      alertify.alert('請先選擇群組!');
       return;
    }
    var folders = processGroupData().folders,
@@ -323,6 +323,7 @@ function showAllFolders() {
       }
       $div.prepend(div);
    }
+   callback && callback();
 }
 
 // 顯示新增 folder 介面

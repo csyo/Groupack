@@ -89,9 +89,7 @@ $(function(e) {
       }, 400);
    });
    $('#nav > ul.navigation > li').click(function(e) { // nav選單 顯示與變色
-      if ( $(e.target).hasClass('icon-Folder') && !localStorage.group_selected ) return;
 	  var _nav = $(this).attr('_nav'), $a = $(this).parents('#nav');
-	  console.log(_nav);
 	  if( _nav === 'TopicMap' ){
 		GoToTopicMap();
 		return false;
@@ -101,9 +99,10 @@ $(function(e) {
 		return false;
 	  }
 	  if( _nav === 'Folder' ){
-		$('#folder-box').show();
-		$('body').css('overflow', 'hidden');
-		showAllFolders();
+		showAllFolders(function(){
+         $('#folder-box').show();
+         $('body').css('overflow', 'hidden');
+      });
 		return false;
 	  }
 	  if( !$a.hasClass('li_on') ){
@@ -234,7 +233,7 @@ $(document).on('click', '#search-again-btn', function() { // 顯示 再次搜尋
 
 $(document).on('keydown', '#search-box', function(e){  // 再次搜尋時
 	if( $(this).is(':focus') && (e.keyCode == 13) ){
-		if( $(this).val().trim() === '' ){ alert('請輸入搜尋內容'); return false; }
+		if( $(this).val().trim() === '' ){ alertify.alert('請輸入搜尋內容'); return false; }
 			localStorage.setItem( 'k_word', $(this).val().trim() );
 			getsearchresult();
 	}
@@ -243,7 +242,7 @@ $(document).on('keydown', '#search-box', function(e){  // 再次搜尋時
 $(document).on('click', '#logout', function() { // 登出
 	if( confirm('確定要登出 Groupack 嗎？') ){
 		localStorage.clear();
-		alert('成功登出');
+		alertify.alert('成功登出');
 		window.top.location.href = 'home.html';
 		ShowUserInfo(localStorage.FB_id, localStorage.FB_name);
 	}
@@ -395,10 +394,10 @@ function search_again() {
    localStorage.setItem('k_word_old', localStorage.k_word);
    localStorage.setItem('k_word', k_word);
    if (!localStorage.FB_id) {
-      alert("請登入 Facebook ");
+      alertify.alert("請登入 Facebook ");
    } else {
       if (k_word == '') {
-         alert("請輸入關鍵字");
+         alertify.alert("請輸入關鍵字");
       } else {
          document.nav_select_search_form.action = 'usersubmit.php';
          window.top.location.href = 'index.html';
@@ -496,11 +495,11 @@ function FeedToFacebook(event) { // 分享到 facebook
 function GoToTopicMap(){ // 顯示 topicmap 介面
 	var a = localStorage.group_selected || null;
 	if (a == null || a == '') {
-		alert('請先選擇群組');
+		alertify.alert('請先選擇群組');
 	} else if (sessionStorage.getItem('topic_relevance_for' + a) == null) {
-		alert('關聯性尚未計算完成,請過1~2分鐘後再進入Topic map');
+		alertify.alert('關聯性尚未計算完成,請過1~2分鐘後再進入Topic map');
 	} else if (sessionStorage.getItem('topic_relevance_for' + a) == "[] ") {
-		alert('目前搜尋的關鍵字經過計算都沒有關聯耶!');
+		alertify.alert('目前搜尋的關鍵字經過計算都沒有關聯!');
 	} else {
 		localStorage.setItem('where', 'slider_a');
 		window.top.location.href = './TopicMap/topic_map.html';
@@ -510,7 +509,7 @@ function GoToTopicMap(){ // 顯示 topicmap 介面
 function GoToSearchProcess(){ // 顯示 SearchProcess 介面
 	var a = localStorage.group_selected || null;
 	if (a == null || a == '') {
-		alert('請先選擇群組');
+		alertify.alert('請先選擇群組');
 	} else {
 		localStorage.setItem('where', 'slider_a');
 		window.top.location.href = './SearchProcess/searchprocess.html';

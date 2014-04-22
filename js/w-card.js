@@ -225,7 +225,7 @@ function newCard() {
 		$('#inline_card_wrapper_comment').val('');
 		$('#inline_card_wrapper_name').val('');
 	} else {
-		alert("請輸入\"名稱\"以及\"網址\"後再按\"確定\"!");
+		alertify.alert("請輸入\"名稱\"以及\"網址\"後再按\"確定\"!");
 	}
 }
 

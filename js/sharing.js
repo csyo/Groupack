@@ -61,7 +61,7 @@ function showSharing() {
         $('body').css('overflow', 'hidden');
         $('#sharing_with_group_background').removeClass('dom_hidden').attr('style', '');
     } else {
-        alert('選擇群組後才能使用「群組共享」功能');
+        alertify.alert('選擇群組後才能使用「群組共享」功能');
     }
 }
 $(document).on('click', '#portfolio_wrapper1 div.search_result_inf_field_content:nth-child(1)', showSharing);
@@ -97,7 +97,7 @@ $(document).on('click', '#sharing_with_group div.submit', function() {
             console.log(err);
         });
     } else {
-        alert('請選擇 Folder !');
+        alertify.alert('請選擇 Folder !');
     }
 });
 
