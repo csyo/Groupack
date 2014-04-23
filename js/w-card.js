@@ -123,7 +123,7 @@ function showCard(conf) {
 	var time = (time == '0000-00-00 00:00:00' || time == '') ? time = '------' : conf.time;
 	var displayLink = (url.substr(0, 5) == 'https') ? url.substr(8) : (url.substr(0, 4) == 'http') ? url.substr(7) : url;
 	if (parseInt(is_file) == 0) {
-		var div = '' +
+		return '' +
 			'<div sid="' + cid + '" class="workspace_cards_position">' +
 			'<div class="workspace_cards_content_user isotope-item">' +
 			'<div class="workspace_cards_content_user_icon">' +
@@ -176,8 +176,7 @@ function showCard(conf) {
 			'</div>' +
 			'</div>' +
 			'</div>';
-		// 新增到 Folder 介面
-		$('div.workspace_cards_folder_comment_inf').after(div);
+		
 	}
 }
 
@@ -331,4 +330,16 @@ $(document).on('click', 'a.click_workspace_cards', function show_cardcontain() {
 	}
 	console.log('show_cardcontain ' + localStorage.where);
 	$(document).on('click', SetPage);
+});
+
+// remove tag
+$(document).on('click', '#inline_workspace_cards span.tag_span', function(){
+	var self = this;
+	alertify.confirm('確定要刪除此標籤嗎?', function(e){
+		if (e) {
+			removeById({ tid: $(self).attr('tid'), cid: $(self).parents('div.workspace_cards_position').attr('sid')}, function () {
+				$(self).remove();
+			});
+		}
+	});
 });

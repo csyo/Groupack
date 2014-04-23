@@ -53,16 +53,18 @@ function addToSharing(id, name) {
 
 // 移除 workspace / folder / card
 
-function removeById(xid) {
-    $.post("db/w_removeById.php", {
-        xid: xid
-    })
+function removeById(xid, callback) {
+
+    if (typeof xid === 'string') data = { xid: xid };
+    else data = { xid: xid.tid, cid: xid.cid };
+    $.post("db/w_removeById.php", data)
         .fail(function(x, e, txt) {
             console.log(txt);
         })
         .done(function(r) {
             console.log(r);
             getGroupUpdated();
+            callback && callback();
         });
 }
 
