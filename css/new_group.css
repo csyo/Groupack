@@ -345,6 +345,7 @@ float: left;
 #addgroup section.addgroup-action > .addgroup-add,
 #checkgroup section.checkgroup-action > .checkgroup-add {
 position: absolute;
+background: white;
 right: 5px;
 height: 30px;
 top: 5px;
@@ -442,4 +443,27 @@ width: 100%;
 height: 50px;
 line-height: 50px;
 cursor: pointer;
+}
+#addgroup > section > article[level="1"] > div,
+#checkgroup > section > article[level="1"] > div {
+float: left;
+position: relative;
+width: 100%;
+height: 40px;
+line-height: 40px;
+margin-bottom: 30px;
+text-align: center;
+}
+#addgroup > section > article[level="1"] > div > div,
+#checkgroup > section > article[level="1"] > div > div{
+display: inline-block;
+color: #D95C5C;
+cursor: pointer;
+border: 1px solid #CCC;
+padding: 0 8px;
+margin: 0 5px;
+background: white;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
 }
