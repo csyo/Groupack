@@ -277,6 +277,7 @@
 		</div>
 	</div>
 </div>
+<!--
 <div id="addgroup_background" class="dom_hidden"></div>
 <div id="addgroup" class="dom_hidden">
 	<div class="addgroup_container dom_hidden">
@@ -301,7 +302,7 @@
 			</div>
 			<div class="addgroup_member_wrapper">
 				<div class="addgroup_member_container delete-able">
-					<!--   選擇的成員顯示於此   -->
+					<!--   選擇的成員顯示於此   --
 				</div>
 			</div>
 		</div>
@@ -310,7 +311,7 @@
 		        <fieldset>
 		            <input type="text" class="live_search_text_input" id="live-search-filter1" value="">
 		        </fieldset>
-				<!--   選擇的成員顯示於此   -->
+				<!--   選擇的成員顯示於此   --
 		    </form>
 		</div>
 		<div class="addgroup_footer dom_hidden">
@@ -357,7 +358,7 @@
 			</div>
 			<div class="checkgroup_keeper_wrapper">
 				<div class="checkgroup_keeper_container">
-					<!--   選擇的管理員顯示於此   -->
+					<!--   選擇的管理員顯示於此   --
 				</div>
 			</div>
 			<div class="checkgroup_addmember_action">
@@ -370,19 +371,19 @@
 			</div>
 			<div class="checkgroup_member_wrapper">
 				<div class="checkgroup_member_container delete-able">
-					<!--   選擇的成員顯示於此   -->
+					<!--   選擇的成員顯示於此   --
 				</div>
 			</div>
 		</div>
 		<div class="checkgroup_keepers_container dom_hidden">
-			<!--   選擇的成員顯示於此   -->
+			<!--   選擇的成員顯示於此   --
 		</div>
 		<div class="checkgroup_members_container dom_hidden">
 			<form class="live_search_styled" method="post" action="">
 		        <fieldset>
 		            <input type="text" class="live_search_text_input" id="live-search-filter2" value="">
 		        </fieldset>
-				<!--   選擇的成員顯示於此   -->
+				<!--   選擇的成員顯示於此   --
 		    </form>
 		</div>
 		<div class="checkgroup_footer dom_hidden">
@@ -400,6 +401,145 @@
 			</div>
 		</div>
 	</div>
+</div>
+<!--    Group 介面    -->
+<article id="group-box" style="display: none;">
+	<section>
+		<header>
+			<div class="title chinese">選擇群組</div>
+			<div id="group-box_add" class="chinese" onclick="showAddGroup(); return false;">新增</div>
+			<div id="group-box_leave" class="chinese">離開</div>
+		</header>
+		<article>
+			<div class="wrapper">
+				<section id="group-user">
+					<header>Yours</header>
+					<div class="group-item">
+						<div class="name">group1</div>
+						<div class="edit">&nbsp;</div>
+					</div>
+					<div class="group-item">
+						<div class="name">group2</div>
+						<div class="edit">&nbsp;</div>
+					</div>
+				</section>
+				<section id="group-all">
+					<header>Others</header>
+					<div class="group-item">
+						<div class="name">other-group1</div>
+						<div class="apply">&nbsp;</div>
+					</div>
+					<div class="group-item">
+						<div class="name">other-group2</div>
+						<div class="apply">&nbsp;</div>
+					</div>
+				</section>
+			</div>
+		</article>
+	</section>
+</article>
+<!--   新增群組 介面    -->
+<div id="addgroup_background" style="display: none;"></div>
+<div id="addgroup" style="display: none;">
+	<section>
+		<header>
+			<div class="title chinese">新增群組</div>
+			<div id="addgroup-submit" class="chinese">提交</div>
+			<div id="addgroup-back" class="chinese dom_hidden">返回</div>
+			<div id="addgroup-leave" class="chinese">離開</div>
+		</header>
+		<article level="1">
+			<section class="addgroup-name">
+				<div class="text chinese">名稱</div>
+				<input id="group-name" type="input">
+			</section>
+			<section class="addgroup-action">
+				<div class="text chinese">成員</div>
+				<div class="addgroup-add">
+					<a class="co_a addmember_add">&nbsp;</a>
+					<div class="icon">&nbsp;</div>
+					<div class="text">加入</div>
+				</div>
+			</section>
+			<section class="addgroup-member">
+				<div id="addgroup-member-area" class="delete-able">
+					<!--   選擇的成員顯示於此   -->
+					<a class="co_a" id="100000689016726" role="100000689016726" href="javascript:;" title="王梓憲"><img class="temp_" src="https://graph.facebook.com/100000689016726/picture" width="40px"></a>
+				</div>
+			</section>
+		</article>
+		<article level="2" class="dom_hidden">
+			<form method="post" action="">
+				<fieldset>
+					<input type="input" placeholder="搜尋..." id="live-search-filter1" value="">
+				</fieldset>
+				<!--   選擇的成員顯示於此   -->
+				<div class="checkgroup_members_container_item">
+					<div class="checkgroup_members_container_itemText" role="1496775442">Alice Shih</div>
+				</div>
+			</form>
+		</article>
+	</section>
+</div>
+<!--   編輯群組 介面    -->
+<div id="checkgroup_background" style="display: none;"></div>
+<div id="checkgroup" style="display: none;">
+	<section>
+		<header>
+			<div class="title chinese">編輯群組</div>
+			<div id="checkgroup-submit" class="chinese">提交</div>
+			<div id="checkgroup-back" class="chinese dom_hidden">返回</div>
+			<div id="checkgroup-back-keeper" class="chinese dom_hidden">返回</div>
+			<div id="checkgroup-leave" class="chinese">離開</div>
+		</header>
+		<article level="1">
+			<section class="checkgroup-action">
+				<div class="text chinese">管理者</div>
+				<div class="checkgroup-add">
+					<a class="co_a addkeeper_add">&nbsp;</a>
+					<div class="icon">&nbsp;</div>
+					<div class="text">加入</div>
+				</div>
+			</section>
+			<section class="checkgroup-member">
+				<div id="checkgroup-keeper-area" class="delete-able">
+					<!--   選擇的成員顯示於此   -->
+					<a class="co_a" id="100000689016726" role="100000689016726" href="javascript:;" title="王梓憲"><img class="temp_" src="https://graph.facebook.com/100000689016726/picture" width="40px"></a>
+				</div>
+			</section>
+			<section class="checkgroup-action">
+				<div class="text chinese">成員</div>
+				<div class="checkgroup-add">
+					<a class="co_a addmember_add">&nbsp;</a>
+					<div class="icon">&nbsp;</div>
+					<div class="text">加入</div>
+				</div>
+			</section>
+			<section class="checkgroup-member">
+				<div id="checkgroup-member-area" class="delete-able">
+					<!--   選擇的成員顯示於此   -->
+					<a class="co_a" id="100000689016726" role="100000689016726" href="javascript:;" title="王梓憲"><img class="temp_" src="https://graph.facebook.com/100000689016726/picture" width="40px"></a>
+				</div>
+			</section>
+		</article>
+		<article level="2" class="dom_hidden">
+			<form method="post" action="">
+				<fieldset>
+					<input type="text" placeholder="搜尋..." id="live-search-filter2" value="">
+				</fieldset>
+				<!--   選擇的成員顯示於此   -->
+				<div class="checkgroup_members_container_item">
+					<div class="checkgroup_members_container_itemText" role="1496775442">Alice Shih</div>
+				</div>
+			</form>
+		</article>
+		<article level="3" class="dom_hidden">
+			<!--   選擇的成員顯示於此   -->
+			<div class="checkgroup_members_container_item">
+				<div class="checkgroup_members_container_itemText" role="1496775442">Alice Shih</div>
+			</div>
+		</article>
+	</section>
 </div>
 <!--   群組共享 介面    -->
 <div id="sharing_with_group_background" class="dom_hidden"></div>
@@ -563,7 +703,8 @@
 		</div>
 	</div>
 </div>
-<div style="display: none;">    <!-- 修改 Workspace -->
+<!--
+<div style="display: none;">    <!-- 修改 Workspace --
 	<div id="inline_workspace_manager_modifyworkspace">
 		<div class="inline_modifyworkspace_header">
 			<div class="inline_modifyworkspace_header_icon"></div>
@@ -590,7 +731,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>-->
 <div style="display: none;">    <!-- 修改 Folder -->
 	<div id="inline_folders_manager_modifyfolder">
 		<div class="inline_modifyfolder_header">
@@ -711,6 +852,7 @@
 	<link rel="stylesheet" href="./css/group.css">
 	<link rel="stylesheet" href="./css/timeline.css">
 	<link rel="stylesheet" href="./css/new_folder.css">
+	<link rel="stylesheet" href="./css/new_group.css">
 	<link rel="stylesheet" href="./library/colorbox/source/colorbox.css">
 	<link rel="stylesheet" href="./library/fancybox/source/jquery.fancybox.css">
 	<link rel="stylesheet" href="./library/alertify/alertify.core.css">

@@ -116,7 +116,7 @@ top: 0;
 bottom: 0;
 right: 0;
 left: 0;
-z-index: 300;
+z-index: 350;
 }
 #checkgroup,
 #addgroup{
@@ -125,7 +125,7 @@ padding: 0px;
 margin: 0;
 position: absolute;
 top: 0;
-z-index: 300;
+z-index: 350;
 min-height: 100%;
 border-right: 1px solid #CCC;
 text-align: center;
@@ -360,10 +360,12 @@ border-top: 2px solid #d8d8d8;
 .checkgroup_members_container_item{
 position: relative;
 height: 50px;
-width: 100%;
-margin: 5px 0;
-border-top: 1px solid #ccc;
-border-bottom: 1px solid #ccc;
+width: 95%;
+margin: 5px 2.5%;
+border: 1px solid #bfbfbf;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
 background: white;
 }
 .checkgroup_keepers_container_item img,
@@ -565,11 +567,18 @@ background: white;
 }
 .addgroup_name input{
 position: relative;
-width: 100%;
+width: 95%;
 height: 35px;
 font-size: 18px;
-border-left: 0;
-border-right: 0;
+vertical-align: top;
+border: 1px solid #ccc;
+padding: 4px 6px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
 }
 .addgroup_name_text{
 position: relative;

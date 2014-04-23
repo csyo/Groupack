@@ -100,11 +100,14 @@ $(function(e) {
 	  }
 	  if( _nav === 'Folder' ){
 		showAllFolders(function(){
-         $('#folder-box').show();
-         $('body').css('overflow', 'hidden');
-      });
+			 $('#folder-box').show();
+			 $('body').css('overflow', 'hidden');
+		  });
 		return false;
 	  }
+	  $('#group-box').show();
+      $('body').css('overflow', 'hidden');
+	  return false;
 	  if( !$a.hasClass('li_on') ){
 		$a.addClass('li_on');
 		$(this).children('div.nav_main').children('a:first').css({
