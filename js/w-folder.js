@@ -85,7 +85,11 @@ function cardsInFolder(that){
 			console.log("成功取得 Card 資料 from " + folderID);
 			var data = JSON.parse(r);
 			cardsInFolder.data = data;
-			for (var i = 0, item; item = data[i]; i++) {
+			var div = '';
+			data.sort(function(a,b){
+				if (a.time < b.time) return 1; else return -1;
+			})
+			.forEach(function(item) {
 				var conf = {
 					cid: item.cid,
 					title: item.title,
@@ -96,8 +100,10 @@ function cardsInFolder(that){
 					is_file: item.is_file
 				};
 				if (item.tags) conf.tags = item.tags;
-				showCard(conf);
-			}
+				div += showCard(conf);
+			});
+			// 新增到 Folder 介面
+			$('div.workspace_cards_folder_comment_inf').after(div);
 		});
 }
 
