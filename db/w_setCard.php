@@ -9,28 +9,27 @@
     
     // 新增
     if ( isset($_POST['fbid']) ) {
-        $query = sprintf( "INSERT INTO cardinfo (CreatorID,CardID,FolderID,CardName,CardComment,URL)"
-            . "SELECT * FROM (SELECT '%s','%s','%s','%s','%s','%s') AS tmp "
-            . "WHERE NOT EXISTS ("
-            . "SELECT URL FROM cardinfo WHERE CardName = '%s' AND URL = '%s' AND FolderID = '%s'"
-            . ") LIMIT 1",
-            mysql_real_escape_string($_POST['fbid']),
-            mysql_real_escape_string($_POST['cid']),
-            mysql_real_escape_string($_POST['fid']),
-            mysql_real_escape_string($_POST['title']),
-            mysql_real_escape_string($_POST['content']),
-            mysql_real_escape_string($_POST['url']),
-            mysql_real_escape_string($_POST['title']),
-            mysql_real_escape_string($_POST['url']),
-            mysql_real_escape_string($_POST['fid']));
-        mysql_query($query) or die('Invalid query #1: ' . mysql_error());
-        echo $query."\n";
         $query = sprintf("SELECT CardID FROM cardinfo WHERE CardName = '%s' AND URL = '%s' AND FolderID = '%s'",
             mysql_real_escape_string($_POST['title']),
             mysql_real_escape_string($_POST['url']),
             mysql_real_escape_string($_POST['fid']));
         $result = mysql_query($query) or die('Invalid query #1: ' . mysql_error());
-        $_POST['cid'] = mysql_fetch_assoc($result)['CardID'];
+        $cid = mysql_fetch_assoc($result)['CardID'];
+
+        if ($cid == '') {
+            $query = sprintf( "INSERT INTO cardinfo (CreatorID,CardID,FolderID,CardName,CardComment,URL)"
+                . "VALUE ('%s','%s','%s','%s','%s','%s')",
+                mysql_real_escape_string($_POST['fbid']),
+                mysql_real_escape_string($_POST['cid']),
+                mysql_real_escape_string($_POST['fid']),
+                mysql_real_escape_string($_POST['title']),
+                mysql_real_escape_string($_POST['content']),
+                mysql_real_escape_string($_POST['url']));
+            mysql_query($query) or die('Invalid query #1: ' . mysql_error());
+            echo $query."\n";
+        } else {
+            $_POST['cid'] = $cid;
+        }
         echo 'cardID='.$_POST['cid']."\n";
     } else {
         // 更新
