@@ -306,12 +306,11 @@ top: 45px;
 background: url(../Image/geometry.png);
 border-top: 2px solid #d8d8d8;
 }
-#addgroup section.addgroup-name{
-margin-bottom: 30px;
-}
 #addgroup section.addgroup-name > .text,
 #addgroup section.addgroup-action > .text,
-#checkgroup section.checkgroup-action > .text{
+#checkgroup section.checkgroup-action > .text,
+#addgroup section.addgroup-status  > .text ,
+#checkgroup section.checkgroup-status  > .text {
 position: relative;
 width: auto;
 height: 40px;
@@ -336,24 +335,37 @@ box-sizing: border-box;
 -webkit-box-sizing: border-box;
 }
 #addgroup section.addgroup-action ,
-#checkgroup section.checkgroup-action {
+#checkgroup section.checkgroup-action ,
+#addgroup section.addgroup-status ,
+#checkgroup section.checkgroup-status {
 position: relative;
 height: 40px;
 width: 100%;
 float: left;
 }
 #addgroup section.addgroup-action > .addgroup-add,
-#checkgroup section.checkgroup-action > .checkgroup-add {
+#checkgroup section.checkgroup-action > .checkgroup-add ,
+#addgroup section.addgroup-status > .addgroup-btn,
+#checkgroup section.checkgroup-status > .checkgroup-btn{
 position: absolute;
 background: white;
 right: 5px;
 height: 30px;
-top: 5px;
+top: 4px;
 border: 1px solid #bbb;
 cursor: pointer;
 }
+#addgroup_btn,
+#checkgroup_btn{
+position: absolute;
+width: 100%;
+height: 100%;
+left: 0;
+top: 0;
+z-index: 351;
+}
 #addgroup section.addgroup-action > .addgroup-add > a,
-#checkgroup section.checkgroup-action > .checkgroup-add > a {
+#checkgroup section.checkgroup-action > .checkgroup-add > a{
 position: absolute;
 width: 100%;
 height: 100%;
@@ -466,4 +478,24 @@ background: white;
 border-radius: 5px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
+}
+#addgroup section.addgroup-status .status-left,
+#checkgroup section.checkgroup-status .status-left,
+#addgroup section.addgroup-status .status-right,
+#checkgroup section.checkgroup-status .status-right{
+position: relative;
+float: left;
+line-height: 30px;
+padding: 0 5px;
+}
+#addgroup section.addgroup-status .activated,
+#checkgroup section.checkgroup-status .activated{
+background: #D95C5C;
+color: white;
+}
+#addgroup section.addgroup-status ,
+#checkgroup section.checkgroup-status {
+margin-bottom: 10px;
+padding: 10px 0;
+border-bottom: 1px solid #bfbfbf;
 }
