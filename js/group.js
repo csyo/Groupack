@@ -75,6 +75,14 @@ $(document).on('click', '#checkgroup a.addmember_add', function(e) {
 	$('div.checkgroup_footer_right').addClass('dom_hidden');
 	$('div.checkgroup_members_footer_right').removeClass('dom_hidden');
 });
+// 點擊 公開/隱私 (新增群組)
+$(document).on('click', '#addgroup_btn', function(e) {
+	$(this).siblings('div.activated').siblings('div').addClass('activated').end().removeClass('activated');
+});
+// 點擊 公開/隱私 (檢視群組)
+$(document).on('click', '#checkgroup_btn', function(e) {
+	$(this).siblings('div.activated').siblings('div').addClass('activated').end().removeClass('activated');
+});
 // 產生好友清單於DOM
 $(function show_friend_list() {
    var friendsJson = localStorage.getItem('FB_friends');
