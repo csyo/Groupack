@@ -14,7 +14,7 @@ display: none;
 background: url(../Image/geometry.png);
 }
 .Group_Board_inf{
-display: none;
+display: block;
 position: absolute;
 margin: 1px;
 height: 30px;

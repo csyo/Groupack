@@ -11,6 +11,10 @@ $(function(e) {
    logSession(localStorage.group_selected);
 });
 
+window.onload = function () {
+   Group_Board_showMember();
+};
+
 function logSession(groupID, logid) {
    if (logid) {
       console.log("session end.");
@@ -322,7 +326,8 @@ window.onbeforeunload = function() {
    sessionEnd();
 };
 
-function getsearchresult() { // 抓 google 搜尋結果
+// fetch search result
+function getsearchresult() {
    $('#preloader').find('span').text('請稍後...').end().removeClass('dom_hidden');
    var k_word = localStorage.k_word,
       viewport_width_now = localStorage.viewport_width;
