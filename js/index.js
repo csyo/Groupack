@@ -64,7 +64,9 @@ $(window).resize(function() { // 視窗改變時觸發
 	}
 });
 $(function(e) {
-   $('#Group_Board > div.Group_Board_header > a').click(function() { // 點擊 群組成員中心的大頭貼
+   // click on the group info board
+   $('#Group_Board div.Group_Board_header').click(function(e) {
+      if (e.target.id === 'leave-group') return;
       if (!$('#Group_Board').hasClass('Group_Board_on')) {
          $('#Group_Board').addClass('Group_Board_on');
          $('#Group_Board_area').removeClass('dom_hidden').attr('style', '').parent().removeClass('dom_hidden').attr('style', '');

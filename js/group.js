@@ -106,6 +106,13 @@ $('#addgroup-submit').click(function(){
    });
 });
 
+$('#leave-group').click(function(){
+   delete localStorage.group_selected;
+   sessionEnd();
+   logSession();
+   Group_Board_showMember();
+});
+
 // Generate member list @ 'Add Administers'
 $(document).on('click', 'a.addkeeper_add', function show_admin_list() {
    var div = '',

@@ -133,7 +133,6 @@ function showCard(conf) {
 			'<div class="workspace_cards_content_user_name" fbid="' + fbid + '">' + fbname + '</div>' +
 			'<span>-</span>' +
 			'<span class="workspace_cards_content_time">' + time + '</span>' +
-			'<span class="tags_area_container">'+ tags +'</span>' +
 			'</div>' +
 			'</div>' +
 			'<div class="workspace_cards_content isotope-item">' +
@@ -172,6 +171,7 @@ function showCard(conf) {
 			'<div class="post_url">' +
 			'<span>' + displayLink + '</span>' +
 			'</div>' +
+			'<div class="tags_area_container">'+ tags +'</div>' +
 			'</div>' +
 			'</div>' +
 			'</div>' +
@@ -196,7 +196,7 @@ function addToTag() {
 	        		JSON.parse(data.tags).forEach(function(tag){
 						div += '<span class="tag_span" tid="'+ tag.tid +'">'+ tag.name +'</span>';
 					});
-	        		$('div[sid='+ data.cid +']').find('span.tags_area_container').append(div);
+	        		$('div[sid='+ data.cid +']').find('div.tags_area_container').append(div);
 	        	})
 	        	.fail(function(x){
 	        		console.log(x.responseText);

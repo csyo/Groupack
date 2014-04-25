@@ -303,7 +303,7 @@ position: relative;
 float: left;
 margin: 10px 2.5%;
 width: 95%;
-text-align: center;
+text-align: left;
 -webkit-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
 -moz-box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);
 box-shadow: 0px 3px 10px rgba(20%,20%,40%,0.5);

@@ -99,6 +99,19 @@ margin-right: 10px;
 margin-left: 15px;
 cursor: pointer;
 }
+#leave-group {
+height: 30px;
+width: 30px;
+background-image: url('../Image/leave.png');
+background-repeat: no-repeat;
+background-size: auto;
+background-position: 0 0;
+float: right;
+padding: 0 5px;
+margin-right: 10px;
+margin-left: 15px;
+cursor: pointer;
+}
 #search-again-btn {
 height: 30px;
 width: 30px;
