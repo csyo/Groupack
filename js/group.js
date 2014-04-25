@@ -1,36 +1,37 @@
-// 離開 group 介面
+// Leave group
 $(document).on('click', '#group-box_leave', function(e) {
 	$('#group-box').hide();
 	$('body').css('overflow', '');
 });
-// 離開 add group 介面
+// Leave 'Add Group'
 $(document).on('click', '#addgroup-leave', function(e) {
 	$('#addgroup').hide().siblings('#addgroup_background').hide();
+   $('#addgroup-member-area').find('a').remove();
+   removeList();
 });
-// 離開 check group 介面
+// Leave 'Edit Group' UI
 $(document).on('click', '#checkgroup-leave', function(e) {
 	$('#checkgroup').hide().siblings('#checkgroup_background').hide();
 });
-// 顯示 check group 介面
+// Show 'Edit Group' UI
 $(document).on('click', '#group-user > div > div.edit', function(e) {
 	show_checkG(e);
 	$('#checkgroup').show().siblings('#checkgroup_background').show();
+   removeList();
 });
-// 離開 選擇成員 介面 (新增群組)
+// Leave 'Add Members' UI @ 'Add Group'
 $(document).on('click', '#addgroup-back', function(e) {
 	$('#addgroup-member-area > a').filter('#temp_').remove();
 	$('#addgroup [level=2]').addClass('dom_hidden').find('div.checkgroup_members_container_itemText').css('background-color', '').removeClass('addgroup_friends_select_be_selected');
 	$('#addgroup-submit').removeClass('dom_hidden').siblings('#addgroup-back').addClass('dom_hidden');
-	removeList();
 });
-// 離開 選擇成員 介面 (檢視群組)
+// Leave 'Add Members' UI @ 'Edit Group'
 $(document).on('click', '#checkgroup-back', function(e) {
 	$('#checkgroup-member-area > a').filter('#temp_').remove();
 	$('#checkgroup [level=2]').addClass('dom_hidden').find('div.checkgroup_members_container_itemText').css('background-color', '').removeClass('addgroup_friends_select_be_selected');
 	$('#checkgroup-submit').removeClass('dom_hidden').siblings('#checkgroup-back').addClass('dom_hidden');
-	removeList();
 });
-// 離開 選擇管理者 介面 (檢視群組)
+// Leave 'Add Administers' @ 'Edit Group'
 $(document).on('click', '#checkgroup-back-keeper', function(e) {
 	$('#checkgroup-member-area').append($('#checkgroup-keeper-area > a').filter('#temp_'));
 	$('#checkgroup-member-area > a').filter('#temp_').attr('id', '');
@@ -38,7 +39,7 @@ $(document).on('click', '#checkgroup-back-keeper', function(e) {
 	$('#checkgroup [level=3]').addClass('dom_hidden').find('div.checkgroup_members_container_itemText').css('background-color', '').removeClass('checkgroup_keepers_select_be_selected');
 	$('#checkgroup-submit').removeClass('dom_hidden').siblings('#checkgroup-back-keeper').addClass('dom_hidden');
 });
-// 顯示 選擇成員 介面 (新增群組)
+// Show 'Add Members' UI @ 'Add Group'
 $(document).on('click', '#addgroup a.addmember_add', function(e) {
 	var li_num = $('#addgroup-member-area').children('a').length;
 	 for (var x = 1; x <= li_num; x++) {
@@ -50,7 +51,8 @@ $(document).on('click', '#addgroup a.addmember_add', function(e) {
 	 $('#addgroup [level=2]').removeClass('dom_hidden');
 	 $('#addgroup-submit').addClass('dom_hidden').siblings('#addgroup-back').removeClass('dom_hidden');
 });
-// 顯示 選擇成員 介面 (檢視群組)
+
+// Show 'Add Members' UI @ 'Edit Group'
 $(document).on('click', '#checkgroup a.addmember_add', function(e) {
 	var li_num = $('#checkgroup-member-area > a').length;
 	for (var x = 1; x <= li_num; x++) {
@@ -71,19 +73,58 @@ $(document).on('click', '#checkgroup a.addmember_add', function(e) {
 	$('div.checkgroup_footer_right').addClass('dom_hidden');
 	$('div.checkgroup_members_footer_right').removeClass('dom_hidden');
 });
-// 點擊 公開/隱私 (新增群組)
+
+// Toggle 'Public/Private' @ 'Add Group'
 $(document).on('click', '#addgroup_btn', function(e) {
 	$(this).siblings('div.activated').siblings('div').addClass('activated').end().removeClass('activated');
 });
-// 點擊 公開/隱私 (檢視群組)
+// Toggle 'Public/Private' @ 'Edit Group'
 $(document).on('click', '#checkgroup_btn', function(e) {
 	$(this).siblings('div.activated').siblings('div').addClass('activated').end().removeClass('activated');
 });
+
+// Submit @ 'Edit Group'
 $('#checkgroup-submit').click(function(){
    var data = localStorage.editGroup.split('_');
-   setGroup({ gid: data[0] , gname: data[1] , mode: 'EDIT' });
+   setGroup({ gid: data[0] , gname: data[1] , mode: 'EDIT' }, function(){
+      $('#checkgroup-leave').click();
+      $('#checkgroup-keeper-area').find('a').remove();
+      $('#checkgroup-member-area').find('a').remove();
+   });
 });
-// 產生好友清單於DOM
+// Submit @ 'Add Group'
+$('#addgroup-submit').click(function(){
+   var name = $('#group-name').val();
+   if (!name) {
+      alertify.alert('請輸入群組名稱');
+      return;
+   }
+   var data = ['g'+createID(), $('#group-name').val()];
+   setGroup({ gid: data[0] , gname: data[1] , mode: 'ADD' }, function(){
+      $('#addgroup-leave').click();
+      $('#addgroup-member-area').find('a').remove();
+   });
+});
+
+// Generate member list @ 'Add Administers'
+$(document).on('click', 'a.addkeeper_add', function show_admin_list() {
+   var div = '',
+      $keepersContainer = $('#checkgroup [level=3]'),
+      $keepers = $keepersContainer.children('div'),
+      $members = $('#checkgroup-member-area').children('a');
+
+   if ($keepers.length != 0)
+      $keepers.remove();
+
+   for (var x = 0, item; item = $members[x]; x++) {
+      div += '\
+      <div class="checkgroup_members_container_item">\
+         <div class="checkgroup_members_container_itemText" role="' + $(item).attr('role') + '">' + $(item).attr('title') + '</div>\
+      </div>';
+   }
+   $keepersContainer.append(div);
+});
+// Generate friend list @ both 'Add Members'
 $(function show_friend_list() {
    var friendsJson = localStorage.getItem('FB_friends');
    var friends = JSON.parse(friendsJson);
@@ -100,17 +141,17 @@ $(function show_friend_list() {
          '<div class="checkgroup_members_container_itemText" role="' + friends[key][0] + '">' + friends[key][1] + '</div>' +
          '</div>';
    }
-   $('div.addgroup_members_container > form').after(friendsList);
    $('#checkgroup [level=2] > form').after(friendsList);
+   $('#addgroup [level=2] > form').after(friendsList);
 });
-// 輸入文字查詢朋友名字
+// Live search @ 'Add Members'
 $(function search_name() {
    $('#live-search-filter1').keyup(function() { // Retrieve the input field text and reset the count to zero
 
       var filter = $(this).val(),
          count = 0; // Loop through the comment list
 
-      $('div.addgroup_members_container div.checkgroup_members_container_itemText').each(function() { // If the list item does not contain the text phrase fade it out
+      $('#addgroup [level=2 div.checkgroup_members_container_itemText').each(function() { // If the list item does not contain the text phrase fade it out
 
          if ($(this).text().search(new RegExp(filter, 'i')) < 0) {
             $(this).parent().addClass('dom_hidden'); // Show the list item if the phrase matches and increase the count by 1
@@ -140,12 +181,11 @@ $(function search_name() {
    });
 });
 
+// Get user's role of a specific group
 function groupRoleInfo(groupID) {
-   if (groupID) {
-      return $.post("db/g_info.php", {
-         gID: groupID
-      });
-   }
+   if (groupID) return $.post("db/g_info.php", {
+      gID: groupID
+   });
 }
 
 // select clicked group
@@ -170,27 +210,8 @@ $(document).on('click', '#group-user div.group-item', function show_select_group
    }
 });
 
-// 由目前成員清單產生管理員候選人清單
-$(document).on('click', 'a.addkeeper_add', function show_admin_list() {
-   var div = '',
-      $keepersContainer = $('#checkgroup [level=3]'),
-      $keepers = $keepersContainer.children('div'),
-      $members = $('#checkgroup-member-area').children('a');
-
-   if ($keepers.length != 0)
-      $keepers.remove();
-
-   for (var x = 0, item; item = $members[x]; x++) {
-      div += '\
-      <div class="checkgroup_members_container_item">\
-         <div class="checkgroup_members_container_itemText" role="' + $(item).attr('role') + '">' + $(item).attr('title') + '</div>\
-      </div>';
-   }
-   $keepersContainer.append(div);
-});
-
-// 選擇成員 in 新增群組
-$(document).on('click', 'div.addgroup_members_container div.checkgroup_members_container_itemText', function choose_member() {
+// Select Member in 'Add Members' @ 'Add Group'
+$(document).on('click', '#addgroup [level=2] div.checkgroup_members_container_itemText', function choose_member() {
   if (!$(this).hasClass('addgroup_friends_select_on')) {
 	 if (!$(this).hasClass('addgroup_friends_select_be_selected')) {
 		$(this).addClass('addgroup_friends_select_be_selected').css('background-color', 'rgba(59, 120, 240, 0.87)');
@@ -198,7 +219,7 @@ $(document).on('click', 'div.addgroup_members_container div.checkgroup_members_c
 		var fbNAME = $(this).text();
 		addMember(fbID + ',' + fbNAME);
 		$('#addgroup-member-area').append('' +
-		   '<a class="co_a" id="temp_" role="' + fbID + '"' + 'href="javascript: void(0);" title="' + fbNAME + '" CheckTemp="Is_temp">' +
+		   '<a class="co_a" role="' + fbID + '"' + 'href="javascript: void(0);" title="' + fbNAME + '">' +
 		   '<img class="temp_" src="https://graph.facebook.com/' + fbID + '/picture" width="40px">' +
 		   '</a>'
 		);
@@ -212,7 +233,7 @@ $(document).on('click', 'div.addgroup_members_container div.checkgroup_members_c
   }
 });
 
-// 選擇成員 in 檢視群組
+// Select Member in 'Add Members' @ 'Edit Group'
 $(document).on('click', '#checkgroup [level=2] div.checkgroup_members_container_itemText', function choose_member() {
   if (!$(this).hasClass('checkgroup_friends_select_on')) {
 	 if (!$(this).hasClass('checkgroup_friends_select_be_selected')) {
@@ -221,7 +242,7 @@ $(document).on('click', '#checkgroup [level=2] div.checkgroup_members_container_
 		var fbNAME = $(this).text(); // console.log(fbNAME);
 		addMember(fbID + ',' + fbNAME);
 		$('#checkgroup-member-area').append(
-		   '<a class="co_a" id="temp_" role="' + fbID + '"' + 'href="javascript:;" title="' + fbNAME + '" CheckTemp="Is_temp">' +
+		   '<a class="co_a" role="' + fbID + '"' + 'href="javascript:;" title="' + fbNAME + '">' +
 		   '<img class="temp_" src="https://graph.facebook.com/' + fbID + '/picture" width="40px">' +
 		   '</a>'
 		);
@@ -234,7 +255,7 @@ $(document).on('click', '#checkgroup [level=2] div.checkgroup_members_container_
   }
 });
 
-// 選擇管理者 in 檢視群組
+// Select admininsters in 'Add Administers' @ 'Edit Group'
 $(document).on('click', '#checkgroup [level=3] div.checkgroup_members_container_itemText', function choose_admin() {
   if (!$(this).hasClass('checkgroup_keepers_select_on')) {
 	 var fbID = $(this).attr('role');
@@ -263,9 +284,8 @@ $(document).on('click', '#checkgroup [level=3] div.checkgroup_members_container_
   }
 });
 
-// 刪除/離開群組 in 檢視群組 (管理者/成員)
-$(document).on('click','#delete_group_center_btn2', function () {
-  if ($('div.checkgroup_addkeeper_action_add').css('display') === 'none') {
+// leave or delete group @ 'Edit Group'
+$(document).on('click','#checkgroup-depart', function () {
 	 alertify.confirm('確定要離開這個群組？', function(e){
        if (e) {
    		var groupID = localStorage.editGroup.split('_')[0];
@@ -286,23 +306,24 @@ $(document).on('click','#delete_group_center_btn2', function () {
    		$('div.checkgroup_members_footer_right').addClass('dom_hidden');
    	 }
     });
-  } else {
-      alertify.confirm('確定刪除這個群組？\nAre you sure to delete the group?', function(e){
-   	 if (e) {
-   		var groupID = localStorage.editGroup.split('_')[0];
-   		$.post('db/g_remove.php', {
-   		   gid: groupID
-   		})
-   		   .done(function(r) {
-   			  console.log(r);
-   		   });
-   		removeGroupDom(groupID);
-   		$('#checkgroup [level=2]').addClass('dom_hidden');
-   		$('div.checkgroup_footer_right').removeClass('dom_hidden');
-   		$('div.checkgroup_members_footer_right').addClass('dom_hidden');
-   	 }
+});
+
+$('#checkgroup-delete').click(function(){
+   alertify.confirm('確定刪除這個群組？\nAre you sure to delete the group?', function(e){
+       if (e) {
+         var groupID = localStorage.editGroup.split('_')[0];
+         $.post('db/g_remove.php', {
+            gid: groupID
+         })
+            .done(function(r) {
+              console.log(r);
+            });
+         removeGroupDom(groupID);
+         $('#checkgroup [level=2]').addClass('dom_hidden');
+         $('div.checkgroup_footer_right').removeClass('dom_hidden');
+         $('div.checkgroup_members_footer_right').addClass('dom_hidden');
+       }
       });
-  }
 });
 
 // Fetch group data and show
@@ -350,7 +371,7 @@ function updateGroupData(r) {
  *  @param conf - conf = { gid: ... , gname: ... , mode: ... }
  */
 
-function setGroup(conf) {
+function setGroup(conf, callback) {
    var groupData = {
       ID: conf.gid,
       NAME: conf.gname,
@@ -394,9 +415,8 @@ function setGroup(conf) {
       groupData = setMemberData(groupData);
       sendGroup(groupData);
       localStorage.removeItem('editGroup'); // 結束修改群組
-      $('#checkgroup-keeper-area > a').children('[class=temp_]').remove();
-      $('#checkgroup-keeper-area > a:empty').remove();
    }
+   callback && callback();
 }
 
 // Sending group data to database
@@ -534,7 +554,7 @@ function removeGroupDom(groupID) {
       $('.add_workspace').removeClass('cboxElement');
       Group_Board_showMember();
    }
-   $('li#' + groupID).remove();
+   $('div#' + groupID).remove();
    localStorage.removeItem(groupID);
    $('#checkgroup').removeClass('checkgroup_on').addClass('dom_hidden');
    $('#checkgroup_background').addClass('dom_hidden');
@@ -577,7 +597,7 @@ function Group_Board_showMember() {
    }
 }
 
-// 顯示 新增群組
+// show 'Add Group' UI
 function showAddGroup(){
 	$('#addgroup').removeClass('dom_hidden').attr('style', '');
 	$('#addgroup_background').removeClass('dom_hidden').attr('style', '');
@@ -587,12 +607,12 @@ function showAddGroup(){
 	var myId = localStorage.FB_id;
 	if (!document.getElementById(myId)) {
 		var me = '<a class="co_a" id="' + myId + '" role="' + myId + '" href="javascript:;" title="' + localStorage.FB_name + '"><img class="temp_" src="https://graph.facebook.com/' + myId + '/picture" width="40px"></a>';
-		$('#addgroup-member-area').append(me);
+		$('#addgroup-member-area').find('a').remove().end().append(me);
 	}
 	$('#group-name').focus().select();
 }
 
-// 顯示 檢視群組
+// Show 'Edit Group'
 function show_checkG(e) {
   $('#checkgroup').addClass('checkgroup_on').removeClass('dom_hidden').attr('style', '');
   $('#checkgroup_background').removeClass('dom_hidden').attr('style', '');
@@ -632,15 +652,12 @@ function show_checkG(e) {
 		return true;
 	 });
 
-	 // 調整顯示
 	 if (role == 'MEMBER') {
-		$('div.checkgroup_addkeeper_action_add').hide();
-		$('div.checkgroup_header_right_modify').hide();
-		$('#delete_group_center_btn2').attr('title', '離開群組').nextAll('.checkgroup_header_right_delect_text').text('離開').attr('title', '離開');
+      $('#checkgroup-depart').removeClass('dom_hidden');
+      $('#checkgroup-delete').addClass('dom_hidden');
 	 } else {
-		$('div.checkgroup_addkeeper_action_add').show();
-		$('div.checkgroup_header_right_modify').removeAttr('style');
-		$('#delete_group_center_btn2').attr('title', '刪除群組').nextAll('.checkgroup_header_right_delect_text').text('刪除').attr('title', '刪除');
+      $('#checkgroup-depart').addClass('dom_hidden');
+      $('#checkgroup-delete').removeClass('dom_hidden');
 	 }
 
 	 $('#checkgroup-member-area').find('a').remove().end().append(MBs);
