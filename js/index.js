@@ -4,7 +4,7 @@ $(function(e) {
    // // 使用者資料儲存
    // if ( getName(localStorage.FB_id) === '-------' )
    // 	save_user();
-   getsearchresult();
+   getSearchResult();
    testdevice();
    CheckGroupBoard();
    show_groups();
@@ -135,7 +135,8 @@ $(function(e) {
          }).end().siblings('#addMember').addClass('dom_hidden');
       }
    });
-   $('input.page_btn').click(function() { // 換頁
+   // page change
+   $('input.page_btn').click(function() {
       $('#scroll-top-top').trigger('click');
       $('#preloader').find('span').text('請稍後...').end().removeClass('dom_hidden');
       if (!$(this).hasClass('page_btn_now')) {
@@ -155,27 +156,7 @@ $(function(e) {
             $('input.page_btn_1').addClass('page_btn_now');
             $('div.page_btn_area1').removeClass('dom_hidden');
          }
-		var groupID = localStorage.group_selected || 1;
-         $.ajax({
-            url: 'db/searchresult.php',
-            cache: false,
-            dataType: 'html',
-            type: 'POST',
-            data: {
-               sendkeyword: k_word,
-               sendviewportwidth: viewport_width_now,
-               sendpage: k_page,
-               sendUserID: localStorage.FB_id,
-               sendgroupid: groupID
-            },
-            error: function(xhr) {
-               console.log(xhr.responseText);
-            },
-            success: function(res) {
-               document.getElementById('portfolio_wrapper1').innerHTML = res;
-               $('#preloader').addClass('dom_hidden');
-            }
-         });
+         getSearchResult($(this).attr('id'));
       }
    });
 });
@@ -241,10 +222,12 @@ $(document).on('click', '#search-again-btn', function() { // 顯示 再次搜尋
 });
 
 $(document).on('keydown', '#search-box', function(e){  // 再次搜尋時
-	if( $(this).is(':focus') && (e.keyCode == 13) ){
-		if( $(this).val().trim() === '' ){ alertify.alert('請輸入搜尋內容'); return false; }
-			localStorage.setItem( 'k_word', $(this).val().trim() );
-			getsearchresult();
+   if( $(this).is(':focus') && (e.keyCode == 13) ){
+		if( !$(this).val().trim() ) alertify.alert('請輸入搜尋內容');
+      else {
+   		localStorage.setItem( 'k_word', $(this).val().trim() );
+   		getSearchResult();
+      }
 	}
 });
 
@@ -329,97 +312,91 @@ window.onbeforeunload = function() {
 };
 
 // fetch search result
-function getsearchresult() {
+function getSearchResult(page, keyword) {
+   var self = getSearchResult, api, index,
+      groupID = localStorage.group_selected;
+
+   keyword = keyword || localStorage.k_word;
+   page = page || 1;
+   index = (page-1) * 10 + 1 || 1;
+   api = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyA2oggXqL26GRI09JFM4Gt0BULRjmC4Xwk&cx=013036536707430787589:_pqjad5hr1a&q='+ keyword +'&googlehost=google.com.tw&alt=json&start='+ index +'&fields=items(title,link,snippet)';
+
+   // loading alert
    $('#preloader').find('span').text('請稍後...').end().removeClass('dom_hidden');
-   var k_word = localStorage.k_word,
-      viewport_width_now = localStorage.viewport_width;
 
-   var group = localStorage.group_selected || 1;
+   $.getJSON(api, function(data){
+      var items = [];
+      if (!data) return;
 
-   if (localStorage.where == 'HomePage' || localStorage.where == 'IndexPage') {
-      localStorage.setItem('where', 'IndexPage');
-      $.ajax({
-         url: 'db/searchresult.php',
-         cache: false,
-         dataType: 'html',
-         type: 'POST',
-         data: {
-            sendkeyword: k_word,
-            sendviewportwidth: viewport_width_now,
-            sendUserID: localStorage.FB_id,
-            sendgroupid: group
-         },
-         error: function(xhr) {
-            console.log(xhr.responseText);
-         },
-         success: function(response) { //console.log('->searchresult_success');
-            localStorage.setItem('Page1_session', response);
-            document.getElementById('portfolio_wrapper1').innerHTML = response;
-            get_topic_relevance(); //edit by chenchenbox
-            $('#under-footer').removeClass('dom_hidden').attr('style', '');
-            $('#preloader').addClass('dom_hidden');
-			$('#showtopic').children('div.showtopic_span').children().text( k_word );
-            if (!localStorage.group_selected) $('#wrapper').find('div.search_result_inf_field_content').addClass('dom_hidden');
-         }
+      data.items.forEach( function(item) {
+         items.push( self.template(item) );
       });
-   } else {
-      localStorage.setItem('where', 'IndexPage');
-      document.getElementById('portfolio_wrapper1').innerHTML = '<div id="loading">' +
-         '<img src="Image/loading.gif">網頁載入中，請稍候‧‧‧' +
-         '</div>';
-      if (localStorage.Page1_session != '') {
-         get_topic_relevance(); //edit by chenchenbox
-         document.getElementById('portfolio_wrapper1').innerHTML = localStorage.Page1_session;
-         $('#preloader').addClass('dom_hidden');
-      } else {
-         $.ajax({
-            url: 'db/searchresult.php',
-            cache: false,
-            dataType: 'html',
-            type: 'POST',
-            data: {
-               sendkeyword: k_word,
-               sendviewportwidth: viewport_width_now,
-               sendUserID: localStorage.FB_id,
-               sendgroupid: group
-            },
-            error: function(xhr) {
-               console.log(xhr.responseText);
-            },
-            success: function(response) { //console.log('->searchresult_success');
-               localStorage.setItem('Page1_session', response);
-               document.getElementById('portfolio_wrapper1').innerHTML = response;
-               get_topic_relevance(); //edit by chenchenbox
-               $('#under-footer').removeClass('dom_hidden');
-               $('#preloader').addClass('dom_hidden');
-			   $('#showtopic').children('div.showtopic_span').children().text( k_word );
-               if (!localStorage.group_selected) $('#wrapper').find('div.search_result_inf_field_content').addClass('dom_hidden');
-            }
-         });
-      }
-   }
+      $('#portfolio_wrapper1').html( items.join('') );
+
+      self.after(data, keyword);
+   }).fail(function(e){
+      console.log(e.responseText);
+      self.backupApi(keyword, page);
+   });
    $('#Group_Board').show();
 }
-
-function search_again() {
-   var k_word = document.getElementById('search_again_btn').value;
-   localStorage.setItem('k_word_old', localStorage.k_word);
-   localStorage.setItem('k_word', k_word);
-   if (!localStorage.FB_id) {
-      alertify.alert("請登入 Facebook ");
-   } else {
-      if (k_word == '') {
-         alertify.alert("請輸入關鍵字");
-      } else {
-         document.nav_select_search_form.action = 'usersubmit.php';
-         window.top.location.href = 'index.html';
-      }
-   }
+getSearchResult.after = function (data, keyword) {
+   localStorage.setItem('Page1_session', data);
+   get_topic_relevance();
+   $('#under-footer').removeClass('dom_hidden').attr('style', '');
+   $('#preloader').addClass('dom_hidden');
+   $('#showtopic').children('div.showtopic_span').children().text( keyword );
+   if (!localStorage.group_selected) $('#wrapper').find('div.search_result_inf_field_content').addClass('dom_hidden');
 }
-$("#search_again_form").submit(function(e) {
-   e.preventDefault();
-   search_again();
-});
+/**
+ * @param {Object} data = { url: ... , title: ... , content: ... } 
+ */
+getSearchResult.template = function (data) {
+   if (!data) throw Error('Nothing has passed!');
+   return ''+
+   '<div class="four columns portfolio-item isotope-item _search_result">\
+      <div class="search_result_inf" title="選項選單"></div>\
+      <div class="search_result_inf_field">\
+         <div class="search_result_inf_field_content" title="群組共享">\
+            <div class="post_group">&nbsp;</div>\
+            <div class="post_group_text">群組共享</div>\
+         </div>\
+         <div class="search_result_inf_field_content" title="分享">\
+            <div class="post_share">&nbsp;</div>\
+            <div class="post_share_text">分享</div>\
+         </div>\
+      </div>\
+      <div class="picture">\
+         <a class="co_a fancy_iframe" href="'+ data.link +'" target="_self" >\
+            <div class="search_result_overlay image-overlay-link" style="opacity: 0; display: block;"></div>\
+         </a>\
+         <div class="item-description alt">\
+            <h2 class="co_h2"><a class="co_a fancy_iframe" href="'+ data.link +'" target="_blank" >'+ data.title +'</a></h2>\
+            <p>'+ data.snippet +'</p>\
+            <div class="post_url"><span>'+ data.link.substr(data.link.search('://')+3) +'</span></div>\
+         </div>\
+      </div>\
+   </div>';
+}
+
+getSearchResult.backupApi = function (keyword, page){
+   console.log('Using deprecated search API');
+   index = (page-1) * 8 + 1 || 0;
+   var api = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q='+ keyword +'&rsz=8&start='+ index +'&gl=tw&callback=?';
+   $.getJSON(api, function(data){
+      var items = [];
+
+      data.responseData.results.forEach( function(item) {
+         var obj = {};
+         obj.link = item.url;
+         obj.snippet = item.content;
+         obj.title = item.title;
+         items.push( getSearchResult.template(obj) );
+      });
+      $('#portfolio_wrapper1').html( items.join('') );
+      getSearchResult.after(data, keyword);
+   });
+}
 
 function CheckGroupBoard() {
    if (window.matchMedia('(max-width:600px)').matches) { //手機
