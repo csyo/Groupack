@@ -114,7 +114,7 @@ $('#leave-group').click(function(){
 });
 
 // Generate member list @ 'Add Administers'
-$(document).on('click', 'a.addkeeper_add', function show_admin_list() {
+$(document).on('click', '#checkgroup a.addkeeper_add', function show_admin_list() {
    var div = '',
       $keepersContainer = $('#checkgroup [level=3]'),
       $keepers = $keepersContainer.children('div'),
@@ -129,7 +129,9 @@ $(document).on('click', 'a.addkeeper_add', function show_admin_list() {
          <div class="checkgroup_members_container_itemText" role="' + $(item).attr('role') + '">' + $(item).attr('title') + '</div>\
       </div>';
    }
-   $keepersContainer.append(div);
+   $keepersContainer.append(div).removeClass('dom_hidden');
+   $('#checkgroup-back-keeper').removeClass('dom_hidden');
+   $('#checkgroup-submit').addClass('dom_hidden');
 });
 // Generate friend list @ both 'Add Members'
 $(function show_friend_list() {
@@ -272,7 +274,7 @@ $(document).on('click', '#checkgroup [level=3] div.checkgroup_members_container_
 	 if (!$(this).hasClass('checkgroup_keepers_select_be_selected')) {
 		$(this).addClass('checkgroup_keepers_select_be_selected').css('background-color', 'rgba(59, 120, 240, 0.87)');
 		$('#checkgroup-keeper-area').append(
-		   '<a class="co_a" id="temp_" role="' + fbID + '"' + 'href="javascript: void(0);" title="' + fbNAME + '">' +
+		   '<a class="co_a" role="' + fbID + '"' + 'href="javascript: void(0);" title="' + fbNAME + '">' +
 		   '<img class="temp_" src="https://graph.facebook.com/' + fbID + '/picture" width="40px">' +
 		   '</a>'
 		);
