@@ -80,13 +80,14 @@ $(document).on('click', '#addgroup_btn', function(e) {
 });
 // Toggle 'Public/Private' @ 'Edit Group'
 $(document).on('click', '#checkgroup_btn', function(e) {
+   if ($('#checkgroup-depart').hasClass('dom_hidden'))
 	$(this).siblings('div.activated').siblings('div').addClass('activated').end().removeClass('activated');
 });
 
 // Submit @ 'Edit Group'
 $('#checkgroup-submit').click(function(){
    var data = localStorage.editGroup.split('_');
-   setGroup({ gid: data[0] , gname: data[1] , mode: 'EDIT' }, function(){
+   setGroup({ gid: data[0] , gname: data[1].trim() , mode: 'EDIT' }, function(){
       $('#checkgroup-leave').click();
       $('#checkgroup-keeper-area').find('a').remove();
       $('#checkgroup-member-area').find('a').remove();
@@ -94,12 +95,12 @@ $('#checkgroup-submit').click(function(){
 });
 // Submit @ 'Add Group'
 $('#addgroup-submit').click(function(){
-   var name = $('#group-name').val();
+   var name = $('#group-name').val().trim();
    if (!name) {
       alertify.alert('請輸入群組名稱');
       return;
    }
-   var data = ['g'+createID(), $('#group-name').val()];
+   var data = ['g'+createID(), name];
    setGroup({ gid: data[0] , gname: data[1] , mode: 'ADD' }, function(){
       $('#addgroup-leave').click();
       $('#addgroup-member-area').find('a').remove();
@@ -350,7 +351,8 @@ function show_groups() {
    });
 }
 
-// 更新最新群組資料
+// fetch group data from the server
+
 function getGroupUpdated() {
    return $.post('db/g_fetch.php', {
       userid: localStorage.FB_id
@@ -360,6 +362,8 @@ function getGroupUpdated() {
          console.log('完成群組資料更新');
       });
 }
+
+// parse fetched data and store locally
 
 function updateGroupData(r) {
    // 將群組資料暫存，附上時間戳
@@ -375,9 +379,16 @@ function updateGroupData(r) {
    }
 }
 
+// return parsed group data by current group or given
+
+function processGroupData(groupID) {
+    var data = JSON.parse(localStorage.group_data || '{}');
+    return data[groupID || localStorage.group_selected] || {};
+}
+
 /** 
  *  Setup group data before sending
- *  @param conf - conf = { gid: ... , gname: ... , mode: ... }
+ *  @param conf - conf = { gid: ... , gname: ... }
  */
 
 function setGroup(conf, callback) {
@@ -388,7 +399,7 @@ function setGroup(conf, callback) {
       members: []
    };
 
-   if (conf.mode === 'ADD') { // 新增群組
+   if (!localStorage.editGroup) { // 新增群組
       // 新增群組到DOM
       var div = '<div class="group-item" id="' + conf.gid + '"><div class="name">' + conf.gname + '</div><div class="edit">&nbsp;</div></div>';
       $('#group-user').append(div);
@@ -401,10 +412,13 @@ function setGroup(conf, callback) {
       // 取得成員資料
       groupData = setMemberData(groupData);
 
+      // 設定公開與否
+      groupData.isOpen = $('#addgroup').find('div.addgroup-btn').find('div.activated').hasClass('status-left') ? 1 : 0;
+
       // 傳送群組資料到資料庫
       sendGroup(groupData);
 
-   } else if (conf.mode === 'EDIT') { // 修改群組
+   } else { // 修改群組
       // 修改DOM上的群組名稱
       $('div#' + conf.gid).find('div.name').text(conf.gname);
 
@@ -422,6 +436,10 @@ function setGroup(conf, callback) {
 
       // 取得成員資料
       groupData = setMemberData(groupData);
+
+      // 設定公開與否
+      groupData.isOpen = $('#checkgroup').find('div.checkgroup-btn').find('div.activated').hasClass('status-left') ? 1 : 0;
+
       sendGroup(groupData);
       localStorage.removeItem('editGroup'); // 結束修改群組
    }
@@ -464,15 +482,15 @@ function setMemberData(groupData) {
 }
 
 // delete clicked member (temp.)
-$(document).on('click', 'div.delete-able > a', function detele_member(e) {
-   var memberID = $(this).attr('role');
-   if (memberID === localStorage.FB_id) {
-      // 點自己圖像不刪除
-   } else if ($('div.checkgroup_addkeeper_action_add').css('display') === 'none') {
-      // 一般成員不能刪除其他成員
-   } else alertify.confirm('確定刪除？', function(e){
+$(document).on('click', '#checkgroup-member-area a', function detele_member(e) {
+   var self = this,
+      memberID = $(self).attr('role'),
+      isMember = $('#checkgroup-delete').hasClass('dom_hidden');
+   // 點自己圖像不刪除 && 一般成員不能刪除其他成員
+   if ( memberID !== localStorage.FB_id && !isMember)
+      alertify.confirm('確定刪除？', function(e){
       if (e) {
-         $(this).remove();
+         $(self).remove();
          $('div.addgroup_members_container [role=' + memberID + ']')
             .removeClass('addgroup_friends_select_on')
             .removeClass('addgroup_friends_select_be_selected');
@@ -481,15 +499,16 @@ $(document).on('click', 'div.delete-able > a', function detele_member(e) {
    });
 });
 // delete clicked admin (temp.)
-$(document).on('click', '#checkgroup-keeper-area > a', function delete_admin(e) {
-   var fbID = $(this).attr('role');
-   var fbNAME = $(this).attr('title');
-   if (fbID == localStorage.FB_id) {
-      // 點自己圖像不刪除
-   } else if ($('div.checkgroup_addkeeper_action_add').css("display") == "none") {
-      // 一般成員不能刪除管理員
-   } else alertify.confirm('確定刪除？', function(e){
+$(document).on('click', '#checkgroup-keeper-area a', function delete_admin(e) {
+   var self = this,
+      fbID = $(self).attr('role'),
+      fbNAME = $(self).attr('title'),
+      isMember = $('#checkgroup-delete').hasClass('dom_hidden');
+   // 點自己圖像不刪除 && 一般成員不能刪除管理員
+   if (fbID !== localStorage.FB_id && !isMember)
+      alertify.confirm('確定刪除？', function(e){
       if (e) {
+         $(self).remove();
          console.log("恢復恢復成員身份: " + fbNAME);
          // 恢復成員身份
          $('#checkgroup [level=2] [role=' + fbID + ']').addClass('addgroup_friends_select_on');
@@ -499,7 +518,6 @@ $(document).on('click', '#checkgroup-keeper-area > a', function delete_admin(e) 
             '<img class="temp_" src="https://graph.facebook.com/' + fbID + '/picture" width="40px">' +
             '</a>'
          );
-         $(this).remove();
       }
    });
 });
@@ -578,7 +596,7 @@ function removeGroupDom(groupID) {
 }
 
 function Group_Board_showMember() {
-   var a = localStorage.group_selected || null;
+   var a = localStorage.group_selected;
    if (!a) {
       $('div.Group_Board_inf_text').text('尚未選擇群組').attr('g_id', '');
    } else {
@@ -593,12 +611,11 @@ function Group_Board_showMember() {
             data, ADs = '',
             MBs = '';
          // 處理資料
-         data.every(function(obj) {
+         data.forEach(function(obj) {
             var id = obj.id,
                name = obj.name,
                _role = obj.role;
             temp += '<a class="co_a"  target="_blank" href="https://www.facebook.com/' + id + '"><img title="' + name + '" src="https://graph.facebook.com/' + id + '/picture" width="35px"></a>';
-            return true;
          });
          localStorage.setItem('group_members', r);
          $('#Group_Board_area').html(temp);
@@ -629,8 +646,11 @@ function show_checkG(e) {
   $('div.checkgroup_footer').removeClass('dom_hidden').attr('style', '');
   $('div.checkgroup_header_text').text($(e.target).next().text());
   var groupID = e.target.parentNode.id,
-      groupName = $('#' + groupID).text();
+      groupName = $('#' + groupID).text(),
+      $statusBtn = $('#checkgroup_btn'),
+      isOpen = processGroupData(groupID).is_open === '1' ? true : false;
   localStorage.setItem('editGroup', groupID+'_'+groupName);
+  isOpen ? $statusBtn.siblings(':first').addClass('activated').end().siblings(':last').removeClass('activated').end(): $statusBtn.siblings(':last').addClass('activated').end().siblings(':first').removeClass('activated').end();
 
   // 取得群組資料
   var groupInfo = groupRoleInfo(groupID);
@@ -640,7 +660,7 @@ function show_checkG(e) {
 		data, ADs = '',
 		MBs = '';
 	 // 處理資料
-	 data.every(function(obj) {
+	 data.forEach(function(obj) {
 		var id = obj.id,
 		   name = obj.name,
 		   _role = obj.role;
@@ -658,13 +678,14 @@ function show_checkG(e) {
 			  '</a>';
 		   addMember(id + ',' + name);
 		};
-		return true;
 	 });
 
-	 if (role == 'MEMBER') {
+	 if (role === 'MEMBER') {
+      $('#checkgroup').find('div.checkgroup-add:first').addClass('dom_hidden');
       $('#checkgroup-depart').removeClass('dom_hidden');
       $('#checkgroup-delete').addClass('dom_hidden');
 	 } else {
+      $('#checkgroup').find('div.checkgroup-add:first').removeClass('dom_hidden');
       $('#checkgroup-depart').addClass('dom_hidden');
       $('#checkgroup-delete').removeClass('dom_hidden');
 	 }

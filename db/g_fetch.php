@@ -24,7 +24,7 @@
         $groupID = $row['GroupID'];
 
         // 取得所選群組資料
-        $sql = sprintf("SELECT GroupName, CreatedTimestamp FROM groupinfo WHERE GroupID = '%s'"
+        $sql = sprintf("SELECT GroupName, CreatedTimestamp, IsOpen FROM groupinfo WHERE GroupID = '%s'"
             , mysql_real_escape_string($groupID));
         $groups = mysql_query($sql) or responseMsg('Invalid query #2: '.mysql_error());
         responseMsg(( $groups ? $sql."\n" : '' ));
@@ -33,6 +33,7 @@
                 $data[$groupID] = array( 
                     'g_id' => $groupID,
                     'g_name' => $row['GroupName'],
+                    'is_open' => $row['IsOpen'],
                     'createdTime' => $row['CreatedTimestamp'] );
             }
         }

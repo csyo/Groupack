@@ -137,16 +137,9 @@
 					</td>
 					<td align="center" class="center"></td>
 					<td align="right" class="right">
-						<!-- <div class="right_slider_timeline">
-							<a class="co_a main_timeline" href="javascript: void(0);" title="timeline"><div class="_timeline"></div></a>
-							<div id="timeline_notificationCountArea">
-								<span>0</span>
-							</div>
-						</div> -->
 						<div class="right_slider">
 							<div id="logout"></div>
 							<div id="search-again-btn"></div>
-							<!-- <a id="slider_btn" class="co_a main_slider" href="javascript: void(0);" title="menu"><div class="_slider"></div></a>-->
 						</div>
 					</td>
 				</tr>
@@ -165,7 +158,6 @@
 				</div>
 			</div>
 			<ul class="group_select dom_hidden" id="addMember">
-				<!--    新增的群組會顯示在這邊    -->
 				<li>
 					<a class="co_a" href="javascript: void(0);" title="add">
 						<div class="nav_main_group_add"></div>
@@ -191,26 +183,6 @@
 		</li>
 	</ul>
 </div> 
-<div id="timeline_show_update">
-	<div class="timeline_show_update_text">新動態(<span>0</span>)</div>
-	<div id="timeline_update_temp"></div>
-	<div id="group_update_temp"></div>
-	<div id="group_update_hideArea"></div>
-	<div id="timeline_select_hideArea">
-		<select id="timeline_select_hideArea_g">
-			<option T_gID="all">全部</option>
-		</select>
-		<select id="timeline_select_hideArea_w">
-			<option T_gID="all">全部</option>
-		</select>
-		<select id="timeline_select_hideArea_f">
-			<option T_gID="all">全部</option>
-		</select>
-		<select id="timeline_select_hideArea_user">
-			<option T_gID="all">全部</option>
-		</select>
-	</div>
-</div>
 <div id="nav_bg" >  </div>
 <div id="wrapper">
 	<div class="container">
@@ -275,131 +247,6 @@
 	</div>
 	<div class="container">
 		<div class="timeline_column">
-		</div>
-	</div>
-</div>
-<!--
-<div id="addgroup_background" class="dom_hidden"></div>
-<div id="addgroup" class="dom_hidden">
-	<div class="addgroup_container dom_hidden">
-		<div class="addgroup_header">
-			<div class="addgroup_header_left">
-				<div class="addgroup_header_icon"></div>
-				<div class="addgroup_header_text">新增群組</div>					
-			</div>
-		</div>
-		<div class="addgroup_area">
-			<div class="addgroup_name">
-				<div class="addgroup_name_text">名稱</div>
-				<input id="group-name" name="" type="text"/>
-			</div>
-			<div class="addgroup_addmember_action">
-				<div class="addgroup_addmember_action_text">成員</div>
-				<div class="addgroup_addmember_action_add">
-					<a class="co_a addmember_add">&nbsp;</a>
-					<div class="addgroup_addmember_action_add_icon">&nbsp;</div>
-					<div class="addgroup_addmember_action_add_text">新增</div>
-				</div>
-			</div>
-			<div class="addgroup_member_wrapper">
-				<div class="addgroup_member_container delete-able">
-					<!--   選擇的成員顯示於此   --
-				</div>
-			</div>
-		</div>
-		<div class="addgroup_members_container dom_hidden">
-			<form class="live_search_styled" method="post" action="">
-		        <fieldset>
-		            <input type="text" class="live_search_text_input" id="live-search-filter1" value="">
-		        </fieldset>
-				<!--   選擇的成員顯示於此   --
-		    </form>
-		</div>
-		<div class="addgroup_footer dom_hidden">
-			<div class="addgroup_footer_right">
-				<div class="addgroup_footer_cancel">取消</div>
-				<div class="addgroup_footer_submit">完成</div>
-			</div>
-			<div class="addgroup_members_footer_right dom_hidden">
-				<div class="addgroup_footer_cancel">返回</div>
-				<div class="addgroup_footer_submit">確定</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="checkgroup_background" class="dom_hidden"></div>
-<div id="checkgroup" class="dom_hidden">
-	<div class="checkgroup_container dom_hidden">
-		<div class="checkgroup_header">
-			<div class="checkgroup_header_left">
-				<div class="checkgroup_header_icon"></div>
-				<div class="checkgroup_header_text">檢視群組</div>					
-			</div>
-			<div class="checkgroup_header_right">
-				<div class="checkgroup_header_right_delect">
-					<a id="delete_group_center_btn2" title="刪除群組">&nbsp;</a>
-					<div class="checkgroup_header_right_delect_icon">&nbsp;</div>
-					<div class="checkgroup_header_right_delect_text">刪除</div>
-				</div>
-				<div class="checkgroup_header_right_modify">
-					<a id="delete_group_center_btn1" class="co_a" title="群組更名">&nbsp;</a>
-					<div class="checkgroup_header_right_modify_icon">&nbsp;</div>
-					<div class="checkgroup_header_right_modify_text">更名</div>
-				</div>
-			</div>
-		</div>
-		<div class="checkgroup_area">
-			<div class="checkgroup_addkeeper_action">
-				<div class="checkgroup_addkeeper_action_text">管理者</div>
-				<div class="checkgroup_addkeeper_action_add">
-					<a class="co_a addkeeper_add">&nbsp;</a>
-					<div class="checkgroup_addkeeper_action_add_icon">&nbsp;</div>
-					<div class="checkgroup_addkeeper_action_add_text">新增</div>
-				</div>
-			</div>
-			<div class="checkgroup_keeper_wrapper">
-				<div class="checkgroup_keeper_container">
-					<!--   選擇的管理員顯示於此   --
-				</div>
-			</div>
-			<div class="checkgroup_addmember_action">
-				<div class="checkgroup_addmember_action_text">成員</div>
-				<div class="checkgroup_addmember_action_add">
-					<a class="co_a addmember_add">&nbsp;</a>
-					<div class="checkgroup_addmember_action_add_icon">&nbsp;</div>
-					<div class="checkgroup_addmember_action_add_text">新增</div>
-				</div>
-			</div>
-			<div class="checkgroup_member_wrapper">
-				<div class="checkgroup_member_container delete-able">
-					<!--   選擇的成員顯示於此   --
-				</div>
-			</div>
-		</div>
-		<div class="checkgroup_keepers_container dom_hidden">
-			<!--   選擇的成員顯示於此   --
-		</div>
-		<div class="checkgroup_members_container dom_hidden">
-			<form class="live_search_styled" method="post" action="">
-		        <fieldset>
-		            <input type="text" class="live_search_text_input" id="live-search-filter2" value="">
-		        </fieldset>
-				<!--   選擇的成員顯示於此   --
-		    </form>
-		</div>
-		<div class="checkgroup_footer dom_hidden">
-			<div class="checkgroup_footer_right">
-				<div class="checkgroup_footer_cancel">取消</div>
-				<div class="checkgroup_footer_submit">完成</div>
-			</div>
-			<div class="checkgroup_keepers_footer_right dom_hidden">
-				<div class="checkgroup_footer_cancel">返回</div>
-				<div class="checkgroup_footer_submit" onclick="get_new_member()">確定</div>
-			</div>
-			<div class="checkgroup_members_footer_right dom_hidden">
-				<div class="checkgroup_footer_cancel">返回</div>
-				<div class="checkgroup_footer_submit" onclick="get_new_member()">確定</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -576,34 +423,6 @@
 				<input id="usertags" type="text" placeholder="加上標籤，並以「,」分隔">
 			</div>
 		</div>
-		<!--<div class="sharing_with_group_showarea">
-			<div class="sharing_with_group_showarea_container">
-				<div id="sharing_with_group_showarea_title">未分類資料夾</div>
-			</div>
-			<div class="submit">提交</div>
-		</div>
-		<!--<div class="sharing_with_group_container">
-			<div class="sharing_with_group_select">
-				<!-- <div class="sharing_with_group_select_field">
-					<div class="_select_workspace">workspace1</div>
-					<div class="_select_folder">
-						<div class="_select_folder_area">folder1</div>
-						<div class="_select_card">card1</div>
-						<div class="_select_card">card2</div>
-					</div>
-					<div class="_select_folder">
-						<div class="_select_folder_area">folder2</div>
-						<div class="_select_card">card1</div>
-						<div class="_select_card">card2</div>
-						<div class="_select_card">card3</div>
-					</div>
-				</div> --
-			</div>
-			<div class="sharing_with_group_submit_wrapper">
-				<div class="sharing_with_group_delete">取消</div>
-				<div class="sharing_with_group_submit">確定</div>
-			</div>
-		</div>-->
 	</div>
 </div>
 <!--    WorkSpace 介面    -->
@@ -642,32 +461,6 @@
 		</div>
 	</div>
 </div>
-<!--
-<div style="display: none;">    <!-- 新增 Workspace --
-	<div id="inline_workspace">
-		<div class="inline_workspace_header">
-			<div class="inline_workspace_header_icon"></div>
-			<div class="inline_workspace_header_name">新增 Workspace</div>
-		</div>
-		<div class="inline_workspace_wrapper">
-			<div class="inline_workspace_wrapper_name">
-				<div class="inline_workspace_wrapper_text">名稱：</div>
-				<div class="inline_workspace_wrapper_input">
-					<input id="inline_workspace_wrapper_name" type="text">
-				</div>
-			</div>
-			<div class="inline_workspace_wrapper_comment">
-				<div class="inline_workspace_wrapper_text">描述：</div>
-				<div class="inline_workspace_wrapper_input">
-					<input id="inline_workspace_wrapper_comment" type="text" placeholder="可留空">
-				</div>
-			</div>
-			<div class="inline_workspace_wrapper_submit">
-				<input type="button" value="確定">
-			</div>
-		</div>
-	</div>
-</div>-->
 <div style="display: none;">    <!-- 新增 Folder -->
 	<div id="inline_workspace_manager_addfolder">
 		<div class="inline_folder_header">
@@ -724,35 +517,6 @@
 		</div>
 	</div>
 </div>
-<!--
-<div style="display: none;">    <!-- 修改 Workspace --
-	<div id="inline_workspace_manager_modifyworkspace">
-		<div class="inline_modifyworkspace_header">
-			<div class="inline_modifyworkspace_header_icon"></div>
-			<div class="inline_modifyworkspace_header_name">修改 Workspace</div>
-		</div>
-		<div class="inline_modifyworkspace_wrapper">
-			<div class="inline_modifyworkspace_wrapper_name">
-				<div class="inline_modifyworkspace_wrapper_text">名稱：</div>
-				<div class="inline_modifyworkspace_wrapper_input">
-					<input id="inline_modifyworkspace_wrapper_name" type="text">
-				</div>
-			</div>
-			<div class="inline_modifyworkspace_wrapper_comment">
-				<div class="inline_modifyworkspace_wrapper_text">描述：</div>
-				<div class="inline_modifyworkspace_wrapper_input">
-					<input id="inline_modifyworkspace_wrapper_comment" type="text" placeholder="可留空">
-				</div>
-			</div>
-			<div class="inline_modifyworkspace_wrapper_submit">
-				<input type="button" value="完成">
-			</div>
-			<div class="inline_modifyworkspace_wrapper_delect">
-				<input type="button" value="刪除 Workspace">
-			</div>
-		</div>
-	</div>
-</div>-->
 <div style="display: none;">    <!-- 修改 Folder -->
 	<div id="inline_folders_manager_modifyfolder">
 		<div class="inline_modifyfolder_header">

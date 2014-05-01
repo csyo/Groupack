@@ -13,7 +13,6 @@
 
     // 剖析資料
     $data = json_decode($data);
-    // print("<pre>".print_r($data,true)."</pre>");
 
     $groupID = $data->ID;
     $groupNAME = $data->NAME;
@@ -61,9 +60,10 @@
 
     if (mysql_num_rows($result) == 0) {
         // 新增群組
-        $sql = sprintf("INSERT INTO groupinfo (GroupID, GroupName) VALUES ('%s', '%s')"
+        $sql = sprintf("INSERT INTO groupinfo (GroupID, GroupName, IsOpen) VALUES ('%s', '%s', %d)"
                 , mysql_real_escape_string($groupID)
-                , mysql_real_escape_string($groupNAME));
+                , mysql_real_escape_string($groupNAME)
+                , $data->isOpen);
         $result = mysql_query($sql) or responseMsg('Invalid query #2.0: ' . mysql_error() . "\n");
         responseMsg(( $result ? $sql."\n" : '' ));
 
@@ -88,10 +88,9 @@
 
             store($data);
 
-        } else {
             // 更新群組資料
-            $sql = sprintf("UPDATE groupinfo SET GroupName = '%s' WHERE GroupID = '%s'"
-                , mysql_real_escape_string($groupNAME)
+            $sql = sprintf("UPDATE groupinfo SET GroupName = '%s', IsOpen = %d WHERE GroupID = '%s'"
+                , mysql_real_escape_string($groupNAME), $data->isOpen
                 , mysql_real_escape_string($groupID));
             $result = mysql_query($sql) or responseMsg('Invalid query #10: ' . mysql_error() . "\n");
             responseMsg(( $result ? $sql."\n" : '' ));

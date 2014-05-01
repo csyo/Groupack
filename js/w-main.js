@@ -1,4 +1,4 @@
-// 視窗大小改變時...
+// responsive window resize
 $(function() {
     $(window).resize(function() {
         var check_colorbox = $('body').hasClass('workspace_resize_on'),
@@ -22,28 +22,24 @@ $(function() {
     });
 });
 
-/***** START: colorbox function 準備 *****/
 // show_addcard() 準備  
-$(document).on('click', '#card_wrapper a.addcard', function() {
+$(document)
+.on('click', '#card_wrapper a.addcard', function() {
     $(this).parents('div.folders_manager_area').addClass('show_addcard_ready');
-});
-
+})
 // show_modifyfolder() 準備
-$(document).on('click', 'a.modifyfolder', function(e) {
+.on('click', 'a.modifyfolder', function(e) {
     $(this).parents('div.workspace_folders_manager_area').addClass('show_modifyfolder_ready');
     console.log(e.target);
     localStorage.setItem('folder_selected', $(this).parents('div.workspace_four_column').attr('id'));
-});
-
+})
 // show_modifycard() 準備
-$(document).on('click', 'a.modifycard', function() {
+.on('click', 'a.modifycard', function() {
     $(this).parents('div.workspace_cards_content_inf_field').addClass('show_modifycard_ready');
     localStorage.setItem('card_selected', $(this).parents('div.workspace_cards_position').attr('sid'));
 });
-/***** END: colorbox function 準備 *****/
 
-// 顯示於群組共享
-
+// show in sharing
 function addToSharing(id, name) {
     var folder = '<div class="sharing_with_group_select_field" style="display: block;">'
                 + '<div class="_select_workspace" data="' + id + '" style="">' + name + '</div>'
@@ -51,8 +47,7 @@ function addToSharing(id, name) {
     $('div.sharing-addfolder').before(folder);
 }
 
-// 移除 workspace / folder / card
-
+// remove folder / card / tag by the ID
 function removeById(xid, callback) {
 
     if (typeof xid === 'string') data = { xid: xid };
@@ -68,8 +63,7 @@ function removeById(xid, callback) {
         });
 }
 
-// 設定頁面在哪
-
+// set the current page location
 function SetPage() {
     console.log('SetPage');
     if (localStorage.where == 'titlelink_aa') {
@@ -80,8 +74,7 @@ function SetPage() {
     }
 }
 
-// 取得創立時間戳
-
+// get time of readable format [YYYYMMDD_HHMMSS, YYYY/MM/DD/HH/MM/SS]
 function nowTime() {
     var d = new Date();
     var month = d.getMonth() + 1;
@@ -94,10 +87,12 @@ function nowTime() {
     return time + ' ' + now_time;
 }
 
+// get randown numbers to create ID
 function createID() {
     return new Date().getTime();
 }
 
+// get time of format: YYYY/MM/DD/HH/MM/SS
 function getNow() {
     var d = new Date();
     var month = d.getMonth() + 1;
@@ -109,8 +104,7 @@ function getNow() {
     return time;
 }
 
-// 取得指定ID的名字
-
+// get the name of given id
 function getName(id) {
     var data = JSON.parse(localStorage.group_members || '{}'),
         found; // the name found
@@ -127,12 +121,7 @@ function getName(id) {
         return 'unknown';
 }
 
-function processGroupData() {
-    var data = JSON.parse(localStorage.group_data || '{}');
-    return data[localStorage.group_selected] || {};
-}
-
-// 按下 Enter 自動 Submit
+// press Enter to auto-submit
 $(function() {
     // 新增 Workspace
     $('#inline_workspace_wrapper_name, #inline_workspace_wrapper_comment').keydown(function(event) {
