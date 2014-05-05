@@ -16,11 +16,11 @@ Ptt-bot is an open source node.js project for crawling data from **PTT**[4] (a w
 [package3]: https://github.com/ashtuchkin/iconv-lite
 [package4]: http://stringjs.com/
 
-----------
+
 Sample code
 ---------
 You can download the sample code in myBot.js
-
+```JavaScript
     var myBot = require('./ptt-bot');
     
     //create the connection object for your robot. 
@@ -45,7 +45,7 @@ You can download the sample code in myBot.js
 	    }
 	});
 	console.log('start the robot.');
-
+```
 base-method
 ----------
  * login( id , ps )
