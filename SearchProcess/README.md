@@ -49,10 +49,10 @@ console.log('start the robot.');
 base-method
 ----------
  * login( id , ps )
- 執行登入ptt-sever的功能，登入完後會停留在 【主功能表】的頁面。開發者需要自行輸入機器人的帳號及密碼，並且回傳已連上ptt:23的connection物件。connection物件擁有write()等功能，connection物件詳細內容需參考Net原生套件[b1]。  
+執行登入ptt-sever的功能，登入完後會停留在 【主功能表】的頁面。開發者需要自行輸入機器人的帳號及密碼，並且回傳已連上ptt:23的connection物件。connection物件擁有write()等功能，connection物件詳細內容需參考Net原生套件[b1]。  
 
  * where ( data )
-   回傳目前所在的頁面，供判斷頁面用(screen listener)。 需將從ptt-sever上接收到的內容傳入函式內。目前支援的頁面為:【主功能表】、【文章列表】、【文章內】、【我的最愛看板列表】、【熱門看板列表】、【分類看板】。
+回傳目前所在的頁面，供判斷頁面用(screen listener)。 需將從ptt-sever上接收到的內容傳入函式內。目前支援的頁面為:【主功能表】、【文章列表】、【文章內】、【我的最愛看板列表】、【熱門看板列表】、【分類看板】。
 
  * where_indetail ( data )
     在cmd上輸出目前所在的詳細位置，供開發者除蟲測試。需將從ptt-sever上接收到的內容傳入函式內，並不會回傳任何東西。
