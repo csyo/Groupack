@@ -28,20 +28,20 @@ var conn = myBot.login('yourID','yourPassword');
 conn.on('data', function(data){	
 	//main screen listener
 	if (myBot.where(data)=='【主功能表】'){
-	/**
-		put all your robot commands for main screen here.
-		please refer to Ptt-bot API.
-	**/
-	MaintoFavBoard(conn,data); //when entering another screen, add the relative screen listener.    
+		/**
+			put all your robot commands for main screen here.
+			please refer to Ptt-bot API.
+		**/
+		MaintoFavBoard(conn,data); //when entering another screen, add the relative screen listener.    
 	}
 	    
     	//myFavBoards screen listener
 	if(myBot.where(data)=='【我的最愛看板列表】'){
-	console.log( '您現在位於【我的最愛看板列表】' );
-	/**
-		put all your robot commands for myFavBoards screen here.
-	**/
-	conn.end(); //remember to disconnect the connection after crawling data.
+		console.log( '您現在位於【我的最愛看板列表】' );
+		/**
+			put all your robot commands for myFavBoards screen here.
+		**/
+		conn.end(); //remember to disconnect the connection after crawling data.
 	}
 });
 console.log('start the robot.');
