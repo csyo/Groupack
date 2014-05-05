@@ -21,35 +21,35 @@ Sample code
 ---------
 You can download the sample code in myBot.js
 ```JavaScript
-    var myBot = require('./ptt-bot');
+var myBot = require('./ptt-bot');
     
-    //create the connection object for your robot. 
-    var conn = myBot.login('yourID','yourPassword');
-    conn.on('data', function(data){	
-	    //main screen listener
-	    if (myBot.where(data)=='【主功能表】'){
-		/**
-			put all your robot commands for main screen here.
-			please refer to Ptt-bot API.
-		**/
-		MaintoFavBoard(conn,data); //when entering another screen, add the relative screen listener.    
-		}
+//create the connection object for your robot. 
+var conn = myBot.login('yourID','yourPassword');
+conn.on('data', function(data){	
+	//main screen listener
+	if (myBot.where(data)=='【主功能表】'){
+	/**
+		put all your robot commands for main screen here.
+		please refer to Ptt-bot API.
+	**/
+	MaintoFavBoard(conn,data); //when entering another screen, add the relative screen listener.    
+	}
 	    
     	//myFavBoards screen listener
-	    if(myBot.where(data)=='【我的最愛看板列表】'){
-		    console.log( '您現在位於【我的最愛看板列表】' );
-		/**
-			put all your robot commands for myFavBoards screen here.
-		**/
-		conn.end(); //remember to disconnect the connection after crawling data.
-	    }
-	});
-	console.log('start the robot.');
+	if(myBot.where(data)=='【我的最愛看板列表】'){
+	console.log( '您現在位於【我的最愛看板列表】' );
+	/**
+		put all your robot commands for myFavBoards screen here.
+	**/
+	conn.end(); //remember to disconnect the connection after crawling data.
+	}
+});
+console.log('start the robot.');
 ```
 base-method
 ----------
  * login( id , ps )
-    執行登入ptt-sever的功能，登入完後會停留在 【主功能表】的頁面。開發者需要自行輸入機器人的帳號及密碼，並且回傳已連上ptt:23的connection物件。connection物件擁有write()等功能，connection物件詳細內容需參考Net原生套件[b1]。  
+ 執行登入ptt-sever的功能，登入完後會停留在 【主功能表】的頁面。開發者需要自行輸入機器人的帳號及密碼，並且回傳已連上ptt:23的connection物件。connection物件擁有write()等功能，connection物件詳細內容需參考Net原生套件[b1]。  
 
  * where ( data )
    回傳目前所在的頁面，供判斷頁面用(screen listener)。 需將從ptt-sever上接收到的內容傳入函式內。目前支援的頁面為:【主功能表】、【文章列表】、【文章內】、【我的最愛看板列表】、【熱門看板列表】、【分類看板】。
