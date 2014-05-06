@@ -42,7 +42,7 @@ conn.on('data', function(data){
 		**/
 		conn.end(); //remember to disconnect the connection if robot has done his task.
 	}
-	//Avoid leave excution code in this block, since it will be executed everytime when the data comes from ptt-sever.
+	//Avoid leave excution code in this block, it will be executed everytime when the data comes from ptt-sever.
 });
 console.log('start the robot.');
 ```
