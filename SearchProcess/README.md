@@ -98,7 +98,7 @@ base-method
  * fetchArticleList_withANSI(data)
     在【文章列表】頁面使用。需將頁面的原始資料(Buffer)傳入，將回傳該頁面內 **保留色碼** 的所有文章標題(Big5編碼)，標題內容包含文章編號、作者、日期等。
 
- * fetchArticleListArr_withANSI(data)
+ * fetchArticleList_withANSI_inArr(data)
      在【文章列表】頁面使用。需將頁面的原始資料(Buffer)傳入，將以 **陣列** 的方式回傳該頁面內的所有文章標題(Big5編碼)，標題內容包含文章編號、作者、日期等。
 
 
