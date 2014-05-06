@@ -34,8 +34,7 @@ conn.on('data', function(data){
 		**/
 		MaintoFavBoard(conn,data); //when entering another screen, add the relative screen listener.    
 	}
-	    
-    	//myFavBoards screen listener
+	//myFavBoards screen listener
 	if(myBot.where(data)=='【我的最愛看板列表】'){
 		console.log( '您現在位於【我的最愛看板列表】' );
 		/**
