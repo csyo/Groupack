@@ -14,7 +14,7 @@ Ptt-bot is an open source node.js project for crawling data from **PTT**[4] (a w
 [package1]: http://nodejs.org/
 [package2]: http://nodejs.org/api/net.html
 [package3]: https://github.com/ashtuchkin/iconv-lite
-[package4]: http://stringjs.com/
+[package4]: https://github.com/jprichardson/string.js
 
 
 Sample code
