@@ -135,7 +135,9 @@ References
 Tools
 ---------
 * [**Online Regex Tester**][T1] - an online regex tester for javascript, php, pcre and python.
+* [**StackEdit**][T2] - markdown editor.
 [T1]: http://regex101.com/#pcre
+[T2]: https://stackedit.io/#
 
 Issues
 ---------
