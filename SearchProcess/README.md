@@ -40,8 +40,9 @@ conn.on('data', function(data){
 		/**
 			put all your robot commands for myFavBoards screen here.
 		**/
-		conn.end(); //remember to disconnect the connection after crawling data.
+		conn.end(); //remember to disconnect the connection if robot has done his task.
 	}
+	//Avoid leave excution code here,since it will be executed everytime when the data comes from ptt-sever.
 });
 console.log('start the robot.');
 ```
