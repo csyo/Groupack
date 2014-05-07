@@ -495,7 +495,6 @@ anonymousRecommand.getRecommandGroupID = function(){
 		.success(function(response){ 
 				//change the DOM innerHTML
 				this.recommandGID = JSON.parse(response);
-				console.log(recommandGID.gname);
-				$('#recommand_title').text("來自群組「"+recommandGID.gname+"」的推薦");
-		});
+				$('#recommand_title').text("來自群組「"+this.recommandGID.gname+"」的推薦");
+		}.bind(this));
 }
