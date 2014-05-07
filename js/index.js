@@ -50,7 +50,7 @@ function logSession(groupID, logid) {
    }
 }
 $(window).resize(function() { // 視窗改變時觸發
-	testdevice();
+	//testdevice();
 	if (window.matchMedia('(max-width:600px)').matches) { // 手機
 		$('#Group_Board').css('width', 200);
 	} else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { // 平板
@@ -318,6 +318,12 @@ function getSearchResult(page, keyword) {
       $('#portfolio_wrapper1').html( items.join('') );
 
       self.after(data, keyword);
+	  getRecommandGroupID(); //edit by chenchenbox
+	  getGroupRecommend(); //edit by chenchenbox
+      /* for AnonymousRecommand edit by chenchenbox */
+      $('#recommand_area').removeClass('dom_hidden'); 
+      $('#Rslider').css( "height", $('#recommand_area').height()-30 );
+      /* for AnonymousRecommand edit by chenchenbox */	 
    }).fail(function(e){
       console.log(e.responseText);
       self.backupApi(keyword, page);
@@ -488,3 +494,49 @@ function GoToSearchProcess(){ // 顯示 SearchProcess 介面
 		window.top.location.href = './SearchProcess/searchprocess.html';
 	}
 }
+/* for AnonymousRecommand edit by chenchenbox */
+function getGroupRecommend(){
+	$.ajax({         
+		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/db/AnonymousRecommand.php',         
+		cache: false,         
+		dataType: 'html',             
+		type: 'POST',         
+		async: false,
+		data: { sentgroupid: recommandGID.gid  },         
+		error: 	function(xhr){           
+				alert('Ajax request 發生錯誤:AnonymousRecommand.php');         
+				},         
+		success: function(response){ 
+				//change the DOM innerHTML 
+				console.log(response);
+				recommand_data = JSON.parse(response);
+				for(var i=0; i<3; i++){
+					$('#recommand_result_title:nth-child(1)')[i].innerHTML = recommand_data[i].title;
+					$('#recommand_result_content:nth-child(2)')[i].innerHTML = recommand_data[i].summary;
+					$('#recommand_result_url:nth-child(3)')[i].innerHTML = recommand_data[i].url;
+				}
+		}
+	});
+}
+function getRecommandGroupID(){
+	var _group_selected = localStorage.group_selected;
+	recommandGID = 'g1389378895207'; //Default: Team Groupack
+	$.ajax({         
+		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/db/RecommandGroupID.php',         
+		cache: false,         
+		dataType: 'html',             
+		type: 'POST',         
+		async: false,
+		data: { sentgroupid: _group_selected, sentid: localStorage.FB_id  },         
+		error: 	function(xhr){           
+				alert('Ajax request 發生錯誤:AnonymousRecommand.php');         
+				},         
+		success: function(response){ 
+				//change the DOM innerHTML
+				recommandGID = JSON.parse(response);
+				console.log(recommandGID.gname);
+				$('#recommand_title').text("來自群組 '"+recommandGID.gname+"' 的推薦");
+		}
+	});
+}
+/* for AnonymousRecommand edit by chenchenbox */
