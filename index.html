@@ -190,6 +190,74 @@
 			<div class="testdevice"><input onclick="javascript:testdevice();return false;" type="button" value="Viewport"/></div>
 			<div class="showtopic_span">Topic : <div></div></div>
 		</div>
+		<!-- AnonymousRecommand 介面  edit by chenchen-->
+		<div id=recommand_area class=dom_hidden> 
+			<div id=recommand_header>
+				<div id=recommand_title>
+					來自群組&nbsp;'Team Groupack'&nbsp;的推薦
+				</div>
+				<div id=recommand_user_icon title='希望加入此群組'>
+				</div>
+			</div>
+			<div id=recommand_user_area class=dom_hidden>
+				<div>
+					<img title="張家誠" src="https://graph.facebook.com/1346767460/picture" width="35px">
+					<div>&nbsp;張家誠&nbsp;擅長收集&nbsp;&nbsp;<b>'千頌伊'</b>&nbsp;&nbsp;的資訊</div>
+					<div id='button_wrapper'> <button>邀請組成合作團隊</button> </div>
+				</div>
+				<div>
+					<img title="陳尚佑" src="https://graph.facebook.com/100000211046486/picture" width="35px">
+					<div>&nbsp;陳尚佑&nbsp;擅長收集&nbsp;&nbsp;<b>'都敏君教授'</b>&nbsp;&nbsp;的資訊</div>
+					<div id='button_wrapper'> <button>邀請組成合作團隊</button> </div>
+				</div>
+				<div>
+					<img title="王梓憲" src="https://graph.facebook.com/100000689016726/picture" width="35px">
+					<div>&nbsp;王梓憲&nbsp;擅長收集&nbsp;&nbsp;<b>'韓國辣雞翅'</b>&nbsp;&nbsp;的資訊</div>
+					<div id='button_wrapper'> <button>邀請組成合作團隊</button> </div>
+				</div>
+				<div>
+					<img title="林弘緯" src="https://graph.facebook.com/100000627004345/picture" width="35px">
+					<div>&nbsp;林弘緯&nbsp;擅長收集&nbsp;&nbsp;<b>'韓劇'</b>&nbsp;&nbsp;的資訊</div>
+					<div id='button_wrapper'> <button>邀請組成合作團隊</button> </div>
+				</div>
+				<div>
+					<img title="Zih Syuan Wang" src="https://graph.facebook.com/100000272725914/picture" width="35px">
+					<div>&nbsp;Zih Syuan Wang&nbsp;擅長收集&nbsp;&nbsp;<b>'繼承者們'</b>&nbsp;&nbsp;的資訊</div>
+					<div id='button_wrapper'> <button>邀請組成合作團隊</button> </div>
+				</div>
+				<div>
+					<img title="Groupack user" src="https://graph.facebook.com/100000515007345/picture" width="35px">
+					<div>&nbsp;Groupack user&nbsp;擅長收集&nbsp;&nbsp;<b>'外星人'</b>&nbsp;&nbsp;的資訊</div>
+					<div id='button_wrapper'> <button>邀請組成合作團隊</button> </div>
+				</div>
+			</div>
+			<button id=swipe_left class=recommand_slider>
+				<
+			</button>
+			<button id=swipe_right class=recommand_slider>
+				>
+			</button>	
+			<div id=Rslider class=swipe>
+				<div id=Rslider_wrap class=swipe-wrap> 
+					<div>
+						<div id=recommand_result_title > 都敏君原來是火星人 =口='' </div>
+						<div id=recommand_result_content > ...根據目擊證人指出曾經看過都教授飛向火星，造成都教授身分之迷再度引起關注...根據報導，NASA終於證實火星上面就是都敏君教授的第二個家，...不過督教授矢口否認，堅持水星才是他唯一的家... </div>
+						<div id=recommand_result_url > www.deviantart.com/ </div>
+					</div>
+					<div>
+						<div id=recommand_result_title> 千頌伊其實很討厭台灣啤酒!? </div>
+						<div id=recommand_result_content>〔社會中心／台中報導〕 韓劇《來自星星的你》超夯，女主角千頌伊最愛的炸雞與啤酒也跟著受到歡迎，台中逢甲商圈中的一間韓式炸雞店因此客人暴增，卻也 ... </div>
+						<div id=recommand_result_url> en.wikipedia.org/wiki/DA </div>
+					</div>
+					<div>
+						<div id=recommand_result_title> 張律師在遇見都教授後，身價突然暴漲 </div>
+						<div id=recommand_result_content> ...據謠傳張律師自從四十年前受到督教授的幫助後，就更懂得理財的概念，大舉收購首爾土地，目前身價上看是十二億，據說台北帝寶也有張律師的股份...... </div>
+						<div id=recommand_result_url> www.da.org.za/ </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- AnonymousRecommand 介面  edit by chenchen-->
 		<div id="portfolio_wrapper1" class="isotope" style="position: relative;">
 			<div id="loading">
 				<img src="./Image/loading.gif">網頁載入中，請稍候‧‧‧
@@ -638,6 +706,7 @@
 	<link rel="stylesheet" href="./css/timeline.css">
 	<link rel="stylesheet" href="./css/new_folder.css">
 	<link rel="stylesheet" href="./css/new_group.css">
+	<link rel="stylesheet" href="./css/AnonymousRecommand.css">
 	<link rel="stylesheet" href="./library/colorbox/source/colorbox.css">
 	<link rel="stylesheet" href="./library/fancybox/source/jquery.fancybox.css">
 	<link rel="stylesheet" href="./library/alertify/alertify.core.css">
@@ -655,6 +724,8 @@
 	<script src="./js/w-card.js"></script>
 	<script src="./js/w-folder.js"></script>
 	<script src="./js/sharing.js"></script>
+	<script src="./js/recommand_swipe.js"></script> <!-- for AnonymousRecommand area, by chenchen -->
+	<script src="./js/AnonymousRecommand.js"></script> <!-- for AnonymousRecommand area, by chenchen -->
 <script>
   (function(d){
    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];

@@ -1,0 +1,154 @@
+#recommand_area{
+	position: relative;
+	margin: auto;
+	width: 98%;
+	border-style: dashed;
+	border-color: #0000FF;
+	border-width: thin;
+	height: 100%;
+	padding: 0;
+	position: relative;
+	background: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.recommand_slider{
+	height: 81px;
+	position: relative;
+	margin-left: 0px;
+	margin-right: 0px;
+	width: 2%;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: transparent;
+	color: rgb(0,128,255);
+	font-size: 20px;
+	border: none;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	display: inline;
+}
+.recommand_slider:hover {
+	background-color: rgba(77, 76, 76, 0.14);
+	font-weight: bold;
+}
+#recommand_header{
+	width: 96%;
+	position: relative;
+	display: block;
+	margin: auto;
+	text-align: left;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 2px;
+	height: 24px;
+}
+#recommand_title{
+	float: left;
+}
+#recommand_user_icon{
+	width: 20px;
+	height: 20px;
+	float: right;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-image: url('../Image/recommand.png');
+	background-size: cover;
+	cursor: pointer;
+}
+#swipe_right{
+	float :right;
+	left: 0;
+}
+#swipe_left{
+	float :left;
+	right: 0;
+}
+#Rslider{
+	width: 96%;
+}
+.swipe {
+	overflow: hidden;
+	visibility: hidden;
+	position: relative;
+}
+.swipe-wrap {
+	overflow: hidden;
+	position: relative;
+	height: inherit;
+}
+.swipe-wrap > div {
+	float:left;
+	width:100%;
+	position: relative;
+	height: inherit;
+}
+#console {
+  font-size: 12px;
+  font-family:"Inconsolata", "Monaco", "Consolas", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  color: #999;
+  line-height: 18px;
+  margin-top: 20px;
+  max-height: 150px;
+  overflow: auto;
+}
+#Rslider div {
+  display:block; 
+  background: #fff; 
+}
+#recommand_user_area{
+	width: 95%;
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: block;
+	text-align: left;
+}
+#recommand_user_area > div{
+	height: 38px;
+	padding: 3px;
+}
+#recommand_user_area > div > div{
+	height: 36px;
+	padding-top: 6px;
+	padding-left: 10px;
+	float: left;
+}
+#recommand_user_area > div > img{
+	float: left;
+}
+#recommand_user_area > div > #button_wrapper{
+	height: 30px;
+	padding-top: 4px;
+	padding-left: 10px;
+}
+#recommand_result_title{
+	color: #14ADE5;
+	text-decoration: none;
+	outline: 0;
+	-webkit-transition: color 0.1s ease-in-out;
+	font-size: 1.3.em;
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	line-height: 1.5em;
+	letter-spacing: 0;
+	text-align:center;
+}
+#recommand_result_content{
+	color: #555;
+	margin: 8px 20px 8px 20px;
+	cursor: text;
+	font-size: 15px;
+}
+#recommand_result_url{
+	color: #008000;
+	cursor: text;
+	font-size: 10px;
+	overflow-x: hidden;
+	margin: 8px 20px 8px 20px;
+}
