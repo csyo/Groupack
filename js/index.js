@@ -488,8 +488,7 @@ anonymousRecommand.getGroupRecommend = function(){
 		});
 }
 anonymousRecommand.getRecommandGroupID = function(){
-	var _group_selected = localStorage.group_selected;
-	$.post('db/RecommandGroupID.php', { sentgroupid: _group_selected, sentid: localStorage.FB_id  })         
+	$.post('db/RecommandGroupID.php', { sentgroupid: localStorage.group_selected || '', sentid: localStorage.FB_id  })         
 		.fail(function(xhr){           
          console.log(xhr.responseText);         
 		})       
