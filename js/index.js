@@ -470,11 +470,11 @@ function GoToSearchProcess(){ // 顯示 SearchProcess 介面
 	}
 }
 var anonymousRecommand = {
-   recommandGID: 'g1389378895207' //Default: Team Groupack
+   recommandGID: { gid: 'g1389378895207' }//Default: Team Groupack
 };
 
 anonymousRecommand.getGroupRecommend = function(){
-	$.post('db/AnonymousRecommand.php', { sentgroupid: this.recommandGID  })         
+	$.post('db/AnonymousRecommand.php', { sentgroupid: this.recommandGID.gid  })         
 		.fail(function(xhr){           
    		console.log(xhr.responseText);         
 		})        
@@ -488,15 +488,14 @@ anonymousRecommand.getGroupRecommend = function(){
 		});
 }
 anonymousRecommand.getRecommandGroupID = function(){
-	var _group_selected = localStorage.group_selected,
-   	recommandGID = 'g1389378895207'; //Default: Team Groupack
+	var _group_selected = localStorage.group_selected;
 	$.post('db/RecommandGroupID.php', { sentgroupid: _group_selected, sentid: localStorage.FB_id  })         
 		.fail(function(xhr){           
          console.log(xhr.responseText);         
 		})       
 		.success(function(response){ 
 				//change the DOM innerHTML
-				recommandGID = JSON.parse(response);
+				this.recommandGID = JSON.parse(response);
 				console.log(recommandGID.gname);
 				$('#recommand_title').text("來自群組「"+recommandGID.gname+"」的推薦");
 		});
