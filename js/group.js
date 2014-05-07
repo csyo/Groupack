@@ -248,8 +248,7 @@ $(document).on('click', '#checkgroup [level=2] div.checkgroup_members_container_
   if (!$(this).hasClass('checkgroup_friends_select_on')) {
 	 if (!$(this).hasClass('checkgroup_friends_select_be_selected')) {
 		$(this).addClass('checkgroup_friends_select_be_selected').css('background-color', 'rgba(59, 120, 240, 0.87)');
-		var fbID = $(this).attr('role'); // console.log(fbID);
-		var fbNAME = $(this).text(); // console.log(fbNAME);
+		var fbID = $(this).attr('role'), fbNAME = $(this).text();
 		addMember(fbID + ',' + fbNAME);
 		$('#checkgroup-member-area').append(
 		   '<a class="co_a" role="' + fbID + '"' + 'href="javascript:;" title="' + fbNAME + '">' +
@@ -268,9 +267,7 @@ $(document).on('click', '#checkgroup [level=2] div.checkgroup_members_container_
 // Select admininsters in 'Add Administers' @ 'Edit Group'
 $(document).on('click', '#checkgroup [level=3] div.checkgroup_members_container_itemText', function choose_admin() {
   if (!$(this).hasClass('checkgroup_keepers_select_on')) {
-	 var fbID = $(this).attr('role');
-	 console.log(fbID);
-	 var fbNAME = $(this).text();
+	 var fbID = $(this).attr('role'), fbNAME = $(this).text();
 
 	 if (!$(this).hasClass('checkgroup_keepers_select_be_selected')) {
 		$(this).addClass('checkgroup_keepers_select_be_selected').css('background-color', 'rgba(59, 120, 240, 0.87)');
@@ -295,15 +292,15 @@ $(document).on('click', '#checkgroup [level=3] div.checkgroup_members_container_
 });
 
 // leave or delete group @ 'Edit Group'
-$(document).on('click','#checkgroup-depart', function () {
-	 alertify.confirm('確定要離開這個群組？', function(e){
+$('#checkgroup-depart, #checkgroup-delete').click(function (e) {
+   var msg = (e.target.id === 'checkgroup-depart') ? {id: true, text: '確定要離開這個群組？'} : {id: false, text: '確定刪除這個群組？'};
+	 alertify.confirm(msg.text, function(e){
        if (e) {
-   		var groupID = localStorage.editGroup.split('_')[0];
-   		var myID = localStorage.FB_id;
-   		$.post('db/g_remove.php', {
-   		   gid: groupID,
-   		   fbid: myID
-   		})
+   		var groupID = localStorage.editGroup.split('_')[0],
+            myID = localStorage.FB_id,
+            data = { gid: groupID };
+         if (msg.id) data.fbid = myID;
+   		$.post('db/g_remove.php', data)
    		   .fail(function(x) {
    			  console.log(x.responseText);
    		   })
@@ -318,27 +315,8 @@ $(document).on('click','#checkgroup-depart', function () {
     });
 });
 
-$('#checkgroup-delete').click(function(){
-   alertify.confirm('確定刪除這個群組？\nAre you sure to delete the group?', function(e){
-       if (e) {
-         var groupID = localStorage.editGroup.split('_')[0];
-         $.post('db/g_remove.php', {
-            gid: groupID
-         })
-            .done(function(r) {
-              console.log(r);
-            });
-         removeGroupDom(groupID);
-         $('#checkgroup [level=2]').addClass('dom_hidden');
-         $('div.checkgroup_footer_right').removeClass('dom_hidden');
-         $('div.checkgroup_members_footer_right').addClass('dom_hidden');
-       }
-      });
-});
-
-// Fetch group data and show
-
-function show_groups() {
+// Fetch group data and update view
+function refreshGroupData() {
    getGroupUpdated().success(function(r) {
       var div = '',
          data = updateGroupData(r);
@@ -352,7 +330,6 @@ function show_groups() {
 }
 
 // fetch group data from the server
-
 function getGroupUpdated() {
    return $.post('db/g_fetch.php', {
       userid: localStorage.FB_id
@@ -364,7 +341,6 @@ function getGroupUpdated() {
 }
 
 // parse fetched data and store locally
-
 function updateGroupData(r) {
    // 將群組資料暫存，附上時間戳
    try {
@@ -380,7 +356,6 @@ function updateGroupData(r) {
 }
 
 // return parsed group data by current group or given
-
 function processGroupData(groupID) {
     var data = JSON.parse(localStorage.group_data || '{}');
     return data[groupID || localStorage.group_selected] || {};
@@ -447,11 +422,9 @@ function setGroup(conf, callback) {
 }
 
 // Sending group data to database
-
 function sendGroup(data) {
 
    if (data) {
-      console.log(JSON.stringify(data));
       $.post('./db/g_setting.php', {
          data: JSON.stringify(data),
          fid: 'f' + createID()
@@ -462,9 +435,11 @@ function sendGroup(data) {
          .done(function(r) {
             console.log(r);
             Group_Board_showMember();
-            getGroupUpdated();
+            refreshGroupData();
+         })
+         .always(function(){
+            removeList();
          });
-      removeList();
    }
 
 }
@@ -523,7 +498,6 @@ $(document).on('click', '#checkgroup-keeper-area a', function delete_admin(e) {
 });
 
 // 加入成員 到 memberList
-
 function addMember(id_name) {
    // 紀錄新選成員ID；
    var memberList = getMembers(),
@@ -537,10 +511,8 @@ function addMember(id_name) {
       memberList.push(id_name);
    // 轉回JSON字串，存回localStorage
    localStorage.setItem('memberList', JSON.stringify(memberList));
-   console.log(memberList);
 }
 // 移除成員 從 memberList
-
 function removeMember(id) {
    var memberList = getMembers(),
       tmp = [],
@@ -550,14 +522,10 @@ function removeMember(id) {
       tmp.push(val.split(',')[0]);
    });
 
-   console.log(tmp);
-
    removed = memberList.splice($.inArray(id, tmp), 1);
    localStorage.memberList = JSON.stringify(memberList);
-   console.log(memberList);
 }
 // 取得群組成員清單 (memberList)
-
 function getMembers() {
    var memberList = localStorage.memberList; //從localStorage取得JSON字串
    if (!memberList) { // 項目不存在
@@ -569,7 +537,6 @@ function getMembers() {
    return memberList;
 }
 // 刪除 memberList localStorage
-
 function removeList() {
    localStorage.removeItem('memberList');
 }
@@ -605,7 +572,7 @@ function Group_Board_showMember() {
       // 取得群組資料
       var groupInfo = groupRoleInfo(a),
          temp = '';
-      groupInfo.success(function(r) { //console.log('-->'+r);
+      groupInfo.success(function(r) {
          var data = JSON.parse(r),
             role = 'MEMBER',
             data, ADs = '',

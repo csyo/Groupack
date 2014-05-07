@@ -1,14 +1,10 @@
 $(function(e) {
-   // 測試視窗大小
    $('.testdevice').hide();
-   // // 使用者資料儲存
-   // if ( getName(localStorage.FB_id) === '-------' )
-   // 	save_user();
    getSearchResult();
    testdevice();
    CheckGroupBoard();
-   show_groups();
    logSession(localStorage.group_selected);
+   refreshGroupData();
 });
 
 window.onload = function () {
@@ -95,37 +91,25 @@ $(function(e) {
       }, 400);
    });
    $('#nav > ul.navigation > li').click(function(e) { // nav選單 顯示與變色
-	  var _nav = $(this).attr('_nav'), $a = $(this).parents('#nav');
-	  if( _nav === 'TopicMap' ){
-		GoToTopicMap();
-		return false;
-	  }
-	  if( _nav === 'SearchProcess' ){
-		GoToSearchProcess();
-		return false;
-	  }
-	  if( _nav === 'Folder' ){
-		showAllFolders(function(){
-			 $('#folder-box').show();
-			 $('body').css('overflow', 'hidden');
-		  });
-		return false;
-	  }
-	  $('#group-box').show();
-      $('body').css('overflow', 'hidden');
-	  return false;
-	  if( !$a.hasClass('li_on') ){
-		$a.addClass('li_on');
-		$(this).children('div.nav_main').children('a:first').css({
-		   'color': '#666',
-		   'background': 'rgb(55, 116, 235)'
-		}).end().siblings('#addMember').removeClass('dom_hidden');
-	  } else {
-		$a.removeClass('li_on').find('ul.navigation > li > div.nav_main').children('a').css({
-            'color': '#FFF',
-            'background': '#222'
-         }).end().siblings('#addMember').addClass('dom_hidden');
-	  }
+	  var _nav = $(this).attr('_nav'), $nav = $(this).parents('#nav');
+     switch (_nav) {
+      case 'TopicMap':
+   		GoToTopicMap();
+         break;
+      case 'SearchProcess':
+   		GoToSearchProcess();
+         break;
+      case 'Folder':
+   		showAllFolders(function(){
+   			 $('#folder-box').show();
+   			 $('body').css('overflow', 'hidden');
+         });
+         break;
+      case 'Group':
+   	   $('#group-box').show();
+         $('body').css('overflow', 'hidden');
+         break;
+     }
    });
    $('#fiexd-header, #wrapper, #myWorkspace').click(function() { // 點擊 #fiexd-header, #wrapper, #myWorkspace 隱藏 nav
       if ($('#nav').hasClass('li_on')) {
