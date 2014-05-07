@@ -1,13 +1,8 @@
 <?php
+	
+	require "connect.php";
+
 	$r_gid = $_POST['sentgroupid'];
-  	// 資料庫參數  
-	$dbhost = '127.0.0.1';
-	$dbuser = 'cosearch';
-	$dbpass = '1234567';
-	$dbname = 'groupack';
-	$connect = mysql_connect($dbhost, $dbuser, $dbpass) or die('Error with MySQL connection');
-	mysql_select_db($dbname, $connect);  
-	mysql_query("SET NAMES 'utf8'"); 
 
 	//excute the computing of recommendation
 	$query="SELECT B.URL, C.Title, C.Summary

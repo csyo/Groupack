@@ -1,7 +1,5 @@
 $(function(e) {
-   $('.testdevice').hide();
    getSearchResult();
-   testdevice();
    CheckGroupBoard();
    logSession(localStorage.group_selected);
    refreshGroupData();
@@ -14,17 +12,13 @@ window.onload = function () {
 function logSession(groupID, logid) {
    if (logid) {
       console.log("session end.");
-      $.ajax({
-         async: false,
-         type: "POST",
-         url: 'db/SessionLog.php',
-         data: {
-            id: localStorage.FB_id,
-            keyword: localStorage.k_word,
-            gid: groupID,
-            logid: logid,
-         }
-      }).done(function(r) {
+      $.post('db/SessionLog.php', {
+         id: localStorage.FB_id,
+         keyword: localStorage.k_word,
+         gid: groupID,
+         logid: logid,
+      })
+      .done(function(r) {
          console.log(r);
       });
    } else if (groupID){
@@ -50,7 +44,6 @@ function logSession(groupID, logid) {
    }
 }
 $(window).resize(function() { // 視窗改變時觸發
-	//testdevice();
 	if (window.matchMedia('(max-width:600px)').matches) { // 手機
 		$('#Group_Board').css('width', 200);
 	} else if (window.matchMedia('(min-width: 601px) and (max-width: 980px)').matches) { // 平板
@@ -245,11 +238,6 @@ $(document).on('click', '#portfolio_wrapper1 a.fancy_iframe', function() {
          'url': url,
          'content': content
       };
-   if (localStorage.where == 'titlelink_a') {
-      localStorage.setItem('where', 'titlelink_aa');
-   } else {
-      localStorage.setItem('where', 'titlelink_a');
-   }
    localStorage.setItem('page_info', JSON.stringify(page_info));
    localStorage.setItem('open', url);
 
@@ -269,15 +257,6 @@ $(document).on('click', '#portfolio_wrapper1 a.fancy_iframe', function() {
 function testdevice() { // 測試瀏覽器大小
    var a = $.viewport.set();
    $('#addMember').css('max-height', parseInt(a.split(',')[1]) - 91 + 'px');
-}
-
-function SetPage() { // 設定當前頁面在哪
-   if (localStorage.where == 'titlelink_aa') {
-      localStorage.setItem('where', 'titlelink_a');
-   } else {
-      localStorage.setItem('where', 'IndexPage');
-      $(document).off('click', SetPage);
-   }
 }
 
 function back_homepage() { // 回首頁
@@ -318,12 +297,10 @@ function getSearchResult(page, keyword) {
       $('#portfolio_wrapper1').html( items.join('') );
 
       self.after(data, keyword);
-	  getRecommandGroupID(); //edit by chenchenbox
-	  getGroupRecommend(); //edit by chenchenbox
-      /* for AnonymousRecommand edit by chenchenbox */
+	   anonymousRecommand.getRecommandGroupID();
+	   anonymousRecommand.getGroupRecommend();
       $('#recommand_area').removeClass('dom_hidden'); 
       $('#Rslider').css( "height", $('#recommand_area').height()-30 );
-      /* for AnonymousRecommand edit by chenchenbox */	 
    }).fail(function(e){
       console.log(e.responseText);
       self.backupApi(keyword, page);
@@ -480,7 +457,6 @@ function GoToTopicMap(){ // 顯示 topicmap 介面
 	} else if (sessionStorage.getItem('topic_relevance_for' + a) == "[] ") {
 		alertify.alert('目前搜尋的關鍵字經過計算都沒有關聯!');
 	} else {
-		localStorage.setItem('where', 'slider_a');
 		window.top.location.href = './TopicMap/topic_map.html';
 	}
 }
@@ -490,53 +466,38 @@ function GoToSearchProcess(){ // 顯示 SearchProcess 介面
 	if (a == null || a == '') {
 		alertify.alert('請先選擇群組');
 	} else {
-		localStorage.setItem('where', 'slider_a');
 		window.top.location.href = './SearchProcess/searchprocess.html';
 	}
 }
-/* for AnonymousRecommand edit by chenchenbox */
-function getGroupRecommend(){
-	$.ajax({         
-		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/db/AnonymousRecommand.php',         
-		cache: false,         
-		dataType: 'html',             
-		type: 'POST',         
-		async: false,
-		data: { sentgroupid: recommandGID.gid  },         
-		error: 	function(xhr){           
-				alert('Ajax request 發生錯誤:AnonymousRecommand.php');         
-				},         
-		success: function(response){ 
-				//change the DOM innerHTML 
-				console.log(response);
-				recommand_data = JSON.parse(response);
+var anonymousRecommand = {
+   recommandGID: 'g1389378895207' //Default: Team Groupack
+};
+
+anonymousRecommand.getGroupRecommend = function(){
+	$.post('db/AnonymousRecommand.php', { sentgroupid: this.recommandGID  })         
+		.fail(function(xhr){           
+   		console.log(xhr.responseText);         
+		})        
+		.success(function(response){ 
+				var recommand_data = JSON.parse(response);
 				for(var i=0; i<3; i++){
 					$('#recommand_result_title:nth-child(1)')[i].innerHTML = recommand_data[i].title;
 					$('#recommand_result_content:nth-child(2)')[i].innerHTML = recommand_data[i].summary;
 					$('#recommand_result_url:nth-child(3)')[i].innerHTML = recommand_data[i].url;
 				}
-		}
-	});
+		});
 }
-function getRecommandGroupID(){
-	var _group_selected = localStorage.group_selected;
-	recommandGID = 'g1389378895207'; //Default: Team Groupack
-	$.ajax({         
-		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/db/RecommandGroupID.php',         
-		cache: false,         
-		dataType: 'html',             
-		type: 'POST',         
-		async: false,
-		data: { sentgroupid: _group_selected, sentid: localStorage.FB_id  },         
-		error: 	function(xhr){           
-				alert('Ajax request 發生錯誤:AnonymousRecommand.php');         
-				},         
-		success: function(response){ 
+anonymousRecommand.getRecommandGroupID = function(){
+	var _group_selected = localStorage.group_selected,
+   	recommandGID = 'g1389378895207'; //Default: Team Groupack
+	$.post('db/RecommandGroupID.php', { sentgroupid: _group_selected, sentid: localStorage.FB_id  })         
+		.fail(function(xhr){           
+         console.log(xhr.responseText);         
+		})       
+		.success(function(response){ 
 				//change the DOM innerHTML
 				recommandGID = JSON.parse(response);
 				console.log(recommandGID.gname);
-				$('#recommand_title').text("來自群組 '"+recommandGID.gname+"' 的推薦");
-		}
-	});
+				$('#recommand_title').text("來自群組「"+recommandGID.gname+"」的推薦");
+		});
 }
-/* for AnonymousRecommand edit by chenchenbox */

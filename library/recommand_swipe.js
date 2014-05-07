@@ -33,7 +33,6 @@ function Swipe(container, options) {
   var index = parseInt(options.startSlide, 10) || 0;
   var speed = options.speed || 300;
   options.continuous = options.continuous !== undefined ? options.continuous : true;
-  console.log(container);
   function setup() {
 
     // cache slides
@@ -55,9 +54,6 @@ function Swipe(container, options) {
 
     // determine width of each slide
     width = $('#Rslider').width();
-    console.log(container);
-	console.log(container.getBoundingClientRect().width);
-	console.log(container.offsetWidth);
     element.style.width = (slides.length * width) + 'px';
 
     // stack elements

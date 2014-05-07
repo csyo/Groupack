@@ -19,7 +19,7 @@
 		RecommandSwipe.next();
 	});
 	$(document).on('click', '#recommand_user_icon', function(event){
-		alert('已寄送邀請給該群組管理員');
+		alertify.alert('已寄送邀請給該群組管理員');
 		/*
 		$('#recommand_title').html('Groupack推薦您可能與您有相同興趣的資料蒐集者');
 		$('#Rslider').addClass('dom_hidden');

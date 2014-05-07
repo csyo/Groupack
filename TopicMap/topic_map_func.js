@@ -6,7 +6,7 @@ $(document).ready(function(e){
 	// 視窗改變時觸發
 	$(window).resize(function(){   
 		//testdevice();
-		if( localStorage.where !== 'IndexPage' )
+		if( !location.pathname.search('index') )
 			window.location.reload();
 	});
 			//使用者欄 點擊使用者
