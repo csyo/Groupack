@@ -9,6 +9,19 @@ $(function () {
 
 });
 
+// 依照 Tag name 搜尋 Cards
+$(document).on('keyup', '#tag-search', function(){
+	var filter = $(this).val(), count = 0;
+	$(this).parent().siblings('#inline_workspace_cards').children('div.workspace_cards_position').each(function() {
+		if ( $(this).find('div.tags_area_container').text().search(new RegExp(filter, 'i')) < 0 ) {
+			$(this).addClass('dom_hidden');
+		} else {
+			$(this).removeClass('dom_hidden');
+			count++;
+		}
+	});
+});
+
 // 顯示 Card 選項選單
 $(document).on('click', '#inline_workspace_cards div.workspace_cards_content_inf', function () {
 	($(this).parents('div.workspace_cards_position').find('div.workspace_cards_content_user_name').attr('fbid') == localStorage.FB_id) ? $(this).siblings('div.workspace_cards_content_inf_field').find('div:nth-child(4)').show() : $(this).siblings('div.workspace_cards_content_inf_field').find('div:nth-child(4)').hide();

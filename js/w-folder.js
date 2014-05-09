@@ -47,10 +47,11 @@ $(function () {
 		$('div.cards_area_header_text').text($(this).nextAll('div.workspace_folder_title_inf').find('div.workspace_folder_title_inf_text').text());
 		$('div.workspace_cards_folder_comment_inf > span').text($(this).nextAll('div.workspace_folder_comment_inf').find('div.workspace_folder_comment_inf_text').text());
 		$('#card_wrapper_background').removeClass('dom_hidden').attr('style', '');
-		$('#card_wrapper').removeClass('dom_hidden').attr('style', '');
+		$('#card_wrapper').removeClass('dom_hidden').attr('style', '').find('#tag-search').val('');
 		$('div.cards_area').removeClass('dom_hidden').attr('style', '');
 		$('div.cards_area_header').removeClass('dom_hidden').attr('style', '');
 		$('body').attr('tag', 'w');
+		$('#tag-search').focus();
 	});
 
 	// 關閉介面: 離開 Folder 中所有 Cards
@@ -63,7 +64,6 @@ $(function () {
 		$('div.cards_area_header').addClass('dom_hidden');
 		$('a.show_card_on').removeClass('show_card_on');
 		$('div.cards_area_nav').hide();
-		$('#inline_workspace_cards').css('top', '42px');
 		$('div.workspace_cards_content_selectarea').hide();
 		$('div.cards_area_select_icon_click').removeClass('cards_area_select_icon_click');
 		$('div.workspace_cards_content_selectarea_icon_select').removeClass('workspace_cards_content_selectarea_icon_select');

@@ -480,6 +480,7 @@ anonymousRecommand.getGroupRecommend = function(){
 		})        
 		.success(function(response){ 
 				var recommand_data = JSON.parse(response);
+				console.log(recommand_data);
 				for(var i=0; i<3; i++){
 					$('#recommand_result_title:nth-child(1)')[i].innerHTML = recommand_data[i].title;
 					$('#recommand_result_content:nth-child(2)')[i].innerHTML = recommand_data[i].summary;
