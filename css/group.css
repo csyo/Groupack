@@ -638,3 +638,23 @@ cursor: not-allowed;
 background-color: #CCC;
 opacity: 0.5;
 }
+
+#group-search{
+cursor: pointer;
+margin: 6px 0 !important;
+height: 40px;
+text-align: left;
+color: gray;
+position: relative;
+width: 100%;
+font-size: 18px;
+vertical-align: top;
+border: 1px solid #ccc;
+padding: 4px 6px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+}

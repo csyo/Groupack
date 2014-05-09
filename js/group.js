@@ -1,3 +1,16 @@
+// 依照 Public group name 搜尋 Groups
+$(document).on('keyup', '#group-search', function(){
+	var filter = $(this).val(), count = 0;
+	$(this).siblings('div.group-item').each(function() {
+		if ( $(this).find('div.name').text().search(new RegExp(filter, 'i')) < 0 ) {
+			$(this).addClass('dom_hidden');
+		} else {
+			$(this).removeClass('dom_hidden');
+			count++;
+		}
+	});
+});
+
 // Leave group
 $(document).on('click', '#group-box_leave', function(e) {
 	$('#group-box').hide();
