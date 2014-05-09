@@ -631,7 +631,7 @@ function show_checkG(e) {
       isOpen = processGroupData(groupID).is_open === '1' ? true : false;
   localStorage.setItem('editGroup', groupID+'_'+groupName);
   isOpen ? $statusBtn.siblings(':first').addClass('activated').end().siblings(':last').removeClass('activated').end(): $statusBtn.siblings(':last').addClass('activated').end().siblings(':first').removeClass('activated').end();
-
+	$('#revise-g-name').val(groupName);
   // 取得群組資料
   var groupInfo = groupRoleInfo(groupID);
   groupInfo.success(function(r) {
