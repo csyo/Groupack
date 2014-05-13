@@ -146,3 +146,7 @@ buffer-comparison-in-node-js  [IS-1a]
 buffer.js in Node [IS-1b]
 [IS-1a]: http://stackoverflow.com/questions/13790259/buffer-comparison-in-node-js 
 [IS-1b]: https://github.com/joyent/node/blob/51f128d64b250dfeb128aab5117b5bbcd2cc51b5/lib/buffer.js#L283
+
+Acknowledgement
+---------
+This project is mainly contributed by chenchen chang(張家誠) so far, and is supported by Molecular Biomedical Informatics Labs (lead by Darby Chang 張天豪老師) in EE in National Cheng Kung University. The contributors urge and appreciate developers to develop their own special appiled-methods on the basis of base-methods. Please feel free to let us know if developers are willing to share their contributions so that we can add developers as contributors.  
