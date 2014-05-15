@@ -101,6 +101,7 @@ $(function(e) {
       case 'Group':
    	   $('#group-box').show();
          $('body').css('overflow', 'hidden');
+         getAllGroup();
          break;
      }
    });

@@ -1,4 +1,4 @@
-// 依照 Public group name 搜尋 Groups
+// search groups by Public group name
 $(document).on('keyup', '#group-search', function(){
 	var filter = $(this).val(), count = 0;
 	$(this).siblings('div.group-item').each(function() {
@@ -100,7 +100,7 @@ $(document).on('click', '#checkgroup_btn', function(e) {
 // Submit @ 'Edit Group'
 $('#checkgroup-submit').click(function(){
    var data = localStorage.editGroup.split('_');
-   setGroup({ gid: data[0] , gname: data[1].trim() , mode: 'EDIT' }, function(){
+   setGroup({ gid: data[0] , gname: $('#revise-g-name').val() , mode: 'EDIT' }, function(){
       $('#checkgroup-leave').click();
       $('#checkgroup-keeper-area').find('a').remove();
       $('#checkgroup-member-area').find('a').remove();
@@ -221,6 +221,7 @@ $(document).on('click', '#group-user div.group-item', function show_select_group
       $('#group-box_leave').click();
       sessionEnd();
       logSession(groupID); // 開始新的 session log
+      getAllGroup(); // retrieve new public group list
       var groupName = $(this).find('div.name').text();
       $('div.select_group_notify_wrapper_show').text(groupName);
       $('div.Group_Board_inf_text').text(groupName).attr('g_id', groupID);
@@ -603,13 +604,42 @@ function Group_Board_showMember() {
    }
 }
 
+// get all the public groups
+function getAllGroup() {
+   var groupID = localStorage.group_selected;
+   // don't do the request if there's cache
+   if ($('#group-all').data(groupID)) {
+      getAllGroup.updateView();
+      return;
+   };
+   $.post('db/g_all.php', { fbid: localStorage.FB_id, gid: groupID }, function(r){
+      var data = JSON.parse(r), groupID = localStorage.group_selected;
+      $('#group-all').data(groupID, data);
+      getAllGroup.updateView(data);
+   }).fail(function(x){ console.log(x.responseText); });
+}
+
+getAllGroup.updateView = function (data){
+   data = data || $('#group-all').data(localStorage.group_selected),
+      items = '';
+   data.forEach(function(item){
+      items += ''+
+      '<div class="group-item">'+
+         '<div class="name">'+ item.g_name +'</div>'+
+         '<div class="apply" gid="'+ item.g_id +'">&nbsp;</div>'+
+      '</div>';
+   });
+   $('#group-all').find('div.group-item').remove().end()
+         .append(items);
+}
+
 // show 'Add Group' UI
 function showAddGroup(){
 	$('#addgroup').removeClass('dom_hidden').attr('style', '');
 	$('#addgroup_background').removeClass('dom_hidden').attr('style', '');
 	$('div.addgroup_container').removeClass('dom_hidden').attr('style', '');
 	$('div.addgroup_footer').removeClass('dom_hidden').attr('style', '');
-	// 將自己加到清單中
+	// Add current user to the list
 	var myId = localStorage.FB_id;
 	if (!document.getElementById(myId)) {
 		var me = '<a class="co_a" id="' + myId + '" role="' + myId + '" href="javascript:;" title="' + localStorage.FB_name + '"><img class="temp_" src="https://graph.facebook.com/' + myId + '/picture" width="40px"></a>';
@@ -626,20 +656,20 @@ function show_checkG(e) {
   $('div.checkgroup_footer').removeClass('dom_hidden').attr('style', '');
   $('div.checkgroup_header_text').text($(e.target).next().text());
   var groupID = e.target.parentNode.id,
-      groupName = $('#' + groupID).text(),
+      groupName = $('#'+groupID+' [class=name]').text(),
       $statusBtn = $('#checkgroup_btn'),
       isOpen = processGroupData(groupID).is_open === '1' ? true : false;
   localStorage.setItem('editGroup', groupID+'_'+groupName);
   isOpen ? $statusBtn.siblings(':first').addClass('activated').end().siblings(':last').removeClass('activated').end(): $statusBtn.siblings(':last').addClass('activated').end().siblings(':first').removeClass('activated').end();
 	$('#revise-g-name').val(groupName);
-  // 取得群組資料
+  // get every group member's role
   var groupInfo = groupRoleInfo(groupID);
   groupInfo.success(function(r) {
 	 var data = JSON.parse(r),
 		role = 'MEMBER',
 		data, ADs = '',
 		MBs = '';
-	 // 處理資料
+	 // process the response data
 	 data.forEach(function(obj) {
 		var id = obj.id,
 		   name = obj.name,
