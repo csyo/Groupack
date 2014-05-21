@@ -606,13 +606,14 @@ function Group_Board_showMember() {
 
 // get all the public groups
 function getAllGroup() {
-   var groupID = localStorage.group_selected;
+   var groupID = localStorage.group_selected || '';
    // don't do the request if there's cache
    if ($('#group-all').data(groupID)) {
       getAllGroup.updateView();
       return;
    };
-   $.post('db/g_all.php', { fbid: localStorage.FB_id, gid: groupID }, function(r){
+   if (groupID) $.post('db/g_all.php', { fbid: localStorage.FB_id, gid: groupID }, function(r){
+      if (!r) throw Error('Buggy');
       var data = JSON.parse(r), groupID = localStorage.group_selected;
       $('#group-all').data(groupID, data);
       getAllGroup.updateView(data);
@@ -632,6 +633,20 @@ getAllGroup.updateView = function (data){
    $('#group-all').find('div.group-item').remove().end()
          .append(items);
 }
+
+$(document).on('click', '#group-all div.apply', function(){
+   var groupID = $(this).attr('gid'),
+      groupName = $(this).siblings('div.name').text();
+   $.post('db/g_apply.php', { gid: groupID, fbid: localStorage.FB_id })
+      .success(function(r){
+         alertify.alert('你已加入公開群組: '+ groupName);
+         $(this.parentNode).remove();
+         refreshGroupData();
+      }.bind(this))
+      .fail(function(x){
+         console.log(x);
+      });
+});
 
 // show 'Add Group' UI
 function showAddGroup(){
