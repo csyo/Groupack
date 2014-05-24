@@ -517,3 +517,7 @@ box-sizing: border-box;
 -moz-box-sizing: border-box;
 -webkit-box-sizing: border-box;
 }
+#addgroup section.addgroup-member > div > a,
+#checkgroup section.checkgroup-member > div > a {
+margin-right: 10px;
+}

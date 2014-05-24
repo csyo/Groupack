@@ -2,16 +2,14 @@
 	position: relative;
 	margin: auto;
 	width: 98%;
-	border-style: dashed;
-	border-color: #0000FF;
-	border-width: thin;
 	height: 100%;
 	padding: 0;
 	position: relative;
-	background: #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	border:1px solid #96c2f1;
+	background:#eff7ff;
 }
 .recommand_slider{
 	height: 81px;
@@ -99,7 +97,7 @@
 }
 #Rslider div {
   display:block; 
-  background: #fff; 
+  background:#eff7ff;
 }
 #recommand_user_area{
 	width: 95%;
@@ -138,6 +136,7 @@
 	line-height: 1.5em;
 	letter-spacing: 0;
 	text-align:center;
+	cursor: pointer;
 }
 #recommand_result_content{
 	color: #555;

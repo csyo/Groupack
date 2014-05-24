@@ -7,6 +7,7 @@ $(function(e) {
 
 window.onload = function () {
    Group_Board_showMember();
+   FBInitial();
 };
 
 function logSession(groupID, logid) {
@@ -160,14 +161,11 @@ $(document).on('click', '#folder-box_leave', function(e) {  // 離開 folder 介
 	$('body').css('overflow', '');
 });
 //facebook 分享
-$(document).on('click', 'div.search_result_inf_field > div.search_result_inf_field_content:nth-child(3)', {
+$(document).on('click', 'div.search_result_inf_field > div.search_result_inf_field_content:nth-child(2)', {
    mode: 's'
 }, FeedToFacebook);
 $(document).on('click', 'div.workspace_cards_content_inf_field > div.workspace_cards_content_inf_field_content:nth-child(3)', {
    mode: 'w'
-}, FeedToFacebook);
-$(document).on('click', 'div.tag_content_inf_field > div.tag_content_inf_field_content:nth-child(3)', {
-   mode: 't'
 }, FeedToFacebook);
 $(document).on('click', 'div.search_result_inf', function() { // 顯示 search result 卡片中的選項選單
    var test_search_result_inf_on = $(this).hasClass('search_result_inf_on');
@@ -411,7 +409,7 @@ function FeedToFacebook(event) { // 分享到 facebook
       method: 'send',
       name: 'Groupack',
       link: myURL
-   }, function(response) {
+   }/*, function(response) {
       if (response.success) {
          var update_notify = '<div class="Timeline_NotificationArea_origin isotope">' +
             '<div class="Timeline_NotificationArea_origin_content">' +
@@ -446,7 +444,7 @@ function FeedToFacebook(event) { // 分享到 facebook
       } else {
          $('#Timeline_NotificationArea').delay(3000).html(update_notify).show().delay(3300).hide(200);
       }
-   });
+   }*/);
 }
 
 function GoToTopicMap(){ // 顯示 topicmap 介面
@@ -481,9 +479,8 @@ anonymousRecommand.getGroupRecommend = function(){
 		})        
 		.success(function(response){ 
 				var recommand_data = JSON.parse(response);
-				console.log(recommand_data);
 				for(var i=0; i<3; i++){
-					$('#recommand_result_title:nth-child(1)')[i].innerHTML = recommand_data[i].title;
+					$('#recommand_result_title:nth-child(1)')[i].innerHTML = '<a style="font-size:1em;" target="_blank" href="'+recommand_data[i].url+'">'+recommand_data[i].title+'</a>';
 					$('#recommand_result_content:nth-child(2)')[i].innerHTML = recommand_data[i].summary;
 					$('#recommand_result_url:nth-child(3)')[i].innerHTML = recommand_data[i].url;
 				}
@@ -497,6 +494,6 @@ anonymousRecommand.getRecommandGroupID = function(){
 		.success(function(response){ 
 				//change the DOM innerHTML
 				this.recommandGID = JSON.parse(response);
-				$('#recommand_title').text("來自群組「"+this.recommandGID.gname+"」的推薦");
+				$('#recommand_title').html("來自群組<span style='color:red; '> "+this.recommandGID.gname+" </span>的推薦");
 		}.bind(this));
 }

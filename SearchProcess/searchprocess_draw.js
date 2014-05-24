@@ -10,8 +10,8 @@ function draw_map(){
 	link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
 	});
 	
-	var w = localStorage.viewport_width,
-		h = parseInt( localStorage.viewport_height )-47;
+	var w = $('#wrapper').width(),
+		h = $('#wrapper').height();
 
 	var force = d3.layout.force()
 		.nodes(d3.values(nodes))

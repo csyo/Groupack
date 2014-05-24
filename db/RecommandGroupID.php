@@ -12,6 +12,7 @@
 			AND A.GroupID != '".$gid."'
 			AND A.GroupName != ''
 			AND B.UserID != '".$id."'
+			AND A.IsOpen != 0
 			ORDER BY RAND()
 			LIMIT 1";
 	$result=mysql_query($query);

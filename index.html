@@ -26,7 +26,7 @@
 	</script>
 </head>
 </style>
-<body onLoad="FBInitial()">
+<body>
 <article id="preloader" class="dom_hidden">
 	<h3><img src="./Image/preloader.gif"><span></span></h3>
 </article>
@@ -334,7 +334,7 @@
 					</div>
 				</section>
 				<section id="group-all">
-					<header>推薦給您的群組</header>
+					<header>公開的群組</header>
 					<input type="input" placeholder="群組搜尋..." id="group-search" value="">
 				</section>
 			</div>
@@ -637,7 +637,6 @@
 		</div>
 	</div>
 </div>
-<div id="fb-root"></div>
 <!--    Footer 介面    -->
 <div id="under-footer" class="dom_hidden">
 	<div id="footer" style="padding-top: 10px;">
@@ -716,6 +715,7 @@
 	<script src="./js/w-folder.js"></script>
 	<script src="./js/sharing.js"></script>
 	<script src="./js/AnonymousRecommand.js"></script> <!-- for AnonymousRecommand area, by chenchen -->
+<div id="fb-root"></div>
 <script>
   (function(d){
    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];

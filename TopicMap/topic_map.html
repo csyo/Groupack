@@ -59,8 +59,8 @@
 						.append("svg:svg")
 						.attr('id','topic_map');
 								
-			var h= parseInt( localStorage.viewport_height )-115;
-			var w= parseInt( localStorage.viewport_width );
+			var h= $('#wrapper').height();
+			var w= $('#wrapper').width();
 			d3.select("#topic_map").attr("width", w).attr("height", h);
 			
 			var nodes = [];
