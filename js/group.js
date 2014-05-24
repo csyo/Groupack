@@ -612,7 +612,10 @@ function getAllGroup() {
       getAllGroup.updateView();
       return;
    };
-   if (groupID) $.post('db/g_all.php', { fbid: localStorage.FB_id, gid: groupID }, function(r){
+   var data = { fbid: localStorage.FB_id };
+   if (groupID) data.gid = groupID;
+
+   $.post('db/g_all.php', data, function(r){
       if (!r) throw Error('Buggy');
       var data = JSON.parse(r), groupID = localStorage.group_selected;
       $('#group-all').data(groupID, data);
