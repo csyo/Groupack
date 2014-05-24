@@ -78,12 +78,13 @@ box-shadow: 2px 2px 8px rgb(107, 106, 106);
 cursor: pointer;
 }
 #under-footer {
-background-color: #222;
+background: #222;
 color: #fff !important;
 text-transform: uppercase;
 text-align: center;
 position: relative;
-margin-top: 6em;
+top: 45px;
+margin: 0;
 height: 6em;
 clear: both;
 width: 100%;

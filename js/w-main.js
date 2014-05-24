@@ -75,7 +75,7 @@ function SetPage() {
 }
 
 // get time of readable format [YYYYMMDD_HHMMSS, YYYY/MM/DD/HH/MM/SS]
-function nowTime() {
+function getNowTime() {
     var d = new Date();
     var month = d.getMonth() + 1;
     var day = d.getDate();

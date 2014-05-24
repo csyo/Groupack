@@ -32,7 +32,7 @@ function get_new_data(){
 	}
 		
 	$.ajax({         
-		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/SearchProcess/searchprocess_get_new_data.php',         
+		url: './searchprocess_get_new_data.php',         
 		cache: false,         
 		dataType: 'html',             
 		type: 'POST',         
@@ -58,7 +58,7 @@ function get_member(){
 		var name=1;
 	}
 	$.ajax({         
-		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/SearchProcess/searchprocess_get_member.php',         
+		url: './searchprocess_get_member.php',         
 		cache: false,         
 		dataType: 'html',             
 		type: 'POST',       
@@ -78,7 +78,7 @@ function get_old_data(){
 	var userID = localStorage.FB_id;
 	
 	$.ajax({         
-		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/SearchProcess/searchprocess_get_OldData.php',         
+		url: './searchprocess_get_OldData.php',         
 		cache: false,         
 		dataType: 'html',             
 		type: 'POST',       
@@ -121,7 +121,7 @@ function set_old_data(){
 	var s_old_data = localStorage.getItem("search_process_data_for_"+groupID );
 	
 	$.ajax({         
-		url: 'http://chding.es.ncku.edu.tw/Groupack.beta/SearchProcess/searchprocess_set_OldData.php',         
+		url: './searchprocess_set_OldData.php',         
 		cache: false,         
 		dataType: 'html',             
 		type: 'POST',       

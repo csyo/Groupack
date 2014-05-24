@@ -233,7 +233,7 @@ function folderTemplate(data) {
 	if (typeof creator === 'undefined' || creator === null) creator = localStorage.FB_id;
 
 	// folder 時間戳
-	var a = nowTime().split(" ");
+	var a = getNowTime().split(" ");
 	Time = (time == '0000-00-00 00:00:00') ? a[1] : time;
 
 	return '' +
