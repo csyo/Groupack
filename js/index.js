@@ -296,10 +296,6 @@ function getSearchResult(page, keyword) {
       $('#portfolio_wrapper1').html( items.join('') );
 
       self.after(data, keyword);
-	   anonymousRecommand.getRecommandGroupID();
-	   anonymousRecommand.getGroupRecommend();
-      $('#recommand_area').removeClass('dom_hidden'); 
-      $('#Rslider').css( "height", $('#recommand_area').height()-30 );
    }).fail(function(e){
       console.log(e.responseText);
       self.backupApi(keyword, page);
@@ -309,6 +305,10 @@ function getSearchResult(page, keyword) {
 getSearchResult.after = function (data, keyword) {
    localStorage.setItem('Page1_session', data);
    get_topic_relevance();
+   anonymousRecommand.getRecommandGroupID();
+   anonymousRecommand.getGroupRecommend();
+   $('#recommand_area').removeClass('dom_hidden'); 
+   $('#Rslider').css( "height", $('#recommand_area').height()-30 );
    $('#under-footer').removeClass('dom_hidden').attr('style', '');
    $('#preloader').addClass('dom_hidden');
    $('#showtopic').children('div.showtopic_span').children().text( keyword );
