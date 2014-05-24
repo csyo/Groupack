@@ -659,7 +659,7 @@ function showAddGroup(){
 	$('div.addgroup_footer').removeClass('dom_hidden').attr('style', '');
 	// Add current user to the list
 	var myId = localStorage.FB_id;
-	if (!$('a.co_a [role='+myId'+]')) {
+	if (!$('a.co_a [role='+myId+']')) {
 		var me = '<a class="co_a" role="' + myId + '" href="javascript:;" title="' + localStorage.FB_name + '"><img class="temp_" src="https://graph.facebook.com/' + myId + '/picture" width="40px"></a>';
 		$('#addgroup-member-area').find('a').remove().end().append(me);
 	}
