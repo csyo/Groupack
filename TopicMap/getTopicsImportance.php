@@ -1,7 +1,4 @@
 <?php
-    /*先從`gropup member`取得G_ID底下的FB_ID 
-	  而後從`browsing log`底下抓url(where FB_ID & SEARCHKEYWORD)
-	  然後再從`search result`取得url的summary */
 	  
 	// 資料庫參數
 	require_once('../db/connect.php');
