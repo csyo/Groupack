@@ -1,5 +1,4 @@
 <?php
-	  
 	// 資料庫參數
 	require_once('../db/connect.php');
 	
